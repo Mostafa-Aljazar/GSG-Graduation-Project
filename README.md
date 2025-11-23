@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏕️ Al-Aqsa Camp Management System
 
-## Getting Started
+A modern web application for managing displacement camps with features for aid distribution, complaint tracking, and user management.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🔎 Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Al-Aqsa Camp Management System is a comprehensive platform designed to streamline displacement camp operations through digital solutions. The system provides tools for managing displaced people, coordinating aid distribution, handling complaints, and maintaining security.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Features
 
-## Learn More
+- **User Management** – Registration, authentication, and profile management for multiple user roles
+- **Aid Distribution** – Track and manage aid allocation, schedules, and delivery
+- **Complaint System** – Submit, track, and resolve complaints with status updates
+- **Security Management** – Task scheduling and incident tracking for security personnel
+- **Admin Dashboard** – Complete system oversight with analytics and reporting
+- **Responsive Design** – Fully functional across desktop, tablet, and mobile devices
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Frontend
 
-## Deploy on Vercel
+- **React.js** – UI component library
+- **Next.js** – React framework with SSR
+- **Tailwind CSS** – Utility-first CSS framework
+- **JavaScript (ES6+)** – Core programming language
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js API Routes** – Serverless API endpoints
+- **Prisma** – Next-generation ORM for Node.js
+- **Supabase** – Open source Firebase alternative (PostgreSQL database, authentication, storage)
+
+### Tools
+
+- **Figma** – UI/UX design
+- **Postman** – API testing
+- **GitHub** – Version control
+- **Trello** – Project management
+
+---
+
+## 👥 Team Members
+
+- **Mostafa Aljazar**
+- **Ayman Alfara**
+- **Hiba Musleh**
+
+### 📞 Contact & Connect
+
+- Mostafa Aljazar – [LinkedIn](https://www.linkedin.com/in/mostafa-aljazar/) | Email: mostafaibrahim20032020@gmail.com | [GitHub](https://github.com/Mostafa-Aljazar)
+- Ayman Alfara – [GitHub](https://github.com/AymanFarra2004)
+- Hiba Musleh – [GitHub](https://github.com/hebamusleh)
+
+Feel free to reach out for collaboration, questions, or feature suggestions.
