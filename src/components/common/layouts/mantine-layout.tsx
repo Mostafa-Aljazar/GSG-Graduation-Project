@@ -4,6 +4,7 @@ import { AppShell } from '@mantine/core';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import { ReactNode } from 'react';
 import HeaderComponent from '../header/header-component';
+import FooterComponent from '../footer/footer-component';
 
 export default function MantineLayout({
   children,
@@ -31,6 +32,8 @@ export default function MantineLayout({
       >
         {children}
       </AppShell.Main>
+
+      <FooterComponent />
     </AppShell>
   );
 }

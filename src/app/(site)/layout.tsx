@@ -1,3 +1,4 @@
+'use client';
 import MantineLayout from '@/components/common/layouts/mantine-layout';
 import { ReactNode } from 'react';
 
