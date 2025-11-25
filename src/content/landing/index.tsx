@@ -8,6 +8,11 @@ import {
   IMG_HOME_HERO_SLIDER_2,
   IMG_HOME_HERO_SLIDER_3,
 } from '@/assets/landing/home';
+import {
+  IMG_SUCCESS_STORY_HERO_SLIDER_1,
+  IMG_SUCCESS_STORY_HERO_SLIDER_2,
+  IMG_SUCCESS_STORY_HERO_SLIDER_3,
+} from '@/assets/landing/success-story';
 
 import {
   Smile,
@@ -128,3 +133,27 @@ export const BLOG_HERO_CONTENT = [
 ];
 
 export const BLOG_TITLE = 'مدونتنا :';
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SUCCESS STORIES PAGE:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const SUCCESS_STORIES_HERO_CONTENT = [
+  {
+    title: 'قصص نجاحنا :',
+    desc: 'بتكاتف تطوعي، تحول اليأس إلى أمل، ونبني مجتمعًا مستدامًا نابضًا بالحياة.',
+    image: IMG_SUCCESS_STORY_HERO_SLIDER_1,
+  },
+  {
+    title: 'حكايات أبطالنا :',
+    desc: 'في كل خيمة يسكن الألم، لكن العزيمة لا تعرف الاستسلام.',
+    image: IMG_SUCCESS_STORY_HERO_SLIDER_2,
+  },
+  {
+    title: 'كُن جزءًا من النجاح :',
+    desc: 'شارك في دعم قصصنا، اكتشف قصصًا ملهمة تعكس قوة الإرادة وساهم في مستقبل مشرق.',
+    image: IMG_SUCCESS_STORY_HERO_SLIDER_3,
+  },
+];
+
+export const SUCCESS_STORIES_TITLE = 'قصص نجاحنا:';

@@ -5,7 +5,11 @@ import { Box, Flex, Overlay, Text, Title } from '@mantine/core';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import { BLOG_HERO_CONTENT, HOME_HERO_CONTENT } from '@/content/landing';
+import {
+  BLOG_HERO_CONTENT,
+  HOME_HERO_CONTENT,
+  SUCCESS_STORIES_HERO_CONTENT,
+} from '@/content/landing';
 import { DESTINATION_HERO_SECTION } from '@/types/landing/index.type';
 
 interface Props {
@@ -14,7 +18,11 @@ interface Props {
 
 export default function HeroSection({ destination }: Props) {
   const content =
-    destination == DESTINATION_HERO_SECTION.HOME ? HOME_HERO_CONTENT : BLOG_HERO_CONTENT;
+    destination == DESTINATION_HERO_SECTION.HOME
+      ? HOME_HERO_CONTENT
+      : destination == DESTINATION_HERO_SECTION.BLOG
+      ? BLOG_HERO_CONTENT
+      : SUCCESS_STORIES_HERO_CONTENT;
 
   const images = content.map((item) => item.image);
 
