@@ -126,3 +126,5 @@ export const BLOG_HERO_CONTENT = [
     image: IMG_BLOG_HERO_SLIDER_3,
   },
 ];
+
+export const BLOG_TITLE = 'مدونتنا :';
