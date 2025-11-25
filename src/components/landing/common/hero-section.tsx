@@ -5,10 +5,17 @@ import { Box, Flex, Overlay, Text, Title } from '@mantine/core';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
-import { HOME_HERO_CONTENT } from '@/content/landing';
+import { BLOG_HERO_CONTENT, HOME_HERO_CONTENT } from '@/content/landing';
+import { DESTINATION_HERO_SECTION } from '@/types/landing/index.type';
 
-export default function HeroSection() {
-  const content = HOME_HERO_CONTENT;
+interface Props {
+  destination: DESTINATION_HERO_SECTION;
+}
+
+export default function HeroSection({ destination }: Props) {
+  const content =
+    destination == DESTINATION_HERO_SECTION.HOME ? HOME_HERO_CONTENT : BLOG_HERO_CONTENT;
+
   const images = content.map((item) => item.image);
 
   const autoplay = useRef(Autoplay({ delay: 5000 }));

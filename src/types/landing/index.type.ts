@@ -1,0 +1,5 @@
+export enum DESTINATION_HERO_SECTION {
+    HOME = 'HOME',
+    BLOG = 'BLOG',
+    SUCCESS_STORIES = 'SUCCESS_STORIES',
+}

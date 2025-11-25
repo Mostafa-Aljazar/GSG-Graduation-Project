@@ -1,4 +1,9 @@
 import {
+  IMG_BLOG_HERO_SLIDER_1,
+  IMG_BLOG_HERO_SLIDER_2,
+  IMG_BLOG_HERO_SLIDER_3,
+} from '@/assets/landing/blog';
+import {
   IMG_HOME_HERO_SLIDER_1,
   IMG_HOME_HERO_SLIDER_2,
   IMG_HOME_HERO_SLIDER_3,
@@ -97,5 +102,27 @@ export const HOME_SERVICES_Data = [
     icon: Brain,
     title: 'برامج التوعية والتثقيف الصحي',
     description: 'تنظيم جلسات توعية حول الصحة العامة، النظافة الشخصية، والتغذية السليمة.',
+  },
+];
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BLOG PAGE:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const BLOG_HERO_CONTENT = [
+  {
+    title: 'رسالتنا :',
+    desc: 'نحول الأمل إلى واقع بإنسانية وشفافية، لبناء مجتمع نابض بالحياة.',
+    image: IMG_BLOG_HERO_SLIDER_1,
+  },
+  {
+    title: 'مدونتنا :',
+    desc: 'نطلعكم دائما على نشاطاتنا، قصص الصمود والإنجازات في مخيم الأقصى.',
+    image: IMG_BLOG_HERO_SLIDER_2,
+  },
+  {
+    title: 'كونوا جزءًا منا :',
+    desc: 'اقرأوا مدونتنا، وانضموا لنشر الأمل والتغيير في مجتمعنا.',
+    image: IMG_BLOG_HERO_SLIDER_3,
   },
 ];

@@ -3,15 +3,15 @@ import Image, { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 
 interface IChildSectionProps {
-  child_image: StaticImageData;
+  childImage: StaticImageData;
   desc: ReactNode;
 }
 
-export default function ChildSection({ child_image, desc }: IChildSectionProps) {
+export default function ChildSection({ childImage, desc }: IChildSectionProps) {
   return (
     <Box pos={'relative'} w={'100%'} h={{ base: 250, md: 350 }} className='overflow-hidden!'>
       <Image
-        src={child_image}
+        src={childImage}
         alt='child'
         fill
         priority={true}
