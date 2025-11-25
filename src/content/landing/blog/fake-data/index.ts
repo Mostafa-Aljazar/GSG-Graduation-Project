@@ -1,6 +1,7 @@
+import { IGetArticleProps } from "@/actions/landing/blog/getArticle";
 import { IGetArticlesProps } from "@/actions/landing/blog/getArticles";
 import { IMG_HOME_HERO_SLIDER_1, IMG_HOME_HERO_SLIDER_2, IMG_HOME_HERO_SLIDER_3, } from "@/assets/landing/home";
-import { IArticle, IArticlesResponse } from "@/types/landing/blog/blog.type";
+import { IArticle, IArticleResponse, IArticlesResponse } from "@/types/landing/blog/blog.type";
 
 
 export const fakeArticles: IArticle[] = [
@@ -259,14 +260,34 @@ export const fakeArticlesResponse = ({
   const total_items = fakeArticles.length;
   const total_pages = Math.ceil(total_items / limit);
 
-  const paginatedAids = fakeArticles.slice((page - 1) * limit, page * limit);
+  const paginatedArticles = fakeArticles.slice((page - 1) * limit, page * limit);
 
 
   return {
     status: 200,
     message: 'تم جلب المحتوى بنجاح',
-    articles: paginatedAids,
+    articles: paginatedArticles,
     pagination: { page, limit, totalItems: total_items, totalPages: total_pages },
   };
 
 };
+
+
+export const fakeArticleResponse = ({ id }: IGetArticleProps): IArticleResponse => {
+  const article = fakeArticles.find(a => a.id === id)
+
+  if (!article) {
+    return {
+      status: 404,
+      message: 'المقال غير موجود',
+      article: {} as IArticle,
+      error: 'المقال غير موجود',
+    }
+  }
+
+  return {
+    status: 200,
+    message: 'تم جلب المحتوى بنجاح',
+    article,
+  }
+}

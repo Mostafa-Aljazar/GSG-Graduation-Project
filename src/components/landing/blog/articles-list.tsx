@@ -6,13 +6,13 @@ import { IArticle } from '@/types/landing/blog/blog.type';
 import ArticleCardSkeleton from './article-card-skeleton';
 import ArticleCard from './article-card';
 
-interface Props {
+interface IArticleListProps {
   articles: IArticle[];
   totalPages: number;
   isLoading: boolean;
 }
 
-export default function ArticleList({ articles, totalPages, isLoading }: Props) {
+export default function ArticleList({ articles, totalPages, isLoading }: IArticleListProps) {
   const [activePage, setActivePage] = useQueryState('page', parseAsInteger.withDefault(1));
 
   return (

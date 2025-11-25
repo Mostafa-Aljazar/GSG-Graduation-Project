@@ -4,7 +4,6 @@ import { Box, Center, Paper, Stack, Text, ThemeIcon } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { MessageCircleWarning } from 'lucide-react';
-
 import { BLOG_TITLE } from '@/content/landing';
 import { getArticles } from '@/actions/landing/blog/getArticles';
 import { IArticlesResponse } from '@/types/landing/blog/blog.type';
