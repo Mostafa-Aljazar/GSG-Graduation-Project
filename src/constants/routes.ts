@@ -4,7 +4,7 @@ export const LANDING_ROUTES = {
   OUR_SERVICES: '/#our-service',
   CONTACT_US: '#contact-us',
   BLOG: '/blog',
-  SUCCESS_STORY: '/success-stories',
+  SUCCESS_STORIES: '/success-stories',
 } as const;
 
 

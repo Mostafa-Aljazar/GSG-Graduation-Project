@@ -2,17 +2,24 @@
 import { Stack, Text, Flex, Pagination, Paper, Box, Center, ThemeIcon } from '@mantine/core';
 import { Package } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { IArticle } from '@/types/landing/blog/blog.type';
-import ArticleCardSkeleton from './article-card-skeleton';
-import ArticleCard from './article-card';
+import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+import { IWrittenContent } from '@/types/landing/written-content/written-content.type';
+import WrittenContentCard from './written-content-card';
+import WrittenContentCardSkeleton from './written-content-card-skeleton';
 
-interface IArticleListProps {
-  articles: IArticle[];
+interface IBlogOrStoriesListProps {
+  data: IWrittenContent[];
   totalPages: number;
   isLoading: boolean;
+  destination: TYPE_WRITTEN_CONTENT;
 }
 
-export default function ArticleList({ articles, totalPages, isLoading }: IArticleListProps) {
+export default function WrittenContentList({
+  data,
+  totalPages,
+  isLoading,
+  destination,
+}: IBlogOrStoriesListProps) {
   const [activePage, setActivePage] = useQueryState('page', parseAsInteger.withDefault(1));
 
   return (
@@ -20,10 +27,10 @@ export default function ArticleList({ articles, totalPages, isLoading }: IArticl
       {isLoading ? (
         <Stack gap='xs' align='center' w={'100%'} px={{ base: 20, md: 30, lg: 130 }}>
           {Array.from({ length: 5 }).map((_, index) => (
-            <ArticleCardSkeleton key={index} />
+            <WrittenContentCardSkeleton key={index} />
           ))}
         </Stack>
-      ) : articles.length === 0 ? (
+      ) : data.length === 0 ? (
         <Paper w={'95%'} p='md' withBorder className='bg-second-light! rounded-md text-center'>
           <Box>
             <Center mb='sm'>
@@ -38,15 +45,16 @@ export default function ArticleList({ articles, totalPages, isLoading }: IArticl
         </Paper>
       ) : (
         <Stack gap='xs' align='center' w={'100%'} px={{ base: 20, md: 30, lg: 130 }}>
-          {articles.map((article, index) => (
-            <ArticleCard
+          {data.map((item, index) => (
+            <WrittenContentCard
               key={index}
-              id={article.id}
-              createdAt={article.createdAt}
-              title={article.title}
-              content={article.content}
-              imgs={article.imgs}
-              brief={article.brief}
+              id={item.id}
+              createdAt={item.createdAt}
+              title={item.title}
+              content={item.content}
+              imgs={item.imgs}
+              brief={item.brief}
+              type={destination}
             />
           ))}
         </Stack>

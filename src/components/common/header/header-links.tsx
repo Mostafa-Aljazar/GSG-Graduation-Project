@@ -50,7 +50,7 @@ export default function HeaderLinks() {
     }
 
     // Success-Stories match
-    if (link === LANDING_ROUTES.SUCCESS_STORY) {
+    if (link === LANDING_ROUTES.SUCCESS_STORIES) {
       return pathname.startsWith('/success-stories') && !currentHash;
     }
 

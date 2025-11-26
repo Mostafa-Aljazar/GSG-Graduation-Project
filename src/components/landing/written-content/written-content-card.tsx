@@ -6,13 +6,24 @@ import { Box, Button, Divider, Flex, Stack, Text, ThemeIcon } from '@mantine/cor
 import Image from 'next/image';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { IArticle } from '@/types/landing/blog/blog.type';
+import { IWrittenContent } from '@/types/landing/written-content/written-content.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
 
-export default function ArticleCard({ id, imgs, createdAt, title, brief }: IArticle) {
+export default function WrittenContentCard({
+  id,
+  imgs,
+  createdAt,
+  title,
+  brief,
+  type,
+}: IWrittenContent) {
   const router = useRouter();
 
   const handelOnClick = () => {
-    router.push(`${LANDING_ROUTES.BLOG}/${id}`);
+    const destination =
+      type == TYPE_WRITTEN_CONTENT.BLOG ? LANDING_ROUTES.BLOG : LANDING_ROUTES.SUCCESS_STORIES;
+
+    router.push(`${destination}/${id}`);
   };
 
   return (
@@ -24,7 +35,7 @@ export default function ArticleCard({ id, imgs, createdAt, title, brief }: IArti
       >
         <Box pos='relative' w={{ base: '100%', md: 280 }} h={{ base: 180, md: 200 }}>
           {imgs?.[0] && (
-            <Image alt='Blog Image' src={imgs[0]} fill className={cn('object-cover')} />
+            <Image alt='Written Content Image' src={imgs[0]} fill className={cn('object-cover')} />
           )}
         </Box>
 

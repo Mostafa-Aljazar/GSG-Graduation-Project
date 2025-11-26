@@ -5,6 +5,13 @@ export enum DESTINATION_HERO_SECTION {
 }
 
 export enum TYPE_WRITTEN_CONTENT {
-    BLOG = 'BLOG',
-    SUCCESS_STORIES = 'SUCCESS_STORIES',
+    BLOG = 'blog',
+    SUCCESS_STORIES = 'success-stories',
+    ADS = 'ads',
+}
+
+
+export enum TYPE_BLOG_OR_SUCCESS_STORIES {
+    BLOG = 'blog',
+    SUCCESS_STORIES = 'success-stories',
 }

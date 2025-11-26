@@ -11,7 +11,6 @@ export const handleUploadMedia = async (
     }
     throw new Error('Upload failed');
   } catch (error: any) {
-    console.error('Error during upload:', error);
     alert(`Error: ${error.message}`);
     return null;
   }

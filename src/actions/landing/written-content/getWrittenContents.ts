@@ -1,20 +1,22 @@
 "use server"
 
-import { fakeArticlesResponse } from "@/content/landing/blog/fake-data"
+import { fakeWrittenContentsResponse } from "@/content/landing/written-content/fake-data"
 import { AqsaGuestAPI } from "@/services/api"
-import { IArticlesResponse } from "@/types/landing/blog/blog.type"
+import { TYPE_WRITTEN_CONTENT } from "@/types/landing/index.type"
+import { IWrittenContentsResponse } from "@/types/landing/written-content/written-content.type"
 
-export interface IGetArticlesProps {
+export interface IGetWrittenContentsProps {
     page?: number
     limit?: number
+    type: TYPE_WRITTEN_CONTENT;
 }
 
 const USE_FAKE = true
 
-export const getArticles = async ({ page = 1, limit = 5 }: IGetArticlesProps): Promise<IArticlesResponse> => {
+export const getWrittenContents = async ({ page = 1, limit = 5, type }: IGetWrittenContentsProps): Promise<IWrittenContentsResponse> => {
     if (USE_FAKE) {
-        const fake = fakeArticlesResponse({ page, limit })
-        return new Promise(resolve => setTimeout(() => resolve(fake), 500))
+        const fakeResponse: IWrittenContentsResponse = fakeWrittenContentsResponse({ page, limit, type })
+        return new Promise(resolve => setTimeout(() => resolve(fakeResponse), 500))
     }
 
     /////////////////////////////////////////////////////////////
@@ -22,9 +24,10 @@ export const getArticles = async ({ page = 1, limit = 5 }: IGetArticlesProps): P
     /////////////////////////////////////////////////////////////
 
     try {
-        const response = await AqsaGuestAPI.get<IArticlesResponse>("/blog", {
-            params: { page, limit }
+        const response = await AqsaGuestAPI.get<IWrittenContentsResponse>("/written-content", {
+            params: { page, limit, type }
         })
+
 
         if ((response.data.error && response.data.error.length > 0) || response.status !== 200) {
             throw new Error(response.data.error || "حدث خطأ أثناء جلب بيانات المحتوى")
@@ -42,7 +45,7 @@ export const getArticles = async ({ page = 1, limit = 5 }: IGetArticlesProps): P
         return {
             status: 500,
             message: errorMessage,
-            articles: [],
+            writtenContents: [],
             pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
             error: errorMessage
         }

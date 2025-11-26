@@ -18,28 +18,34 @@ import { MessageCircleWarning } from 'lucide-react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { useRef } from 'react';
-import { getArticle } from '@/actions/landing/blog/getArticle';
-import { IArticleResponse } from '@/types/landing/blog/blog.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+import { getWrittenContent } from '@/actions/landing/written-content/getWrittenContent';
+import { IWrittenContentResponse } from '@/types/landing/written-content/written-content.type';
 
 interface IArticleContentProps {
-  articleId: number;
+  contentId: number;
+  contentType: TYPE_WRITTEN_CONTENT;
 }
 
-export default function ArticleContent({ articleId }: IArticleContentProps) {
+export default function SingleWrittenContentComponent({
+  contentId,
+  contentType,
+}: IArticleContentProps) {
   const {
     data: ArticleData,
     isLoading,
     error,
-  } = useQuery<IArticleResponse, Error>({
-    queryKey: ['article', articleId],
+  } = useQuery<IWrittenContentResponse, Error>({
+    queryKey: ['writtenContent', contentId, contentType],
     queryFn: () =>
-      getArticle({
-        id: articleId,
+      getWrittenContent({
+        id: contentId,
+        type: contentType,
       }),
   });
 
   const hasError = Boolean(error) || Boolean(ArticleData?.error);
-  const data = ArticleData?.article;
+  const data = ArticleData?.writtenContent;
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   return (
@@ -64,7 +70,7 @@ export default function ArticleContent({ articleId }: IArticleContentProps) {
               {data?.title}
             </Text>
             <Text size='sm' c='dimmed'>
-              نُشر بتاريخ:
+              نُشر بتاريخ :{' '}
               {data?.createdAt
                 ? new Date(data.createdAt).toLocaleDateString('ar-EG')
                 : 'تاريخ غير متوفر'}

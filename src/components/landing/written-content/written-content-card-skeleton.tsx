@@ -3,7 +3,7 @@
 import { Box, Flex, Stack, Skeleton, Divider, ThemeIcon } from '@mantine/core';
 import { Calendar } from 'lucide-react';
 
-export default function ArticleCardSkeleton() {
+export default function WrittenContentCardSkeleton() {
   return (
     <Box className='w-full'>
       <Flex

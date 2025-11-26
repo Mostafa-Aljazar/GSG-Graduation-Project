@@ -1,19 +1,21 @@
 "use server";
 
-import { fakeArticleResponse } from "@/content/landing/blog/fake-data";
+import { fakeWrittenContentResponse } from "@/content/landing/written-content/fake-data";
 import { AqsaGuestAPI } from "@/services/api";
-import { IArticle, IArticleResponse } from "@/types/landing/blog/blog.type";
+import { TYPE_WRITTEN_CONTENT } from "@/types/landing/index.type";
+import { IWrittenContent, IWrittenContentResponse } from "@/types/landing/written-content/written-content.type";
 
-export interface IGetArticleProps {
+export interface IGetWrittenContentProps {
     id: number;
+    type: TYPE_WRITTEN_CONTENT
 }
 
 const USE_FAKE = true;
 
-export const getArticle = async ({ id, }: IGetArticleProps): Promise<IArticleResponse> => {
+export const getWrittenContent = async ({ id, type }: IGetWrittenContentProps): Promise<IWrittenContentResponse> => {
     if (USE_FAKE) {
-        const fake = fakeArticleResponse({ id });
-        return new Promise(resolve => setTimeout(() => resolve(fake), 500));
+        const fakeResponse = fakeWrittenContentResponse({ id, type });
+        return new Promise(resolve => setTimeout(() => resolve(fakeResponse), 500));
     }
 
     /////////////////////////////////////////////////////////////
@@ -21,7 +23,13 @@ export const getArticle = async ({ id, }: IGetArticleProps): Promise<IArticleRes
     /////////////////////////////////////////////////////////////
 
     try {
-        const response = await AqsaGuestAPI.get<IArticleResponse>(`/blog/${id}`);
+
+        const response = await AqsaGuestAPI.get<IWrittenContentResponse>(`/written-content/${id}`,
+            {
+                params: {
+                    type
+                }
+            });
 
         if ((response.data.error && response.data.error.length > 0) || response.status !== 200) {
             throw new Error(response.data.error || "حدث خطأ أثناء جلب بيانات المحتوى")
@@ -40,7 +48,7 @@ export const getArticle = async ({ id, }: IGetArticleProps): Promise<IArticleRes
         return {
             status: statusCode,
             message: errorMessage,
-            article: {} as IArticle,
+            writtenContent: {} as IWrittenContent,
             error: errorMessage,
         };
     }

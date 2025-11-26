@@ -19,9 +19,9 @@ export const NAVBAR_LINKS = [
     },
     ,
     {
-        key: 'SUCCESS_STORY',
+        key: 'SUCCESS_STORIES',
         label: 'قصص نجاح',
-        link: LANDING_ROUTES.SUCCESS_STORY,
+        link: LANDING_ROUTES.SUCCESS_STORIES,
     },
     {
         key: 'CONTACT_US',
