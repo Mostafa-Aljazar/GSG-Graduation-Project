@@ -34,9 +34,7 @@ export async function sendEmail({
         };
 
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully:', info.messageId);
-    } catch (error) {
-        console.error('Error sending email:', error);
-        throw new Error('Failed to send email. Please try again later.');
+    } catch (error: any) {
+        throw new Error(error?.message || 'Failed to send email. Please try again later.');
     }
 }
