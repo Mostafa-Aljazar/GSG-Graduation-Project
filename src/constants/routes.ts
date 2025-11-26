@@ -7,7 +7,6 @@ export const LANDING_ROUTES = {
   SUCCESS_STORIES: '/success-stories',
 } as const;
 
-
 // AUTH_ROUTES
 export const AUTH_ROUTES = {
   LOGIN: '/auth/login',
@@ -15,4 +14,3 @@ export const AUTH_ROUTES = {
   OTP: '/auth/otp',
   CREATE_NEW_PASSWORD: '/auth/create-new-password',
 } as const;
-

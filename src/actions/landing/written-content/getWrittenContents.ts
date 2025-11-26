@@ -1,53 +1,59 @@
-"use server"
+'use server';
 
-import { fakeWrittenContentsResponse } from "@/content/landing/written-content/fake-data"
-import { AqsaGuestAPI } from "@/services/api"
-import { TYPE_WRITTEN_CONTENT } from "@/types/landing/index.type"
-import { IWrittenContentsResponse } from "@/types/landing/written-content/written-content.type"
+import { fakeWrittenContentsResponse } from '@/content/landing/written-content/fake-data';
+import { AqsaGuestAPI } from '@/services/api';
+import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+import { IWrittenContentsResponse } from '@/types/landing/written-content/written-content.type';
 
 export interface IGetWrittenContentsProps {
-    page?: number
-    limit?: number
-    type: TYPE_WRITTEN_CONTENT;
+  page?: number;
+  limit?: number;
+  type: TYPE_WRITTEN_CONTENT;
 }
 
-const USE_FAKE = true
+const USE_FAKE = true;
 
-export const getWrittenContents = async ({ page = 1, limit = 5, type }: IGetWrittenContentsProps): Promise<IWrittenContentsResponse> => {
-    if (USE_FAKE) {
-        const fakeResponse: IWrittenContentsResponse = fakeWrittenContentsResponse({ page, limit, type })
-        return new Promise(resolve => setTimeout(() => resolve(fakeResponse), 500))
+export const getWrittenContents = async ({
+  page = 1,
+  limit = 5,
+  type,
+}: IGetWrittenContentsProps): Promise<IWrittenContentsResponse> => {
+  if (USE_FAKE) {
+    const fakeResponse: IWrittenContentsResponse = fakeWrittenContentsResponse({
+      page,
+      limit,
+      type,
+    });
+    return new Promise((resolve) => setTimeout(() => resolve(fakeResponse), 500));
+  }
+
+  /////////////////////////////////////////////////////////////
+  // FIXME: THIS IS THE REAL IMPLEMENTATION
+  /////////////////////////////////////////////////////////////
+
+  try {
+    const response = await AqsaGuestAPI.get<IWrittenContentsResponse>('/written-content', {
+      params: { page, limit, type },
+    });
+
+    if ((response.data.error && response.data.error.length > 0) || response.status !== 200) {
+      throw new Error(response.data.error || 'حدث خطأ أثناء جلب بيانات المحتوى');
     }
 
-    /////////////////////////////////////////////////////////////
-    // FIXME: THIS IS THE REAL IMPLEMENTATION
-    /////////////////////////////////////////////////////////////
+    return response.data;
+  } catch (err: unknown) {
+    let errorMessage = 'حدث خطأ أثناء جلب بيانات المحتوى';
 
-    try {
-        const response = await AqsaGuestAPI.get<IWrittenContentsResponse>("/written-content", {
-            params: { page, limit, type }
-        })
-
-
-        if ((response.data.error && response.data.error.length > 0) || response.status !== 200) {
-            throw new Error(response.data.error || "حدث خطأ أثناء جلب بيانات المحتوى")
-        }
-
-        return response.data;
-
-    } catch (err: unknown) {
-        let errorMessage = "حدث خطأ أثناء جلب بيانات المحتوى"
-
-        if (err instanceof Error) {
-            errorMessage = err.message
-        }
-
-        return {
-            status: 500,
-            message: errorMessage,
-            writtenContents: [],
-            pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
-            error: errorMessage
-        }
+    if (err instanceof Error) {
+      errorMessage = err.message;
     }
-}
+
+    return {
+      status: 500,
+      message: errorMessage,
+      writtenContents: [],
+      pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
+      error: errorMessage,
+    };
+  }
+};

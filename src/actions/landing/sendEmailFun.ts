@@ -1,26 +1,19 @@
-import { sendEmail } from "@/utils/send-mail";
+import { sendEmail } from '@/utils/send-mail';
 
 export interface ISendEmailProps {
-    name: string;
-    email: string;
-    phone_number: string;
-    message: string;
+  name: string;
+  email: string;
+  phone_number: string;
+  message: string;
 }
 
-export const sendEmailFun = async ({
-    name,
-    email,
-    phone_number,
-    message,
-}: ISendEmailProps) => {
+export const sendEmailFun = async ({ name, email, phone_number, message }: ISendEmailProps) => {
+  const IMG_Logo = `https://affvdhyw60.ufs.sh/f/D9fWnKmzxFZWZzxU0XRxmhHUVRKXaig4QbdYZG7MArz16NOo`;
 
-    const IMG_Logo = `https://affvdhyw60.ufs.sh/f/D9fWnKmzxFZWZzxU0XRxmhHUVRKXaig4QbdYZG7MArz16NOo`
+  const toEmail = 'alaqsacamp@gmail.com';
+  if (!toEmail) throw new Error('AQSA_CAMP_EMAIL is not defined in environment variables');
 
-    const toEmail = "alaqsacamp@gmail.com"
-    if (!toEmail) throw new Error("AQSA_CAMP_EMAIL is not defined in environment variables");
-
-
-    const htmlContent = `
+  const htmlContent = `
   <div style="font-family: Arial, sans-serif; background: #f4f4f4; padding: 24px;">
     <div style="max-width: 620px; margin: auto; background: #ffffff; border-radius: 10px; border: 1px solid #e5e5e5;">
       
@@ -53,17 +46,16 @@ export const sendEmailFun = async ({
   </div>
 `;
 
-
-    try {
-        return await sendEmail({
-            to: toEmail,
-            subject: `New Message from ${name}`,
-            text: `Name: ${name}\nEmail: ${email}\nPhone Number: ${phone_number}\nMessage: ${message}`,
-            html: htmlContent,
-        });
-    } catch (err: unknown) {
-        // Safely get the error message
-        const message = err instanceof Error ? err.message : String(err);
-        throw new Error(message || "Failed to send email");
-    }
+  try {
+    return await sendEmail({
+      to: toEmail,
+      subject: `New Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone Number: ${phone_number}\nMessage: ${message}`,
+      html: htmlContent,
+    });
+  } catch (err: unknown) {
+    // Safely get the error message
+    const message = err instanceof Error ? err.message : String(err);
+    throw new Error(message || 'Failed to send email');
+  }
 };

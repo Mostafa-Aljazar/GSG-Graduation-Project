@@ -1,9 +1,10 @@
-import { Cairo } from 'next/font/google';
 import 'react-phone-number-input/style.css';
 import './globals.css';
 
-import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { Cairo } from 'next/font/google';
+
 import Providers from '@/providers/providers';
+import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],

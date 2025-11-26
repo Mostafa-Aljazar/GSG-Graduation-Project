@@ -1,8 +1,8 @@
- const config = {
+const config = {
   plugins: {
-    "@tailwindcss/postcss": {},
-    "postcss-preset-mantine": {},
-    "postcss-simple-vars": {
+    '@tailwindcss/postcss': {},
+    'postcss-preset-mantine': {},
+    'postcss-simple-vars': {
       // variables: {
       //   "mantine-breakpoint-xs": "36em",
       //   "mantine-breakpoint-sm": "48em",

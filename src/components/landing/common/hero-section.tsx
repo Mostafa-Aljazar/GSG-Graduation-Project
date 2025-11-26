@@ -21,8 +21,8 @@ export default function HeroSection({ destination }: Props) {
     destination == DESTINATION_HERO_SECTION.HOME
       ? HOME_HERO_CONTENT
       : destination == DESTINATION_HERO_SECTION.BLOG
-      ? BLOG_HERO_CONTENT
-      : SUCCESS_STORIES_HERO_CONTENT;
+        ? BLOG_HERO_CONTENT
+        : SUCCESS_STORIES_HERO_CONTENT;
 
   const images = content.map((item) => item.image);
 

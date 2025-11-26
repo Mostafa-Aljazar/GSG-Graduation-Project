@@ -1,7 +1,15 @@
 import { IGetWrittenContentProps } from '@/actions/landing/written-content/getWrittenContent';
 import { IGetWrittenContentsProps } from '@/actions/landing/written-content/getWrittenContents';
-import { IMG_HOME_HERO_SLIDER_1, IMG_HOME_HERO_SLIDER_2, IMG_HOME_HERO_SLIDER_3 } from '@/assets/landing/home';
-import { IWrittenContent, IWrittenContentResponse, IWrittenContentsResponse } from '@/types/landing/written-content/written-content.type';
+import {
+  IMG_HOME_HERO_SLIDER_1,
+  IMG_HOME_HERO_SLIDER_2,
+  IMG_HOME_HERO_SLIDER_3,
+} from '@/assets/landing/home';
+import {
+  IWrittenContent,
+  IWrittenContentResponse,
+  IWrittenContentsResponse,
+} from '@/types/landing/written-content/written-content.type';
 import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
 
 export const fakeAds: IWrittenContent[] = [
@@ -680,7 +688,6 @@ export const fakeWrittenContentsResponse = ({
   const filtered = type
     ? selectedWrittenContents.filter((item) => item.type === type)
     : selectedWrittenContents;
-
 
   const totalItems = filtered.length;
   const totalPages = Math.ceil(totalItems / limit);
