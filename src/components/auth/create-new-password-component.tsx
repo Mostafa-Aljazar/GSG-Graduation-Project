@@ -124,8 +124,8 @@ export default function CreateNewPasswordComponent() {
             w={{ base: 343, md: 400 }}
             mt={20}
             className='border-second! border-w-1! focus:border-none! outline-none!'
-            key={form.key('confirm_password')}
-            {...form.getInputProps('confirm_password')}
+            key={form.key('confirmPassword')}
+            {...form.getInputProps('confirmPassword')}
             classNames={{
               input: '!text-dark placeholder:!text-sm !text-primary !font-normal',
               error: '!w-full !text-end !text-[#FD6265] !font-normal !text-sm',
