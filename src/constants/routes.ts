@@ -20,6 +20,21 @@ export const AUTH_ROUTES = {
 /////////////////////////////////////////////////////////////
 // ACTOR ROUTES FUNCTIONS
 /////////////////////////////////////////////////////////////
+
+
+export const GENERAL_ACTOR_ROUTES = {
+  // GENERAL
+  ADS: '/actor/ads',
+  DELEGATES: '/actor/delegates',
+  ADD_DELEGATES: '/actor/delegates/add',
+  DISPLACEDS: '/actor/displaceds',
+  ADD_DISPLACEDS: '/actor/displaceds/add',
+  SECURITIES: '/actor/securities',
+  ADD_SECURITIES: '/actor/securities/add',
+  NOTIFICATIONS: '/actor/notifications',
+
+} as const;
+
 export const getDisplacedRoutes = (
   {
     displacedId

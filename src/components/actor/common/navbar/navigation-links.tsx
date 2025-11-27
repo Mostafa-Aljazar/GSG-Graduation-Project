@@ -1,25 +1,15 @@
 'use client';
 
-import { Box, Stack, Text } from '@mantine/core';
+import { Box, Stack, Text, ThemeIcon } from '@mantine/core';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn';
 import useAuth from '@/hooks/useAuth';
-import { managerNavLinks, guestManagerNavLinks } from '@/content/actor/manager/navLinks';
-import {
-  delegate_NavLinks,
-  guest_Delegate_NavLinks,
-  displaced_As_Guest_Delegate_NavLinks,
-  security_OR_delegate_As_Guest_Delegate_NavLinks,
-} from '@/content/actor/delegate/navLinks';
-import {
-  security_NavLinks,
-  guest_Security_NavLinks,
-  manager_OR_Security_Guest_Security_NavLinks,
-} from '@/content/actor/security/navLinks';
-import { displaced_NavLinks, guest_Displaced_NavLinks } from '@/content/actor/displaced/navLinks';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
+import { USER_TYPE } from '@/constants/user-types';
+import { getNavLinks } from '@/content/actor/common/navLinks';
+import { useAlreadyUserStore } from '@/stores/alreadyUserStore';
 
 interface NavLink {
   label: string;
@@ -28,71 +18,87 @@ interface NavLink {
 }
 
 export default function Navigation_Links() {
-  const { user, isDelegate, isDisplaced, isSecurity, isSecurityOfficer, isManager } = useAuth();
-  const userId = Number(user?.id) || 0;
+  const { user, isDisplaced, isDelegate, isSecurityPerson, isSecurityOfficer, isManager } =
+    useAuth();
+
   const pathname = usePathname();
+  const userId = Number(user?.id) || 0;
 
-  const extractId = (key: string) => {
-    const parts = pathname.split('/');
-    const idx = parts.indexOf(key) + 1;
-    return idx > 0 && idx < parts.length ? Number(parts[idx]) || 0 : 0;
-  };
+  const { userId: alreadyUserId, userType: alreadyUserType } = useAlreadyUserStore();
 
-  const navLinks = useMemo(() => {
-    if (pathname.includes('/displaceds/')) {
-      if (pathname.includes('/displaceds/add') && isManager) {
-        return managerNavLinks(userId);
-      } else if (pathname.includes('/displaceds/add') && isDelegate) {
-        return delegate_NavLinks(userId);
+  const navLinks: readonly NavLink[] = useMemo(() => {
+    if (!user) return [];
+
+    if (alreadyUserType == USER_TYPE.DISPLACED) {
+      if (userId == alreadyUserId && isDisplaced) {
+        //what appear to displaced itself
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'self' });
       } else {
-        const id = extractId('displaceds');
-        if (isDisplaced && userId === id) return displaced_NavLinks(userId);
-        return guest_Displaced_NavLinks(id);
+        //what appear when manger or delegate or security open displaced pages
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'guest' });
       }
     }
 
-    if (pathname.includes('/delegates/')) {
-      if (pathname.includes('/delegates/add') && isManager) {
-        return managerNavLinks(userId);
+    if (alreadyUserType == USER_TYPE.DELEGATE) {
+      if (userId == alreadyUserId && isDelegate) {
+        //what appear to delegate itself
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'self' });
+      } else if (isManager || isSecurityPerson || isSecurityOfficer) {
+        //what appear when manger or security officer open Delegate pages
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'guest' });
       } else {
-        const id = extractId('delegates');
-        if (isDelegate && userId === id) return delegate_NavLinks(userId);
-        if (isDisplaced) return displaced_As_Guest_Delegate_NavLinks(id);
-        if (isDelegate || isSecurity) return security_OR_delegate_As_Guest_Delegate_NavLinks(id);
-        return guest_Delegate_NavLinks(id);
+        //what appear when displaced open Delegate pages
+        return getNavLinks({
+          userId: alreadyUserId,
+          userRank: alreadyUserType,
+          view: 'limited',
+        });
       }
     }
 
-    if (pathname.includes('/securities/')) {
-      if (pathname.includes('/securities/add') && isManager) {
-        return managerNavLinks(userId);
-      } else if (pathname.includes('/securities/add') && isSecurityOfficer) {
-        return security_NavLinks(userId);
+    if (alreadyUserType == USER_TYPE.MANAGER) {
+      if (userId == alreadyUserId && isManager) {
+        //what appear to manager itself
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'self' });
       } else {
-        const id = extractId('securities');
-        if ((isSecurity || isSecurityOfficer) && userId === id) return security_NavLinks(userId);
-        return manager_OR_Security_Guest_Security_NavLinks(id);
+        //what appear when any user open manager pages
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'guest' });
       }
     }
 
-    if (pathname.includes('/manager/')) {
-      const id = extractId('manager');
-      if (isManager && userId === id) return managerNavLinks(userId);
-      return guestManagerNavLinks(id);
+    if (alreadyUserType == USER_TYPE.SECURITY_PERSON) {
+      if (userId == alreadyUserId && isSecurityPerson) {
+        //what appear to security person itself
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'self' });
+      } else if (isManager || isSecurityOfficer) {
+        //what appear when other users open security page
+        return getNavLinks({ userId: alreadyUserId, userRank: alreadyUserType, view: 'guest' });
+      } else {
+        //what appear when other users open security page
+        return getNavLinks({
+          userId: alreadyUserId,
+          userRank: alreadyUserType,
+          view: 'limited',
+        });
+      }
     }
-
-    if (isDisplaced) return displaced_NavLinks(userId);
-    if (isDelegate) return delegate_NavLinks(userId);
-    if (isSecurity || isSecurityOfficer) return security_NavLinks(userId);
-    if (isManager) return managerNavLinks(userId);
 
     return [];
-  }, [pathname, userId, isDisplaced, isDelegate, isSecurity, isSecurityOfficer, isManager]);
+  }, [
+    user,
+    isDisplaced,
+    isDelegate,
+    isSecurityPerson,
+    isSecurityOfficer,
+    isManager,
+    alreadyUserId,
+    alreadyUserType,
+    userId,
+  ]);
+  console.log('🚀 ~ Navigation_Links ~ navLinks:', navLinks);
 
   const isLinkActive = (href: string) => {
-    return href === GENERAL_ACTOR_ROUTES.SECURITIES
-      ? pathname === GENERAL_ACTOR_ROUTES.SECURITIES
-      : pathname.includes(href);
+    return href === GENERAL_ACTOR_ROUTES.SECURITIES ? pathname === href : pathname.includes(href);
   };
 
   return (
@@ -114,15 +120,14 @@ export default function Navigation_Links() {
               )}
             >
               {link.icon && (
-                <link.icon
-                  size={20}
-                  className={cn(
-                    'transition-colors duration-200',
-                    isActive ? 'text-white' : 'text-gray-500'
-                  )}
-                />
+                <ThemeIcon
+                  size={30} // حجم الإطار حول الأيقونة
+                  color={isActive ? 'primary' : 'gray.2'} // استخدم ألوان الثيم حسب الحالة
+                  variant={isActive ? 'filled' : 'light'}
+                >
+                  <link.icon size={18} />
+                </ThemeIcon>
               )}
-
               <Text fz={15} fw={isActive ? 600 : 400} className='truncate'>
                 {link.label}
               </Text>
