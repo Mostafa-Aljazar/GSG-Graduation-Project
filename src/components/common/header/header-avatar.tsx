@@ -1,6 +1,15 @@
 'use client';
 
-import { Avatar, Popover, Button, Stack, Text, Divider, Group } from '@mantine/core';
+import {
+  Avatar,
+  Popover,
+  Button,
+  Stack,
+  Text,
+  Divider,
+  Group,
+  UnstyledButton,
+} from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import useAuth from '@/hooks/useAuth';
 import { logout } from '@/utils/auth/logout';
@@ -17,6 +26,23 @@ import {
 export default function HeaderAvatar() {
   const { user } = useAuth();
   const router = useRouter();
+
+  if (!user) {
+    return (
+      <UnstyledButton
+        onClick={() => router.push('/login')}
+        className='hover:scale-105 transition-transform'
+      >
+        <Avatar
+          src={IMG_MAN.src}
+          alt='Login'
+          radius='xl'
+          size={44}
+          className='border-[0.5px]! border-gray-300! rounded-full! cursor-pointer'
+        />
+      </UnstyledButton>
+    );
+  }
 
   const goToProfile = () => {
     if (!user) return;
@@ -84,7 +110,7 @@ export default function HeaderAvatar() {
             size='xs'
             radius='md'
             leftSection={<User size={16} />}
-            onClick={goToProfile}
+            onClick={() => goToProfile()}
           >
             الملف الشخصي
           </Button>

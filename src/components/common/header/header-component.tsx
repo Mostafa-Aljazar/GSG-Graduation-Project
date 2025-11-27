@@ -1,6 +1,6 @@
 'use client';
 
-import { AppShell, Burger, Button, Flex, Group } from '@mantine/core';
+import { AppShell, Burger, Button, Flex, Group, Skeleton } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LogIn } from 'lucide-react';
@@ -8,7 +8,7 @@ import { AUTH_ROUTES, LANDING_ROUTES } from '@/constants/routes';
 import { IMG_LOGO } from '@/assets/common';
 import HeaderLinks from './header-links';
 import HeaderDrawer from './header-drawer';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import useAuth from '@/hooks/useAuth';
 import HeaderAvatar from './header-avatar';
 
@@ -20,7 +20,9 @@ interface IHeaderProps {
 export default function HeaderComponent({ opened, toggle }: IHeaderProps) {
   const pathname = usePathname();
   const isActor = pathname.includes('actor');
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
+
+  const router = useRouter();
 
   return (
     <AppShell.Header withBorder={false} zIndex={50} className='bg-second-light! shadow-sm'>
@@ -47,22 +49,23 @@ export default function HeaderComponent({ opened, toggle }: IHeaderProps) {
         )}
 
         <Group gap='sm'>
-          {isAuthenticated ? (
+          {loading ? (
+            <Skeleton height={40} width={100} radius='md' />
+          ) : isAuthenticated && user ? (
             <HeaderAvatar />
           ) : (
-            <Link href={AUTH_ROUTES.LOGIN}>
-              <Button
-                size='sm'
-                variant='outline'
-                fz={14}
-                fw={500}
-                radius='md'
-                rightSection={<LogIn size={18} />}
-                className='hover:bg-primary! text-primary hover:text-white! transition-colors'
-              >
-                دخول
-              </Button>
-            </Link>
+            <Button
+              size='sm'
+              variant='outline'
+              fz={14}
+              fw={500}
+              radius='md'
+              rightSection={<LogIn size={18} />}
+              className='hover:bg-primary! text-primary hover:text-white! transition-colors'
+              onClick={() => router.push(AUTH_ROUTES.LOGIN)}
+            >
+              دخول
+            </Button>
           )}
         </Group>
       </Flex>
