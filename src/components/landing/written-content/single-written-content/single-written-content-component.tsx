@@ -18,9 +18,9 @@ import { MessageCircleWarning } from 'lucide-react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { useRef } from 'react';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
-import { getWrittenContent } from '@/actions/landing/written-content/getWrittenContent';
-import { IWrittenContentResponse } from '@/types/landing/written-content/written-content.type';
+import { getWrittenContent } from '@/actions/common/written-content/getWrittenContent';
+import { IWrittenContentResponse } from '@/types/common/written-content/written-content-response.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 interface IArticleContentProps {
   contentId: number;

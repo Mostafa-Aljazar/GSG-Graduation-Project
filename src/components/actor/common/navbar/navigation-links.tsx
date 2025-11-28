@@ -95,7 +95,6 @@ export default function NavigationLinks() {
     alreadyUserType,
     userId,
   ]);
-  console.log('🚀 ~ Navigation_Links ~ navLinks:', navLinks);
 
   const isLinkActive = (href: string) => {
     return href === GENERAL_ACTOR_ROUTES.SECURITIES ? pathname === href : pathname.includes(href);

@@ -90,7 +90,7 @@ export const getNavLinks = ({
                 { label: 'إدارة المساعدات', href: routes.AIDS_MANAGEMENT, icon: Handshake },
                 { label: 'الشكاوي', href: routes.COMPLAINTS, icon: MessageCircleWarning },
                 { label: 'التقارير', href: routes.REPORTS, icon: FileChartLine },
-                { label: 'الإعلانات و المدونات', href: routes.ADS_BLOGS_STORIES, icon: Newspaper },
+                { label: 'الكتابات', href: routes.WRITTEN_CONTENTS, icon: Newspaper },
             ] as const;
 
             //what appear when any user open manager pages
