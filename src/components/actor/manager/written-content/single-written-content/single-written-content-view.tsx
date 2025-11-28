@@ -25,15 +25,17 @@ import { IWrittenContentResponse } from '@/types/common/written-content/written-
 
 interface ISingleWrittenContentViewProps {
   writtenContentId: number;
+  destination?: TYPE_WRITTEN_CONTENT;
 }
 
 export default function SingleWrittenContentView({
   writtenContentId,
+  destination,
 }: ISingleWrittenContentViewProps) {
   const [query] = useQueryStates({
     'written-tab': parseAsStringEnum<TYPE_WRITTEN_CONTENT>(
       Object.values(TYPE_WRITTEN_CONTENT)
-    ).withDefault(TYPE_WRITTEN_CONTENT.BLOG),
+    ).withDefault(destination ?? TYPE_WRITTEN_CONTENT.BLOG),
   });
 
   const {
@@ -41,7 +43,7 @@ export default function SingleWrittenContentView({
     isLoading,
     error,
   } = useQuery<IWrittenContentResponse, Error>({
-    queryKey: ['writtenContent', writtenContentId, query['written-tab']],
+    queryKey: ['writtenContent', writtenContentId, query['written-tab'], destination],
     queryFn: () =>
       getWrittenContent({
         id: writtenContentId,
