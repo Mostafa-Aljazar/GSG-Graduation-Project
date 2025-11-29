@@ -1,6 +1,7 @@
 import { IGetDelegatesProps } from "@/actions/actor/general/delegates/getDelegates";
 import { IGetDelegatesByIdsProps } from "@/actions/actor/general/delegates/getDelegatesByIds";
-import { IDelegate, IDelegatesIdsResponse, IDelegatesResponse } from "@/types/actor/general/delegates/delegatesResponse.type";
+import { IGetDelegatesNamesProps } from "@/actions/actor/general/delegates/getDelegatesNames";
+import { IDelegate, IDelegatesIdsResponse, IDelegatesNamesResponse, IDelegatesResponse } from "@/types/actor/general/delegates/delegatesResponse.type";
 
 
 export const fakeDelegates: IDelegate[] = [
@@ -78,13 +79,13 @@ export const fakeDelegatesIdsResponse = (): IDelegatesIdsResponse => {
     }
 };
 
-// export const fakeDelegatesNamesResponse = ({ ids }: { ids?: number[]; }): DelegatesNamesResponse => {
-//     const filtered = ids ? fakeDelegates.filter((s) => ids.includes(s.id)) : fakeDelegates;
-//     return {
-//         status: 200,
-//         message: "تم جلب أسماء المناديب بنجاح",
-//         delegate_names: filtered.map((s) => ({ id: s.id, name: s.name })),
-//         error: undefined
-//     };
-// };
+export const fakeDelegatesNamesResponse = ({ ids }: IGetDelegatesNamesProps): IDelegatesNamesResponse => {
+    const filtered = ids ? fakeDelegates.filter((s) => ids.includes(s.id)) : fakeDelegates;
+    return {
+        status: 200,
+        message: "تم جلب أسماء المناديب بنجاح",
+        delegateNames: filtered.map((s) => ({ id: s.id, name: s.name })),
+        error: undefined
+    };
+};
 

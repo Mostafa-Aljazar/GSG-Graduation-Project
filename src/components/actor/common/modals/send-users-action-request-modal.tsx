@@ -1,14 +1,15 @@
 'use client';
 
 import {
-  ISendMeetingDelegateRequestProps,
-  sendMeetingDelegateRequest,
-} from '@/actions/actor/general/delegates/sendMeetingDelegateRequest';
+  ISendUsersActionRequestProps,
+  sendUsersActionRequest,
+} from '@/actions/actor/general/common/modals/sendUserActionRequest';
+import { USER_TYPE, USER_RANK_LABELS } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import {
-  meetingDelegateFormSchema,
-  TMeetingDelegateFormValues,
-} from '@/validations/actor/general/delegates/meet-delegate.schema';
+  sendUsersActionRequestFormSchema,
+  TSendUsersActionRequestFormValues,
+} from '@/validations/actor/general/common/send-users-action-request.schema';
 import { Button, Group, Modal, Stack, Text, Textarea } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
@@ -17,30 +18,42 @@ import { useMutation } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 
-interface IMeetingDelegateModalProps {
-  delegateIds: number[];
+interface ISendUsersActionModalProps {
+  userIds: number[];
+  userType: USER_TYPE;
+  action: 'call' | 'meeting';
   opened: boolean;
   close: () => void;
 }
-export default function MeetingDelegateModal({
-  delegateIds,
+
+export default function SendUsersActionModal({
+  userIds,
+  userType,
+  action,
   opened,
   close,
-}: IMeetingDelegateModalProps) {
-  const form = useForm<TMeetingDelegateFormValues>({
+}: ISendUsersActionModalProps) {
+  const form = useForm<TSendUsersActionRequestFormValues>({
     initialValues: {
       dateTime: dayjs().add(1, 'hour').toDate(),
       details: '',
     },
-    validate: zod4Resolver(meetingDelegateFormSchema),
+    validate: zod4Resolver(sendUsersActionRequestFormSchema),
   });
 
-  const meetingMutation = useMutation<IActionResponse, unknown, ISendMeetingDelegateRequestProps>({
-    mutationFn: sendMeetingDelegateRequest,
+  const mutation = useMutation<IActionResponse, unknown, ISendUsersActionRequestProps>({
+    mutationFn: (values) =>
+      sendUsersActionRequest({
+        userIds,
+        userType,
+        dateTime: values.dateTime,
+        details: values.details,
+        action,
+      }),
     onSuccess: (data) => {
       if (data.status === 200) {
         notifications.show({
-          title: 'تم الارسال',
+          title: action === 'call' ? 'تم الاستدعاء' : 'تم إرسال طلب الاجتماع',
           message: data.message,
           color: 'grape',
           position: 'top-left',
@@ -49,14 +62,13 @@ export default function MeetingDelegateModal({
         close();
         form.reset();
       } else {
-        throw new Error(data.error || 'فشل في ارسال طلب الاجتماع');
+        throw new Error(data.error || 'فشل في تنفيذ العملية');
       }
     },
     onError: (error: any) => {
-      const errorMessage = error?.message || 'فشل في ارسال طلب الاجتماع';
       notifications.show({
         title: 'خطأ',
-        message: errorMessage,
+        message: error?.message || 'فشل في تنفيذ العملية',
         color: 'red',
         position: 'top-left',
         withBorder: true,
@@ -64,27 +76,29 @@ export default function MeetingDelegateModal({
     },
   });
 
-  const handleSubmit = (values: TMeetingDelegateFormValues) => {
-    console.log('🚀 ~ handleSubmit ~ values:', values);
-    meetingMutation.mutate({
-      delegateIds,
+  const handleSubmit = (values: TSendUsersActionRequestFormValues) => {
+    mutation.mutate({
+      userIds,
+      userType,
       dateTime: values.dateTime,
       details: values.details,
+      action,
     });
   };
+
+  const actionLabel = action === 'call' ? 'استدعاء' : 'طلب اجتماع';
+  const userLabel = USER_RANK_LABELS[userType];
 
   return (
     <Modal
       opened={opened}
-      onClose={() => close()}
+      onClose={close}
       title={
-        <Text fz={18} fw={600} ta={'center'} className='text-primary!'>
-          تأكيد الاجتماع
+        <Text fz={18} fw={600} ta='center' className='text-primary!'>
+          {`إضافة تفاصيل ${actionLabel} لـ ${userLabel}`}
         </Text>
       }
-      classNames={{
-        title: '!w-full',
-      }}
+      classNames={{ title: '!w-full' }}
       centered
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -92,32 +106,29 @@ export default function MeetingDelegateModal({
           <DateTimePicker
             label={
               <Text fz={16} fw={500} className='text-primary!'>
-                موعد الاجتماع
+                تاريخ ووقت {actionLabel}
               </Text>
             }
-            placeholder='تاريخ و وقت الاجتماع'
+            placeholder={`تاريخ ووقت ${actionLabel}`}
             timePickerProps={{
               withDropdown: true,
               popoverProps: { withinPortal: false },
               format: '12h',
             }}
-            // valueFormat=' MMM DD YYYY - hh:mm A '
-            // defaultValue={dayjs().format('MMM DD YYYY ')}
             valueFormat='DD/MM/YYYY - hh:mm A'
             value={form.values.dateTime}
             onChange={(value) =>
               form.setFieldValue('dateTime', value ? new Date(value) : form.values.dateTime)
             }
             error={form.errors.dateTime}
-            classNames={{
-              input: 'placeholder:!text-sm !text-primary !font-normal',
-            }}
+            classNames={{ input: 'placeholder:text-sm! text-primary! font-normal!' }}
           />
+
           <Textarea
             size='sm'
             label={
               <Text fz={16} fw={500} className='text-primary!'>
-                تفاصيل الاجتماع
+                تفاصيل {actionLabel}
               </Text>
             }
             placeholder='أدخل التفاصيل'
@@ -125,9 +136,7 @@ export default function MeetingDelegateModal({
             maxRows={6}
             autosize
             {...form.getInputProps('details')}
-            classNames={{
-              input: 'placeholder:!text-sm !text-primary !font-normal',
-            }}
+            classNames={{ input: 'placeholder:text-sm! text-primary! font-normal!' }}
           />
 
           <Group justify='flex-end'>
@@ -137,7 +146,7 @@ export default function MeetingDelegateModal({
               variant='outline'
               onClick={close}
               fw={600}
-              className='shadow-md! border-primary! text-primary!'
+              className='border-primary! text-primary!'
             >
               إلغاء
             </Button>
@@ -145,7 +154,7 @@ export default function MeetingDelegateModal({
               size='sm'
               type='submit'
               className='bg-primary! shadow-md!'
-              loading={meetingMutation.isPending}
+              loading={mutation.isPending}
             >
               تأكيد
             </Button>

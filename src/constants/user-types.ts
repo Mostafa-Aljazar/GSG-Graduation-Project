@@ -25,3 +25,10 @@ export const USER_RANK_LABELS: Record<USER_RANK, string> = {
     [USER_RANK.SECURITY_PERSON]: 'فرد الأمن',
     [USER_RANK.SECURITY_OFFICER]: 'مسؤول الأمن',
 };
+
+export const USER_ENDPOINTS: Record<USER_TYPE, string> = {
+    [USER_TYPE.DISPLACED]: "/displaceds",
+    [USER_TYPE.DELEGATE]: "/delegates",
+    [USER_TYPE.MANAGER]: "/managers",
+    [USER_TYPE.SECURITY_PERSON]: "/security-persons",
+};

@@ -6,6 +6,7 @@ import {
   EllipsisVertical,
   Eye,
   Hammer,
+  Repeat,
   Speech,
   Trash,
   UserCog,
@@ -13,32 +14,37 @@ import {
   Users,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ComponentType, useState } from 'react';
+import { useState } from 'react';
 import useAuth from '@/hooks/useAuth';
+import { getDisplacedRoutes } from '@/constants/routes';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
-import { getDelegateRoutes } from '@/constants/routes';
 import { USER_TYPE } from '@/constants/user-types';
+import ChangeDelegateInDisplacedsModal from '../../common/modals/change-delegate-in-displaceds-modal';
 import DeleteUsersModal from '../../common/modals/delete-users-modal';
 import SendUsersActionModal from '../../common/modals/send-users-action-request-modal';
 import UpdateUsersModal from '../../common/modals/update-users-modal';
 
 interface IActionItem {
   label: string;
-  icon: ComponentType<{ size?: number | string }>;
+  icon: React.ComponentType<{ size?: number | string }>;
   action: () => void;
 }
 
-interface Props {
-  delegateId?: number;
-  delegateIds?: number[];
+interface DisplacedTableActionsProps {
+  displacedId?: number;
+  displacedIds?: number[];
   disabled?: boolean;
 }
 
-export default function DelegatesTableActions({ delegateId, delegateIds, disabled }: Props) {
-  const { isManager, isSecurityPerson, isSecurityOfficer } = useAuth();
+export default function DisplacedTableActions({
+  displacedId,
+  displacedIds,
+  disabled,
+}: DisplacedTableActionsProps) {
+  const { isDelegate, isManager, isSecurityPerson, isSecurityOfficer } = useAuth();
   const [openedPopover, setOpenedPopover] = useState(false);
   const [modalType, setModalType] = useState<
-    'edit' | 'delete' | 'call' | 'update' | 'meeting' | null
+    'change_delegate' | 'edit' | 'delete' | 'call' | 'update' | 'meeting' | null
   >(null);
 
   const router = useRouter();
@@ -51,7 +57,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
   const closeModal = () => setModalType(null);
 
   const buildRoute = (id: number, edit = false) => {
-    const base = getDelegateRoutes({ delegateId: id });
+    const base = getDisplacedRoutes({ displacedId: id });
     return edit ? `${base.PROFILE}?action=${ACTION_ADD_EDIT_DISPLAY.EDIT}` : base.PROFILE;
   };
 
@@ -62,37 +68,35 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
     { label: 'اجتماع', icon: Users, action: () => openModal('meeting') },
   ];
 
+  const managerExtras: IActionItem[] = [
+    { label: 'تغيير المندوب', icon: Repeat, action: () => openModal('change_delegate') },
+  ];
+
   const viewEditActions: IActionItem[] = [
-    {
-      label: 'عرض',
-      icon: Eye,
-      action: () => router.push(buildRoute(delegateId || 0)),
-    },
+    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || 0)) },
     {
       label: 'تعديل',
       icon: UserPen,
-      action: () => router.push(buildRoute(delegateId || 0, true)),
+      action: () => router.push(buildRoute(displacedId || 0, true)),
     },
   ];
 
   const securityActions: IActionItem[] = [
-    {
-      label: 'عرض',
-      icon: Eye,
-      action: () => router.push(buildRoute(delegateId || 0)),
-    },
+    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || 0)) },
     { label: 'استدعاء', icon: Speech, action: () => openModal('call') },
   ];
 
   const getActions = (): IActionItem[] => {
-    if (isManager && delegateIds) return [...commonActions];
-    if (isManager && delegateId) return [...viewEditActions, ...commonActions];
+    if (isManager && displacedIds) return [...commonActions, ...managerExtras];
+    if (isManager && displacedId) return [...viewEditActions, ...commonActions, ...managerExtras];
+    if (isDelegate && displacedIds) return [...commonActions];
+    if (isDelegate && displacedId) return [...viewEditActions, ...commonActions];
     if (isSecurityPerson || isSecurityOfficer) return securityActions;
     return [];
   };
 
   const ACTIONS = getActions();
-  const IDs = delegateIds || (delegateId ? [delegateId] : []);
+  const IDs = displacedIds || (displacedId ? [displacedId] : []);
 
   const DropdownItems = ACTIONS.map((item, index) => (
     <Button
@@ -132,7 +136,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
         classNames={{ arrow: '!border-none' }}
       >
         <Popover.Target>
-          {delegateIds ? (
+          {displacedIds ? (
             <Button
               type='button'
               w={130}
@@ -163,9 +167,17 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
       </Popover>
 
       {isManager && (
+        <ChangeDelegateInDisplacedsModal
+          displacedIds={IDs}
+          opened={modalType === 'change_delegate'}
+          close={closeModal}
+        />
+      )}
+
+      {(isDelegate || isManager) && (
         <DeleteUsersModal
           userIds={IDs}
-          userType={USER_TYPE.DELEGATE}
+          userType={USER_TYPE.DISPLACED}
           opened={modalType === 'delete'}
           close={closeModal}
         />
@@ -173,26 +185,30 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
 
       <SendUsersActionModal
         userIds={IDs}
-        userType={USER_TYPE.DELEGATE}
+        userType={USER_TYPE.DISPLACED}
         action='call'
         opened={modalType === 'call'}
         close={closeModal}
       />
 
-      <SendUsersActionModal
-        userIds={IDs}
-        userType={USER_TYPE.DELEGATE}
-        action='meeting'
-        opened={modalType === 'meeting'}
-        close={closeModal}
-      />
+      {(isDelegate || isManager) && (
+        <UpdateUsersModal
+          userIds={IDs}
+          userType={USER_TYPE.DISPLACED}
+          opened={modalType === 'update'}
+          close={closeModal}
+        />
+      )}
 
-      <UpdateUsersModal
-        userIds={IDs}
-        userType={USER_TYPE.DELEGATE}
-        opened={modalType === 'update'}
-        close={closeModal}
-      />
+      {(isDelegate || isManager) && (
+        <SendUsersActionModal
+          userIds={IDs}
+          userType={USER_TYPE.DISPLACED}
+          action='meeting'
+          opened={modalType === 'meeting'}
+          close={closeModal}
+        />
+      )}
     </>
   );
 }

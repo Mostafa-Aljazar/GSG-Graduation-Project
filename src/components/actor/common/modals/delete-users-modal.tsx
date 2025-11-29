@@ -1,23 +1,27 @@
 'use client';
 
-import {
-  deleteDelegates,
-  IDeleteDelegatesProps,
-} from '@/actions/actor/general/delegates/deleteDelegates';
+import { deleteUsers, IDeleteUsersProps } from '@/actions/actor/general/common/modals/deleteUsers';
+import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
 
-interface IDeleteModalProps {
-  delegateIds: number[];
+interface IDeleteUsersModalProps {
+  userIds: number[];
+  userType: USER_TYPE;
   opened: boolean;
   close: () => void;
 }
 
-export default function DeleteDelegateModal({ delegateIds, opened, close }: IDeleteModalProps) {
-  const deleteMutation = useMutation<IActionResponse, unknown, IDeleteDelegatesProps>({
-    mutationFn: deleteDelegates,
+export default function DeleteUsersModal({
+  userIds,
+  userType,
+  opened,
+  close,
+}: IDeleteUsersModalProps) {
+  const deleteMutation = useMutation<IActionResponse, unknown, IDeleteUsersProps>({
+    mutationFn: deleteUsers,
     onSuccess: (data) => {
       if (data.status === 200) {
         notifications.show({
@@ -33,10 +37,9 @@ export default function DeleteDelegateModal({ delegateIds, opened, close }: IDel
       }
     },
     onError: (error: any) => {
-      const errorMessage = error?.message || 'فشل في الحذف';
       notifications.show({
         title: 'خطأ',
-        message: errorMessage,
+        message: error?.message || 'فشل في الحذف',
         color: 'red',
         position: 'top-left',
         withBorder: true,
@@ -44,44 +47,41 @@ export default function DeleteDelegateModal({ delegateIds, opened, close }: IDel
     },
   });
 
-  const handleClick = () => {
-    deleteMutation.mutate({
-      delegateIds,
-    });
+  const handleDelete = () => {
+    deleteMutation.mutate({ userIds, userType });
   };
+
+  const single = userIds.length === 1;
+  const userLabel = USER_RANK_LABELS[userType];
 
   return (
     <Modal
       opened={opened}
-      onClose={() => close()}
+      onClose={close}
+      centered
       title={
         <Text fz={18} fw={600} ta='center' className='text-red-500!'>
           تأكيد الحذف
         </Text>
       }
-      classNames={{
-        title: '!w-full',
-      }}
-      centered
+      classNames={{ title: 'w-full!' }}
     >
       <Stack>
-        {delegateIds.length == 1 && (
-          <Text fz={16} fw={500}>
-            هل أنت متأكد من حذف هذا المندوب هذا الإجراء لا يمكن التراجع عنه.
-          </Text>
-        )}
-        {delegateIds.length > 1 && (
-          <Text fz={16} fw={500}>
-            هل أنت متأكد من حذف هؤلاء المناديب؟ هذا الإجراء لا يمكن التراجع عنه.
-          </Text>
-        )}
-        <Text fz={16} fw={500} className='text-red-500!'>
-          ملاحظة / سيتم نقل النازحين الخاضة به/بهم إلى المندوب الإفتراضي (بدون مندوب).
+        <Text fz={16} fw={500}>
+          {single
+            ? `هل أنت متأكد من حذف هذا ${userLabel}؟ هذا الإجراء لا يمكن التراجع عنه.`
+            : `هل أنت متأكد من حذف هؤلاء ${userLabel}؟ هذا الإجراء لا يمكن التراجع عنه.`}
         </Text>
+
+        {userType === USER_TYPE.DELEGATE && (
+          <Text fz={16} fw={500} className='text-red-500!'>
+            ملاحظة / سيتم نقل النازحين الخاضعين لهؤلاء المندوبين إلى المندوب الافتراضي (بدون مندوب).
+          </Text>
+        )}
+
         <Group justify='flex-end'>
           <Button
             size='sm'
-            type='button'
             variant='outline'
             onClick={close}
             fw={600}
@@ -92,9 +92,9 @@ export default function DeleteDelegateModal({ delegateIds, opened, close }: IDel
           <Button
             size='sm'
             type='button'
-            className='bg-red-500! shadow-md!'
+            onClick={handleDelete}
             loading={deleteMutation.isPending}
-            onClick={handleClick}
+            className='bg-red-500! shadow-md!'
           >
             حذف
           </Button>
