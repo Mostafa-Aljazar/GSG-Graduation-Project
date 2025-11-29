@@ -1,5 +1,5 @@
 import SingleWrittenContentComponent from '@/components/landing/written-content/single-written-content/single-written-content-component';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { Stack } from '@mantine/core';
 
 interface IArticlePageProps {

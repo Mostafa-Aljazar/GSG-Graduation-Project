@@ -1,5 +1,5 @@
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { IPagination } from '@/types/common/pagination.type';
-import { TYPE_WRITTEN_CONTENT } from '../index.type';
 
 export interface IWrittenContent {
   id: number;

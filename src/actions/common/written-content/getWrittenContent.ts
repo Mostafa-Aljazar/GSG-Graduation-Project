@@ -2,8 +2,8 @@
 
 import { fakeWrittenContentResponse } from '@/content/landing/written-content/fake-data';
 import { AqsaGuestAPI } from '@/services/api';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
-import { IWrittenContent, IWrittenContentResponse, } from '@/types/landing/written-content/written-content.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
+import { IWrittenContent, IWrittenContentResponse, } from '@/types/common/written-content/written-content-response.type';
 
 export interface IGetWrittenContentProps {
   id: number;
