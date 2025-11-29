@@ -17,7 +17,7 @@ interface NavLink {
   icon?: React.ComponentType<{ size?: number }>;
 }
 
-export default function Navigation_Links() {
+export default function NavigationLinks() {
   const { user, isDisplaced, isDelegate, isSecurityPerson, isSecurityOfficer, isManager } =
     useAuth();
 
@@ -95,7 +95,6 @@ export default function Navigation_Links() {
     alreadyUserType,
     userId,
   ]);
-  console.log('🚀 ~ Navigation_Links ~ navLinks:', navLinks);
 
   const isLinkActive = (href: string) => {
     return href === GENERAL_ACTOR_ROUTES.SECURITIES ? pathname === href : pathname.includes(href);
@@ -121,9 +120,10 @@ export default function Navigation_Links() {
             >
               {link.icon && (
                 <ThemeIcon
-                  size={30} // حجم الإطار حول الأيقونة
-                  color={isActive ? 'primary' : 'gray.2'} // استخدم ألوان الثيم حسب الحالة
+                  size={30}
+                  color={isActive ? 'primary' : 'gray'} // استخدم ألوان الثيم حسب الحالة
                   variant={isActive ? 'filled' : 'light'}
+                  className='bg-transparent!'
                 >
                   <link.icon size={18} />
                 </ThemeIcon>

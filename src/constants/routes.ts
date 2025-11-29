@@ -1,3 +1,5 @@
+import { TYPE_WRITTEN_CONTENT } from "@/types/common/index.type";
+
 // LANDING_ROUTES
 export const LANDING_ROUTES = {
   HOME: '/',
@@ -73,11 +75,15 @@ export const getManagerRoutes = (
   {
     managerId,
     aidId,
-    writtenContentId
+    writtenContent
   }: {
     managerId: number,
     aidId?: number,
-    writtenContentId?: number
+    writtenContent?: {
+      id: number,
+      type: TYPE_WRITTEN_CONTENT,
+    }
+
   }
 ) => {
   return {
@@ -86,10 +92,10 @@ export const getManagerRoutes = (
     REPORTS: `/actor/manager/${managerId}/reports`,
     COMPLAINTS: `/actor/manager/${managerId}/complaints`,
 
-    // ADS_BLOGS
-    ADS_BLOGS_STORIES: `/actor/manager/${managerId}/written-content`,
-    AD_BLOG_STORY: `/actor/manager/${managerId}/written-content/${writtenContentId}`,
-    ADD_ADS_BLOGS_STORIES: `/actor/manager/${managerId}/written-content/add`,
+    // WRITTEN_CONTENT
+    WRITTEN_CONTENTS: `/actor/manager/${managerId}/written-content`,
+    WRITTEN_CONTENT: `/actor/manager/${managerId}/written-content/${writtenContent?.id}?written-tab=${writtenContent?.type}`,
+    ADD_WRITTEN_CONTENT: `/actor/manager/${managerId}/written-content/add`,
 
 
     // AIDS_MANAGEMENT

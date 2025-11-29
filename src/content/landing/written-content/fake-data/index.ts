@@ -1,16 +1,16 @@
-import { IGetWrittenContentProps } from '@/actions/landing/written-content/getWrittenContent';
-import { IGetWrittenContentsProps } from '@/actions/landing/written-content/getWrittenContents';
+import { IGetWrittenContentProps } from '@/actions/common/written-content/getWrittenContent';
+import { IGetWrittenContentsProps } from '@/actions/common/written-content/getWrittenContents';
 import {
   IMG_HOME_HERO_SLIDER_1,
   IMG_HOME_HERO_SLIDER_2,
   IMG_HOME_HERO_SLIDER_3,
 } from '@/assets/landing/home';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import {
   IWrittenContent,
   IWrittenContentResponse,
   IWrittenContentsResponse,
-} from '@/types/landing/written-content/written-content.type';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+} from '@/types/common/written-content/written-content-response.type';
 
 export const fakeAds: IWrittenContent[] = [
   {

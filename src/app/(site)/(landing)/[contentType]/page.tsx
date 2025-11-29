@@ -2,12 +2,9 @@ import { IMG_BLOG_CHILD } from '@/assets/landing/blog';
 import OurWrittenContent from '@/components/landing/written-content/our-written-content';
 import ChildSection from '@/components/landing/common/child-section';
 import HeroSection from '@/components/landing/common/hero-section';
-import {
-  DESTINATION_HERO_SECTION,
-  TYPE_BLOG_OR_SUCCESS_STORIES,
-  TYPE_WRITTEN_CONTENT,
-} from '@/types/landing/index.type';
+import { DESTINATION_HERO_SECTION, TYPE_BLOG_OR_SUCCESS_STORIES } from '@/types/landing/index.type';
 import { Suspense } from 'react';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 interface IWrittenContentPageProps {
   params: { contentType: TYPE_BLOG_OR_SUCCESS_STORIES };

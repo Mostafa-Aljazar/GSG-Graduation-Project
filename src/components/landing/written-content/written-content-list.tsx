@@ -2,10 +2,10 @@
 import { Stack, Text, Flex, Pagination, Paper, Box, Center, ThemeIcon } from '@mantine/core';
 import { Package } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
-import { IWrittenContent } from '@/types/landing/written-content/written-content.type';
+import { IWrittenContent } from '@/types/common/written-content/written-content-response.type';
 import WrittenContentCard from './written-content-card';
 import WrittenContentCardSkeleton from './written-content-card-skeleton';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 interface IBlogOrStoriesListProps {
   data: IWrittenContent[];

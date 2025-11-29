@@ -18,11 +18,11 @@ import { MessageCircleWarning } from 'lucide-react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { useRef } from 'react';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
-import { getWrittenContent } from '@/actions/landing/written-content/getWrittenContent';
-import { IWrittenContentResponse } from '@/types/landing/written-content/written-content.type';
+import { getWrittenContent } from '@/actions/common/written-content/getWrittenContent';
+import { IWrittenContentResponse } from '@/types/common/written-content/written-content-response.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
-interface IArticleContentProps {
+interface ISingleWrittenContentComponentProps {
   contentId: number;
   contentType: TYPE_WRITTEN_CONTENT;
 }
@@ -30,9 +30,9 @@ interface IArticleContentProps {
 export default function SingleWrittenContentComponent({
   contentId,
   contentType,
-}: IArticleContentProps) {
+}: ISingleWrittenContentComponentProps) {
   const {
-    data: ArticleData,
+    data: writtenContentData,
     isLoading,
     error,
   } = useQuery<IWrittenContentResponse, Error>({
@@ -44,8 +44,8 @@ export default function SingleWrittenContentComponent({
       }),
   });
 
-  const hasError = Boolean(error) || Boolean(ArticleData?.error);
-  const data = ArticleData?.writtenContent;
+  const hasError = Boolean(error) || Boolean(writtenContentData?.error);
+  const data = writtenContentData?.writtenContent;
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   return (
@@ -60,7 +60,7 @@ export default function SingleWrittenContentComponent({
             </ThemeIcon>
           </Center>
           <Text c='red' fw={600} ta='center'>
-            {ArticleData?.error || error?.message || 'حدث خطأ أثناء جلب المحتوى'}
+            {writtenContentData?.error || error?.message || 'حدث خطأ أثناء جلب المحتوى'}
           </Text>
         </Paper>
       ) : (

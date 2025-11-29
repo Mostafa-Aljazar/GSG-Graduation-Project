@@ -5,10 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { MessageCircleWarning } from 'lucide-react';
 import { BLOG_TITLE, SUCCESS_STORIES_TITLE } from '@/content/landing';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
-import { IWrittenContentsResponse } from '@/types/landing/written-content/written-content.type';
-import { getWrittenContents } from '@/actions/landing/written-content/getWrittenContents';
+import { IWrittenContentsResponse } from '@/types/common/written-content/written-content-response.type';
+import { getWrittenContents } from '@/actions/common/written-content/getWrittenContents';
 import WrittenContentList from './written-content-list';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 interface IOurBlogOrStoriesProps {
   destination: TYPE_WRITTEN_CONTENT;

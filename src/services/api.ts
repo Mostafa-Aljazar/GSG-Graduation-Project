@@ -1,37 +1,74 @@
-import axios from 'axios';
+import { getSession } from '@/utils/auth/getSession'
+import { logout } from '@/utils/auth/logout'
+import axios from 'axios'
 
 // const baseURL = "https://travel-and-explore.online/api"
-const baseURL = '';
+const baseURL = ''
 
-// Create an Axios instance for guest/public requests
-const AqsaGuestAPI = axios.create({
+
+// Shared config
+const defaultConfig = {
   baseURL: baseURL,
-  timeout: 15000, // 15 second timeout
+  timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-});
+    Accept: 'application/json'
+  }
+}
 
-// Handle guest API response errors (no auth required)
+
+// Guest API
+const AqsaGuestAPI = axios.create(defaultConfig)
+
 AqsaGuestAPI.interceptors.response.use(
-  (response) => {
-    // handel success response
-    return response;
-  },
-  (error) => {
-    if (!error.response) {
-      // if no response, return error
+  res => res,
+  err => {
+    if (!err.response) {
       return Promise.reject({
         status: 500,
-        error: 'حدث خطأ في الشبكة',
-      });
+        error: 'حدث خطأ في الشبكة'
+      })
     }
 
-    // For guest API, we don't logout on 401, just return the error
-    return Promise.reject(error);
+    return Promise.reject(err)
   }
-);
+)
 
-// export default AqsaAPI
-export { AqsaGuestAPI };
+
+// Auth API
+const AqsaAPI = axios.create(defaultConfig)
+
+AqsaAPI.interceptors.request.use(async config => {
+  const session = getSession()
+
+  if (!session?.token) {
+    return Promise.reject({
+      status: 401,
+      error: 'يرجى تسجيل الدخول للمتابعة'
+    })
+  }
+
+  config.headers['Authorization'] = `Bearer ${session.token}`
+  return config
+})
+
+AqsaAPI.interceptors.response.use(
+  res => res,
+  err => {
+    if (!err.response) {
+      return Promise.reject({
+        status: 500,
+        error: 'حدث خطأ في الشبكة'
+      })
+    }
+
+    if (err.response.status === 401) {
+      logout()
+    }
+
+    return Promise.reject(err)
+  }
+)
+
+
+export { AqsaGuestAPI, AqsaAPI }

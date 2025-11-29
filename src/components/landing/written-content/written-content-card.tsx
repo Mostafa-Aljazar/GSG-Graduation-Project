@@ -6,8 +6,8 @@ import { Box, Button, Divider, Flex, Stack, Text, ThemeIcon } from '@mantine/cor
 import Image from 'next/image';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { IWrittenContent } from '@/types/landing/written-content/written-content.type';
-import { TYPE_WRITTEN_CONTENT } from '@/types/landing/index.type';
+import { IWrittenContent } from '@/types/common/written-content/written-content-response.type';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 export default function WrittenContentCard({
   id,
