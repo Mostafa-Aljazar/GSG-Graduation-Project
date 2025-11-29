@@ -55,7 +55,7 @@ const DelegateProfileForm = ({
   delegateId,
   destination,
 }: {
-  delegateId: number;
+  delegateId?: number;
   destination?: ACTION_ADD_EDIT_DISPLAY;
 }) => {
   const queryClient = useQueryClient();

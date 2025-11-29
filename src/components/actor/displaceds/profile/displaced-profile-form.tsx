@@ -67,7 +67,7 @@ const DisplacedProfileForm = ({
   displacedId,
   destination,
 }: {
-  displacedId: number;
+  displacedId?: number;
   destination?: ACTION_ADD_EDIT_DISPLAY;
 }) => {
   const queryClient = useQueryClient();
