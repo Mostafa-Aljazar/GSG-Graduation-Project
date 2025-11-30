@@ -1,3 +1,4 @@
+import { CalendarClock, CheckCircle2 } from "lucide-react";
 
 
 export const REACT_QUERY_KEYS = {
@@ -106,3 +107,24 @@ export const CHRONIC_DISEASE_LABELS: Record<CHRONIC_DISEASE, string> = {
 };
 
 /////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////
+
+//  Define the enum for tasks tabs
+export enum TASKS_TABS {
+    COMPLETED_TASKS = 'COMPLETED_TASKS',
+    UPCOMING_TASKS = 'UPCOMING_TASKS',
+}
+
+export const getTasksTabs = () => {
+    return {
+        [TASKS_TABS.COMPLETED_TASKS]: { label: 'مهام منجزة', icon: CheckCircle2 },
+        [TASKS_TABS.UPCOMING_TASKS]: { label: 'مهام قادمة', icon: CalendarClock, }
+    } as const;
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+

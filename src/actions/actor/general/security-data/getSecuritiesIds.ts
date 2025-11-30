@@ -24,6 +24,7 @@ export const getSecuritiesIds = async (): Promise<ISecurityIdsResponse> => {
         }
 
         throw new Error("بيانات أفراد الأمن غير متوفرة");
+
     } catch (err: unknown) {
         let errorMessage = "حدث خطأ أثناء جلب بيانات أفراد الأمن";
         const statusCode = 500;
