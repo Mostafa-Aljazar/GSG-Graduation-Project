@@ -1,4 +1,4 @@
-import { CalendarClock, CheckCircle2 } from "lucide-react";
+import { BookOpen, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, Package, Shirt, SprayCan, Utensils } from "lucide-react";
 
 
 export const REACT_QUERY_KEYS = {
@@ -127,4 +127,41 @@ export const getTasksTabs = () => {
 
 /////////////////////////////////////////////////////////////////////////
 
+export enum DISPLACED_RECEIVED_AIDS_TABS {
+    RECEIVED_AIDS = 'RECEIVED_AIDS',
+    PROVIDED_AIDS = 'PROVIDED_AIDS',
+}
+
+export const getDisplacedReceivedAidsTabs = () => {
+    return {
+        [DISPLACED_RECEIVED_AIDS_TABS.RECEIVED_AIDS]: { label: 'المساعدات المستلمة', icon: Gift },
+        [DISPLACED_RECEIVED_AIDS_TABS.PROVIDED_AIDS]: { label: 'المساعدات المقدّمة', icon: HandHeart }
+    } as const;
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+export enum TYPE_AIDS {
+    FINANCIAL_AID = "FINANCIAL_AID",
+    FOOD_AID = "FOOD_AID",
+    MEDICAL_AID = "MEDICAL_AID",
+    CLEANING_AID = "CLEANING_AID",
+    CLOTHING_AIDS = "CLOTHING_AIDS",
+    EDUCATIONAL_AID = "EDUCATIONAL_AID",
+    OTHER_AID = "OTHER_AID",
+}
+
+export const getAidsTypes = () => {
+    return {
+        [TYPE_AIDS.FINANCIAL_AID]: { label: 'مساعدة ماليّة', icon: DollarSign },
+        [TYPE_AIDS.FOOD_AID]: { label: 'مساعدة غذائية', icon: Utensils },
+        [TYPE_AIDS.MEDICAL_AID]: { label: 'مساعدة صحية', icon: HeartPulse },
+        [TYPE_AIDS.CLEANING_AID]: { label: 'مساعدة تنظيفة', icon: SprayCan },
+        [TYPE_AIDS.CLOTHING_AIDS]: { label: 'مساعدة ملابس', icon: Shirt },
+        [TYPE_AIDS.EDUCATIONAL_AID]: { label: 'مساعدة تعليمية', icon: BookOpen },
+        [TYPE_AIDS.OTHER_AID]: { label: 'مساعدات أخرى', icon: Package },
+    } as const;
+}
+
+/////////////////////////////////////////////////////////////////////////
 
