@@ -4,7 +4,8 @@ import './globals.css';
 import { Cairo } from 'next/font/google';
 
 import Providers from '@/providers/providers';
-import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import Test from '@/components/tests/Test';
 
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
@@ -24,6 +25,8 @@ export default function RootLayout({
       </head>
       <body className={`${cairo.variable} antialiased`}>
         <Providers> {children}</Providers>
+        
+        
       </body>
     </html>
   );
