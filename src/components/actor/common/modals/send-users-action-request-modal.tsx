@@ -3,7 +3,7 @@
 import {
   ISendUsersActionRequestProps,
   sendUsersActionRequest,
-} from '@/actions/actor/general/common/modals/sendUserActionRequest';
+} from '@/actions/actor/common/modals/sendUserActionRequest';
 import { USER_TYPE, USER_RANK_LABELS } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import {

@@ -1,4 +1,5 @@
-import { BookOpen, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, Package, Shirt, SprayCan, Utensils } from "lucide-react";
+import { Activity, BookOpen, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, History, Package, Shirt, SprayCan, Utensils } from "lucide-react";
+import { ICategoryRange } from "./aids-management/aids-management.types";
 
 
 export const REACT_QUERY_KEYS = {
@@ -108,9 +109,6 @@ export const CHRONIC_DISEASE_LABELS: Record<CHRONIC_DISEASE, string> = {
 
 /////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////////
-
 //  Define the enum for tasks tabs
 export enum TASKS_TABS {
     COMPLETED_TASKS = 'COMPLETED_TASKS',
@@ -139,7 +137,26 @@ export const getDisplacedReceivedAidsTabs = () => {
     } as const;
 }
 
+
 /////////////////////////////////////////////////////////////////////////
+
+
+export enum TYPE_GROUP_AIDS {
+    PREVIOUS_AIDS = 'PREVIOUS_AIDS',
+    ONGOING_AIDS = 'ONGOING_AIDS',
+    COMING_AIDS = 'COMING_AIDS',
+}
+
+
+export const getAidsManagementTabs = () => {
+    return {
+        PREVIOUS_AIDS: { label: 'السابقة', icon: History },
+        ONGOING_AIDS: { label: 'الجارية', icon: Activity },
+        COMING_AIDS: { label: 'القادمة', icon: CalendarCheck },
+    } as const;
+}
+/////////////////////////////////////////////////////////////////////////
+
 
 export enum TYPE_AIDS {
     FINANCIAL_AID = "FINANCIAL_AID",
@@ -150,6 +167,7 @@ export enum TYPE_AIDS {
     EDUCATIONAL_AID = "EDUCATIONAL_AID",
     OTHER_AID = "OTHER_AID",
 }
+
 
 export const getAidsTypes = () => {
     return {
@@ -163,5 +181,59 @@ export const getAidsTypes = () => {
     } as const;
 }
 
-/////////////////////////////////////////////////////////////////////////
 
+// FIXME: add to content
+export const DEFAULT_CATEGORIES: ICategoryRange[] = [
+    {
+        id: '1-3 أفراد',
+        label: '1-3 أفراد',
+        min: 1,
+        max: 3,
+        isDefault: true,
+        portion: 1,
+    },
+    {
+        id: '4-6 أفراد',
+        label: '4-6 أفراد',
+        min: 4,
+        max: 6,
+        isDefault: true,
+        portion: 2,
+    },
+    {
+        id: '7-9 أفراد',
+        label: '7-9 أفراد',
+        min: 7,
+        max: 9,
+        isDefault: true,
+        portion: 3,
+    },
+    {
+        id: 'أكثر من 10 أفراد',
+        label: 'أكثر من 10 أفراد',
+        min: 10,
+        max: null,
+        isDefault: true,
+        portion: 4,
+    },
+];
+
+export enum DISTRIBUTION_MECHANISM {
+    DELEGATES_LISTS = "DELEGATES_LISTS",
+    DISPLACED_FAMILIES = "DISPLACED_FAMILIES",
+}
+
+export enum DELEGATE_PORTIONS {
+    EQUAL = "EQUAL",
+    MANUAL = "MANUAL",
+}
+
+export enum QUANTITY_AVAILABILITY {
+    LIMITED = "LIMITED",
+    UNLIMITED = "UNLIMITED",
+}
+
+export enum DISTRIBUTION_METHOD {
+    EQUAL = "EQUAL",
+    FAMILY_NUMBER = "FAMILY_NUMBER",
+}

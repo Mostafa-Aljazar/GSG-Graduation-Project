@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  changeDelegate,
-  IChangeDelegateProps,
-} from '@/actions/actor/general/common/modals/changeDelegate';
+import { changeDelegate, IChangeDelegateProps } from '@/actions/actor/common/modals/changeDelegate';
 import useGetDelegatesNames from '@/hooks/useGetDelegatesNames';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';

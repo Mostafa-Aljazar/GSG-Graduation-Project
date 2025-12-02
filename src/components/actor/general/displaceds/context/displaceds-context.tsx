@@ -1,6 +1,6 @@
 'use client';
 
-import { TDisplacedsFilterFormValues } from '@/validations/actor/general/displaceds/displaceds-filter-form';
+import { TDisplacedsFilterFormValues } from '@/validations/actor/general/displaceds/displaceds-filter-form.schema';
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 type DisplacedsContextType = {

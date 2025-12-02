@@ -3,7 +3,7 @@
 import {
   ISendUpdateUsersRequestProps,
   sendUpdateUsersRequest,
-} from '@/actions/actor/general/common/modals/sendUpdateUsersRequest';
+} from '@/actions/actor/common/modals/sendUpdateUsersRequest';
 import { USER_TYPE, USER_RANK_LABELS } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';

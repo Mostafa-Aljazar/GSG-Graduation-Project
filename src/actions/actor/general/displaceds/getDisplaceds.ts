@@ -3,7 +3,7 @@
 import { fakeDisplacedResponse } from "@/content/actor/displaced/fake-data/fake-displaced";
 import { AqsaAPI } from "@/services/api";
 import { IDisplacedsResponse } from "@/types/actor/general/displaceds/displacesResponse.type";
-import { TDisplacedsFilterFormValues } from "@/validations/actor/general/displaceds/displaceds-filter-form";
+import { TDisplacedsFilterFormValues } from "@/validations/actor/general/displaceds/displaceds-filter-form.schema";
 
 
 export interface IGetDisplacedsProps {

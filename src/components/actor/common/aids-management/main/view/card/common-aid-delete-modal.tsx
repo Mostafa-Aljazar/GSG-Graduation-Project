@@ -1,27 +1,26 @@
 'use client';
-
-import { deleteUsers, IDeleteUsersProps } from '@/actions/actor/common/modals/deleteUsers';
-import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
+import { deleteAid, IDeleteAidProps } from '@/actions/actor/common/aids-management/deleteAid';
+import useAuth from '@/hooks/useAuth';
+import { useAlreadyUserStore } from '@/stores/alreadyUserStore';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface IDeleteUsersModalProps {
-  userIds: number[];
-  userType: USER_TYPE;
+interface ICommonAidDeleteModalProps {
+  aidId: number;
   opened: boolean;
   close: () => void;
 }
 
-export default function DeleteUsersModal({
-  userIds,
-  userType,
-  opened,
-  close,
-}: IDeleteUsersModalProps) {
-  const deleteMutation = useMutation<IActionResponse, unknown, IDeleteUsersProps>({
-    mutationFn: deleteUsers,
+export default function CommonAidDeleteModal({ aidId, opened, close }: ICommonAidDeleteModalProps) {
+  const queryClient = useQueryClient();
+  const { user, isManager } = useAuth();
+  const { userId, userType } = useAlreadyUserStore();
+
+  const isAvailableToDelete = user?.id == userId && user.role == userType && isManager;
+  const deleteMutation = useMutation<IActionResponse, unknown, IDeleteAidProps>({
+    mutationFn: deleteAid,
     onSuccess: (data) => {
       if (data.status === 200) {
         notifications.show({
@@ -32,14 +31,16 @@ export default function DeleteUsersModal({
           withBorder: true,
         });
         close();
+        queryClient.invalidateQueries({ queryKey: ['aids'] });
       } else {
         throw new Error(data.error || 'فشل في الحذف');
       }
     },
     onError: (error: any) => {
+      const errorMessage = error?.message || 'فشل في الحذف';
       notifications.show({
         title: 'خطأ',
-        message: error?.message || 'فشل في الحذف',
+        message: errorMessage,
         color: 'red',
         position: 'top-left',
         withBorder: true,
@@ -47,41 +48,38 @@ export default function DeleteUsersModal({
     },
   });
 
-  const handleDelete = () => {
-    deleteMutation.mutate({ userIds, userType });
+  const handleClick = () => {
+    if (isAvailableToDelete) {
+      deleteMutation.mutate({
+        aidId,
+        managerId: user?.id as number,
+      });
+    }
   };
-
-  const single = userIds.length === 1;
-  const userLabel = USER_RANK_LABELS[userType];
 
   return (
     <Modal
       opened={opened}
-      onClose={close}
-      centered
+      onClose={() => close()}
       title={
         <Text fz={18} fw={600} ta='center' className='text-red-500!'>
           تأكيد الحذف
         </Text>
       }
-      classNames={{ title: 'w-full!' }}
+      classNames={{
+        title: '!w-full',
+      }}
+      centered
     >
       <Stack>
         <Text fz={16} fw={500}>
-          {single
-            ? `هل أنت متأكد من حذف هذا ${userLabel}؟ هذا الإجراء لا يمكن التراجع عنه.`
-            : `هل أنت متأكد من حذف هؤلاء ${userLabel}؟ هذا الإجراء لا يمكن التراجع عنه.`}
+          هل أنت متأكد من حذف هذه المساعدة؟ هذا الإجراء لا يمكن التراجع عنه.
         </Text>
-
-        {userType === USER_TYPE.DELEGATE && (
-          <Text fz={16} fw={500} className='text-red-500!'>
-            ملاحظة / سيتم نقل النازحين الخاضعين لهؤلاء المندوبين إلى المندوب الافتراضي (بدون مندوب).
-          </Text>
-        )}
 
         <Group justify='flex-end'>
           <Button
             size='sm'
+            type='button'
             variant='outline'
             onClick={close}
             fw={600}
@@ -92,9 +90,9 @@ export default function DeleteUsersModal({
           <Button
             size='sm'
             type='button'
-            onClick={handleDelete}
-            loading={deleteMutation.isPending}
             className='bg-red-500! shadow-md!'
+            loading={deleteMutation.isPending}
+            onClick={handleClick}
           >
             حذف
           </Button>

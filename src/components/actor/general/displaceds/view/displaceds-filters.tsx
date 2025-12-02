@@ -39,7 +39,7 @@ import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import {
   displacedsFilterFormSchema,
   TDisplacedsFilterFormValues,
-} from '@/validations/actor/general/displaceds/displaceds-filter-form';
+} from '@/validations/actor/general/displaceds/displaceds-filter-form.schema';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 import useGetDelegatesNames from '@/hooks/useGetDelegatesNames';
 import { useDisplaceds } from '../context/displaceds-context';
