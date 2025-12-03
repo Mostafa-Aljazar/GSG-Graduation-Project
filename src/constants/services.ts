@@ -1,1 +1,1 @@
-export const APP_URL = process.env.APP_URL
+export const APP_URL = process.env.APP_URL ?? 'http://localhost'

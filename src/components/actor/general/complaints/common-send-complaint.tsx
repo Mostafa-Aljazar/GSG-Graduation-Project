@@ -1,12 +1,24 @@
 'use client';
 
 import { IcommonActionResponse } from '@/types/common/action/commonActionResponse.type';
-import { sendCommonComplaint, ISendCommonComplaintProps } from '@/actions/actor/genral/complaints/sendCommonComplaint';
+import {
+  sendCommonComplaint,
+  ISendCommonComplaintProps,
+} from '@/actions/actor/genral/complaints/sendCommonComplaint';
 
-import { USER_RANK, USER_RANK_LABELS, USER_TYPE, TUserRank, TUserType } from '@/constants/user-types';
+import {
+  USER_RANK,
+  USER_RANK_LABELS,
+  USER_TYPE,
+  TUserRank,
+  TUserType,
+} from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
 import { cn } from '@/utils/cn';
-import { commonSendComplaintFormSchema, TCommonSendComplaintFormValues } from '@/validations/actor/general/complaints/sendComplaintFormSchema';
+import {
+  commonSendComplaintFormSchema,
+  TCommonSendComplaintFormValues,
+} from '@/validations/actor/general/complaints/sendComplaintFormSchema';
 import {
   Button,
   Group,
@@ -32,9 +44,10 @@ const ALLOWED_RECEPTIONS: Record<TUserRank, TUserRank[]> = {
   MANAGER: [],
 };
 
-export default function Common_Send_Complaint() {
+export default function CommonSendComplaint() {
   const { user } = useAuth();
   const [opened, { open, close }] = useDisclosure(false);
+  // const [valid, setValid] = useState(false);
 
   const allowedReceptions = (user?.role && ALLOWED_RECEPTIONS[user.role as TUserType]) || [];
 
@@ -45,16 +58,16 @@ export default function Common_Send_Complaint() {
 
   const formSchema = commonSendComplaintFormSchema.refine(
     (data) => {
-        if (data.reception === null) {
-            return false; 
-        }
-        return allowedReceptions.includes(data.reception);
+      if (data.reception === null) {
+        return false;
+      }
+      return allowedReceptions.includes(data.reception as TUserRank);
     },
     {
-        path: ['reception'],
-        message: 'جهة الاستقبال غير صالحة لهذا الدور',
+      path: ['reception'],
+      message: 'جهة الاستقبال غير صالحة لهذا الدور',
     }
-  ) as any ;
+  ) as any;
 
   const form = useForm<TCommonSendComplaintFormValues>({
     initialValues: {
@@ -64,6 +77,7 @@ export default function Common_Send_Complaint() {
     },
     validate: zodResolver(formSchema),
   });
+
 
   const sendCommonComplaintMutation = useMutation<
     IcommonActionResponse,
@@ -218,9 +232,9 @@ export default function Common_Send_Complaint() {
                 rightSection={<Send size={14} />}
                 className={cn(
                   'shadow-lg text-white',
-                  !form.isValid() ? '!bg-primary/70' : '!bg-primary'
+                  Object.keys(form.errors).length > 0 ? '!bg-primary/70' : '!bg-primary'
                 )}
-                disabled={!form.isValid() || disabled}
+                disabled={Object.keys(form.errors).length > 0 || disabled}
               >
                 إرسال
               </Button>

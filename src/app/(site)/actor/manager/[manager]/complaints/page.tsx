@@ -4,9 +4,19 @@ import { generateActorComplaintsMetadata } from '@/utils/metadata/actor-complain
 import ActorComplaintsWrapper from '@/components/complaints-view/ActorComplaintsWrapper';
 import { getManagerRoutes } from '@/constants/routes';
 
+// import { FAVICON } from '@/assets/common';
+
+
 interface Props {
   params: { manager: string };
 }
+
+const FALLBACK = {
+  TITLE: 'شكاوى المديرين | AL-AQSA Camp',
+  DESCRIPTION: 'عرض جميع الشكاوى المرسلة والمستقبلة الخاصة بالمديرين في منصة مخيم الأقصى.',
+    IMAGE: 'https://example.com/favicon.png',
+    // IMAGE: FAVICON.src,
+};
 
 export async function generateMetadata(
   { params }: Props,
@@ -24,6 +34,7 @@ export async function generateMetadata(
       role: USER_RANK.MANAGER,
       routeFunc: getManagerRoutes,
       actorName: 'المدير',
+      FALLBACK,
     },
     parent
   );

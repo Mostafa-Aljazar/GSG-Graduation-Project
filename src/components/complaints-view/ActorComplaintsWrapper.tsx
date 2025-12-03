@@ -1,7 +1,7 @@
 // src/components/common/complaints/ActorComplaintsWrapper.tsx
 
 import CommonComplaintsContent from '../actor/general/complaints/common-complaints-content';
-import { USER_RANK } from '@/constants/user-types';
+import { USER_RANK , TUserRank } from '@/constants/user-types';
 import { Stack } from '@mantine/core';
 import { Suspense } from 'react';
 
@@ -12,6 +12,8 @@ interface IActorComplaintsWrapperProps {
 
 // ManagerComplaints
 export default function ActorComplaintsWrapper({ actor_Id, rank }: IActorComplaintsWrapperProps) {
+  console.log("delegate is: ",actor_Id);
+
   return (
     <Stack justify='center' align='center' pt={20} w='100%' px={10}>
       <Suspense fallback={<div>جارٍ التحميل...</div>}>

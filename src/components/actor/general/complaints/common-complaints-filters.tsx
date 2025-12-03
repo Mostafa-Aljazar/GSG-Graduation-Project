@@ -6,7 +6,7 @@ import { Activity, Calendar, ListFilter, RotateCcw, Search } from 'lucide-react'
 import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { CommonComplaintFilterFormSchema, TCommonComplaintFilterFormValues } from '@/validations/actor/general/complaints/commonComplaintsSchema';
-import Common_Send_Complaint from './common-send-complaint';
+import CommonSendComplaint from './common-send-complaint';
 import useAuth from '@/hooks/useAuth';
 import { USER_TYPE, TUserRank, TUserType } from '@/constants/user-types';
 import { COMPLAINTS_STATUS, COMPLAINTS_STATUS_LABELS } from '@/types/actor/common/index.type';
@@ -87,7 +87,7 @@ export default function Common_Complaints_Filters({
           </Text>
         </Group>
 
-        {isOwner && role !== USER_TYPE.MANAGER && <Common_Send_Complaint />}
+        {isOwner && role !== USER_TYPE.MANAGER && <CommonSendComplaint />}
       </Group>
 
       <Group
