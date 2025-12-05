@@ -1,6 +1,7 @@
+import { IGetAidProps } from "@/actions/actor/common/aids-management/getAid";
 import { IGetAidsProps } from "@/actions/actor/common/aids-management/getAids";
-import { IAidsResponse, TAid } from "@/types/actor/common/aids-management/aids-management.types";
-import { DISTRIBUTION_METHOD, QUANTITY_AVAILABILITY, TYPE_AIDS, DISTRIBUTION_MECHANISM, DELEGATE_PORTIONS, TYPE_GROUP_AIDS } from "@/types/actor/common/index.type";
+import { IAidResponse, IAidsResponse, TAid } from "@/types/actor/common/aids-management/aids-management.types";
+import { QUANTITY_AVAILABILITY, TYPE_AIDS, DISTRIBUTION_MECHANISM, TYPE_GROUP_AIDS } from "@/types/actor/common/index.type";
 
 
 export const fakeAids: TAid[] = [
@@ -15,14 +16,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 200,
-        displacedSinglePortion: 4,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-1', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 4 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 25,
         selectedDisplacedIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 25 },
@@ -54,14 +51,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 80,
-        displacedSinglePortion: 1,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
-            { id: 'cat-2', label: 'مرضى', min: 0, max: null, isDefault: true, portion: 1 },
+            { id: 'مرضى', label: 'مرضى', min: 0, max: null, isDefault: true, portion: 1 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.MANUAL,
-        delegateSinglePortion: 0,
         selectedDisplacedIds: [3, 4, 5, 6, 7, 8],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 15 },
@@ -89,8 +82,6 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 150,
-        displacedSinglePortion: 3,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-3', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 3 },
         ],
@@ -118,14 +109,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.UNLIMITED,
         existingQuantity: 500,
-        displacedSinglePortion: 6,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-4', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 6 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 60,
         selectedDisplacedIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 60 },
@@ -154,8 +141,6 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 200,
-        displacedSinglePortion: 5,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-5', label: 'طلاب', min: 6, max: 18, isDefault: true, portion: 5 },
         ],
@@ -178,14 +163,10 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 300,
-        displacedSinglePortion: 4,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-6', label: 'عائلات صغيرة', min: 1, max: 4, isDefault: true, portion: 4 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.MANUAL,
-        delegateSinglePortion: 0,
         selectedDisplacedIds: [1, 2, 7, 8, 11, 12, 17, 18],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 50 },
@@ -215,8 +196,6 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 1000,
-        displacedSinglePortion: 50,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-7', label: 'عائلات فقيرة', min: 1, max: null, isDefault: true, portion: 50 },
         ],
@@ -242,14 +221,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 50,
-        displacedSinglePortion: 1,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-8', label: 'عائلات متضررة', min: 1, max: null, isDefault: true, portion: 1 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 6,
         selectedDisplacedIds: [1, 2, 3, 4, 5, 6],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 6 },
@@ -274,8 +249,6 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 180,
-        displacedSinglePortion: 5,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-9', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 5 },
         ],
@@ -302,14 +275,10 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 150,
-        displacedSinglePortion: 4,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-10', label: 'طلاب', min: 6, max: 18, isDefault: true, portion: 4 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.MANUAL,
-        delegateSinglePortion: 0,
         selectedDisplacedIds: [5, 6, 9, 10, 13, 14],
         selectedDelegatesPortions: [
             { delegateId: 5, portion: 30 },
@@ -337,8 +306,6 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.UNLIMITED,
         existingQuantity: 400,
-        displacedSinglePortion: 4,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-11', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 4 },
         ],
@@ -361,14 +328,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 60,
-        displacedSinglePortion: 1,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-12', label: 'مراكز صحية', min: 0, max: null, isDefault: true, portion: 1 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 7,
         selectedDisplacedIds: [9, 10, 11, 12, 13, 14],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 7 },
@@ -396,8 +359,6 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.UNLIMITED,
         existingQuantity: 600,
-        displacedSinglePortion: 6,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-13', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 6 },
         ],
@@ -424,14 +385,10 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 200,
-        displacedSinglePortion: 3,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-14', label: 'أطفال', min: 0, max: 12, isDefault: true, portion: 3 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.MANUAL,
-        delegateSinglePortion: 0,
         selectedDisplacedIds: [5, 6, 9, 10, 13, 14],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 40 },
@@ -456,8 +413,6 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 40,
-        displacedSinglePortion: 1,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-15', label: 'عائلات متضررة', min: 1, max: null, isDefault: true, portion: 1 },
         ],
@@ -485,14 +440,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 800,
-        displacedSinglePortion: 50,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-16', label: 'عائلات كبيرة', min: 5, max: null, isDefault: true, portion: 50 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 100,
         selectedDisplacedIds: [5, 6, 9, 10, 13, 14, 15, 16],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 100 },
@@ -520,8 +471,6 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 70,
-        displacedSinglePortion: 1,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-17', label: 'مراكز صحية', min: 0, max: null, isDefault: true, portion: 1 },
         ],
@@ -544,14 +493,10 @@ export const fakeAids: TAid[] = [
         securityRequired: true,
         quantityAvailability: QUANTITY_AVAILABILITY.UNLIMITED,
         existingQuantity: 500,
-        displacedSinglePortion: 6,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-18', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 6 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.MANUAL,
-        delegateSinglePortion: 0,
         selectedDisplacedIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 60 },
@@ -580,8 +525,6 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 120,
-        displacedSinglePortion: 2,
-        distributionMethod: DISTRIBUTION_METHOD.FAMILY_NUMBER,
         selectedCategories: [
             { id: 'cat-19', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 2 },
         ],
@@ -607,14 +550,10 @@ export const fakeAids: TAid[] = [
         securityRequired: false,
         quantityAvailability: QUANTITY_AVAILABILITY.LIMITED,
         existingQuantity: 100,
-        displacedSinglePortion: 3,
-        distributionMethod: DISTRIBUTION_METHOD.EQUAL,
         selectedCategories: [
             { id: 'cat-20', label: 'عائلات', min: 1, max: null, isDefault: true, portion: 3 },
         ],
         distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS,
-        delegatesPortions: DELEGATE_PORTIONS.EQUAL,
-        delegateSinglePortion: 12,
         selectedDisplacedIds: [1, 2, 3, 4, 5, 6, 7, 8],
         selectedDelegatesPortions: [
             { delegateId: 1, portion: 12 },
@@ -630,19 +569,17 @@ export const fakeAids: TAid[] = [
     },
 ];
 
+export function fakeAidResponse({
+    aidId
+}: IGetAidProps): IAidResponse {
+    const filteredAid = fakeAids.find(aid => aid.id === aidId)
 
-
-// export function fakeAidResponse({
-
-// }: IGetAidsProps): IAidResponse {
-//     const filteredAid = fakeAids.find(aid => aid.id === aid_Id)
-
-//     return {
-//         status: 200,
-//         message: 'تم جلب المساعدة بنجاح',
-//         aid: filteredAid as Aid,
-//     };
-// }
+    return {
+        status: 200,
+        message: 'تم جلب المساعدة بنجاح',
+        aid: filteredAid as TAid,
+    };
+}
 
 export function fakeAidsResponse({
     page,

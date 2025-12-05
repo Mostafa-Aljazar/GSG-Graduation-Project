@@ -62,7 +62,12 @@ export default function CommonAidAction({
           {
             label: 'تعديل',
             icon: UserPen,
-            action: () => router.push(`${routeFunc.AID}?action=${ACTION_ADD_EDIT_DISPLAY.EDIT}`),
+            action: () =>
+              router.push(
+                `${getManagerRoutes({ managerId: actorId, aidId }).ADD_AID}?action=${
+                  ACTION_ADD_EDIT_DISPLAY.EDIT
+                }&aidId=${aidId}`
+              ),
           },
           { label: 'حذف', icon: Trash, action: openDelete },
         ];

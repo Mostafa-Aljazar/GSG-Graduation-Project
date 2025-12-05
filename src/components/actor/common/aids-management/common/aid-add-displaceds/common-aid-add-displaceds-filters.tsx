@@ -1,5 +1,25 @@
 'use client';
 
+import { useDisplaceds } from '@/components/actor/general/displaceds/context/displaceds-context';
+import useAuth from '@/hooks/useAuth';
+import useGetDelegatesNames from '@/hooks/useGetDelegatesNames';
+import {
+  ACCOMMODATION_TYPE,
+  ACCOMMODATION_TYPE_LABELS,
+  AGES,
+  AGES_LABELS,
+  CHRONIC_DISEASE,
+  CHRONIC_DISEASE_LABELS,
+  FAMILY_STATUS_TYPE,
+  FAMILY_STATUS_TYPE_LABELS,
+  WIFE_STATUS,
+  WIFE_STATUS_LABELS,
+} from '@/types/actor/common/index.type';
+import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
+import {
+  displacedsFilterFormSchema,
+  TDisplacedsFilterFormValues,
+} from '@/validations/actor/general/displaceds/displaceds-filter-form.schema';
 import {
   Box,
   Button,
@@ -19,32 +39,19 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { ListFilter, MessageCircleWarning, RotateCcw, Search } from 'lucide-react';
+import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { parseAsString, useQueryState } from 'nuqs';
 import { useState } from 'react';
-import {
-  ACCOMMODATION_TYPE,
-  ACCOMMODATION_TYPE_LABELS,
-  AGES,
-  AGES_LABELS,
-  FAMILY_STATUS_TYPE,
-  FAMILY_STATUS_TYPE_LABELS,
-  CHRONIC_DISEASE,
-  CHRONIC_DISEASE_LABELS,
-  WIFE_STATUS,
-  WIFE_STATUS_LABELS,
-} from '@/types/actor/common/index.type';
 
-import useAuth from '@/hooks/useAuth';
-import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
-import {
-  displacedsFilterFormSchema,
-  TDisplacedsFilterFormValues,
-} from '@/validations/actor/general/displaceds/displaceds-filter-form.schema';
-import { zod4Resolver } from 'mantine-form-zod-resolver';
-import useGetDelegatesNames from '@/hooks/useGetDelegatesNames';
-import { useDisplaceds } from '../context/displaceds-context';
+// interface CommonDisplacedFiltersProps {
+//   setLocalFilters: React.Dispatch<React.SetStateAction<displacedsFilterValuesType>>;
+//   displacedNum: number;
 
-export default function DisplacedsFilters() {
+//   actor_Id: number;
+//   role?: Exclude<UserRank, typeof USER_RANK.DISPLACED | typeof USER_RANK.SECURITY>;
+// }
+
+export default function AidAddDisplacedsFilters() {
   const { displacedNum, setLocalFilters, localFilters } = useDisplaceds();
 
   const {
@@ -53,7 +60,7 @@ export default function DisplacedsFilters() {
     error: queryDelegateError,
     hasError,
   } = useGetDelegatesNames({
-    mode: ACTION_ADD_EDIT_DISPLAY.EDIT,
+    mode: ACTION_ADD_EDIT_DISPLAY.ADD,
   });
 
   const { user, isDelegate } = useAuth();

@@ -1,6 +1,10 @@
 import { IPagination } from "@/types/common/pagination.type";
-import { DELEGATE_PORTIONS, DISTRIBUTION_MECHANISM, DISTRIBUTION_METHOD, QUANTITY_AVAILABILITY, TYPE_AIDS, TYPE_GROUP_AIDS } from "../index.type";
-
+import {
+    DISTRIBUTION_MECHANISM,
+    QUANTITY_AVAILABILITY,
+    TYPE_AIDS,
+    TYPE_GROUP_AIDS,
+} from "../index.type";
 
 //////////////////////////////////////////////////////
 // CATEGORY RANGE
@@ -25,7 +29,7 @@ export interface ISelectedDelegatePortion {
 }
 
 //////////////////////////////////////////////////////
-// BASE AID FORM
+// BASE AID FORM (used in Add + Edit)
 //////////////////////////////////////////////////////
 
 export interface IBaseAidForm {
@@ -36,28 +40,25 @@ export interface IBaseAidForm {
     deliveryLocation: string;
     securityRequired: boolean;
     quantityAvailability: QUANTITY_AVAILABILITY;
-    existingQuantity: number;
-    displacedSinglePortion: number;
+    existingQuantity?: number;
     selectedCategories: ICategoryRange[];
-    distributionMethod: DISTRIBUTION_METHOD;
-    additionalNotes: string;
+    additionalNotes?: string;
+    distributionMechanism: DISTRIBUTION_MECHANISM;
 }
 
 //////////////////////////////////////////////////////
-// CONDITIONAL FORMS (Discriminated Unions)
+// FINAL AID ENTITY (Saved in DB)
 //////////////////////////////////////////////////////
 
-export interface IDelegateAidForm extends IBaseAidForm {
-    distributionMechanism: DISTRIBUTION_MECHANISM.DELEGATES_LISTS;
-    delegatesPortions: DELEGATE_PORTIONS;
-    delegateSinglePortion?: number;
-}
-
-export interface IDirectAidForm extends IBaseAidForm {
-    distributionMechanism: DISTRIBUTION_MECHANISM.DISPLACED_FAMILIES;
-}
-
-export type TAddAidFormValues = IDelegateAidForm | IDirectAidForm;
+export type TAid = IBaseAidForm & {
+    id: number;
+    selectedDisplacedIds: number[];
+    selectedDelegatesPortions?: ISelectedDelegatePortion[];
+    receivedDisplaceds: IReceivedDisplaceds[];
+    securitiesId: number[];
+    isCompleted: boolean;
+    aidStatus: TYPE_GROUP_AIDS;
+};
 
 //////////////////////////////////////////////////////
 // RECEIVED ITEMS
@@ -65,25 +66,11 @@ export type TAddAidFormValues = IDelegateAidForm | IDirectAidForm;
 
 export interface IReceivedDisplaceds {
     displacedId: number;
-    receivedTime: Date;
+    receivedTime: Date | string;
 }
 
 //////////////////////////////////////////////////////
-// FINAL AID ENTITY
-//////////////////////////////////////////////////////
-
-export type TAid = TAddAidFormValues & {
-    id: number;
-    selectedDisplacedIds: number[];
-    selectedDelegatesPortions?: ISelectedDelegatePortion[];
-    receivedDisplaceds: IReceivedDisplaceds[];
-    securitiesId?: number[];
-    isCompleted: boolean;
-    aidStatus: TYPE_GROUP_AIDS;
-};
-
-//////////////////////////////////////////////////////
-// API RESPONSE TYPES
+// API RESPONSES
 //////////////////////////////////////////////////////
 
 export interface IAidResponse {

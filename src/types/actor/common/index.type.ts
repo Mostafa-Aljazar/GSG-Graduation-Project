@@ -1,5 +1,5 @@
 import { Activity, BookOpen, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, History, Package, Shirt, SprayCan, Utensils } from "lucide-react";
-import { ICategoryRange } from "./aids-management/aids-management.types";
+import { IBaseAidForm, ICategoryRange } from "./aids-management/aids-management.types";
 
 
 export const REACT_QUERY_KEYS = {
@@ -185,6 +185,14 @@ export const getAidsTypes = () => {
 // FIXME: add to content
 export const DEFAULT_CATEGORIES: ICategoryRange[] = [
     {
+        id: 'الكل',
+        label: 'الكل',
+        min: 1,
+        max: null,
+        isDefault: true,
+        portion: 1,
+    },
+    {
         id: '1-3 أفراد',
         label: '1-3 أفراد',
         min: 1,
@@ -233,7 +241,26 @@ export enum QUANTITY_AVAILABILITY {
     UNLIMITED = "UNLIMITED",
 }
 
-export enum DISTRIBUTION_METHOD {
-    EQUAL = "EQUAL",
-    FAMILY_NUMBER = "FAMILY_NUMBER",
-}
+export const AIDS_TYPES_MAP = {
+    [TYPE_AIDS.FINANCIAL_AID]: { label: 'مساعدة ماليّة', icon: Package },
+    [TYPE_AIDS.FOOD_AID]: { label: 'مساعدة غذائية', icon: Package },
+    [TYPE_AIDS.MEDICAL_AID]: { label: 'مساعدة صحية', icon: Package },
+    [TYPE_AIDS.CLEANING_AID]: { label: 'مساعدة تنظيفة', icon: Package },
+    [TYPE_AIDS.CLOTHING_AIDS]: { label: 'مساعدة ملابس', icon: Package },
+    [TYPE_AIDS.EDUCATIONAL_AID]: { label: 'مساعدة تعليمية', icon: Package },
+    [TYPE_AIDS.OTHER_AID]: { label: 'مساعدات أخرى', icon: Package },
+};
+
+export const INITIAL_AID_FORM_VALUES: IBaseAidForm = {
+    aidName: 'ssssssss',
+    aidType: TYPE_AIDS.OTHER_AID,
+    aidContent: '',
+    deliveryDate: null,
+    deliveryLocation: '',
+    securityRequired: false,
+    quantityAvailability: QUANTITY_AVAILABILITY.UNLIMITED,
+    selectedCategories: [],
+    additionalNotes: '',
+    distributionMechanism: DISTRIBUTION_MECHANISM.DISPLACED_FAMILIES,
+    existingQuantity: undefined,
+};
