@@ -1,5 +1,8 @@
-// src/utils/metadata/complaints-metadata-helper.ts
 
+//not used any more
+
+
+/* 
 import type { Metadata, ResolvingMetadata } from 'next';
 import { APP_URL } from '@/constants/services';
 import { getCommonComplaints } from '@/actions/actor/genral/complaints/getCommonComplaints';
@@ -84,3 +87,4 @@ export async function generateActorComplaintsMetadata(
     };
   }
 }
+ */

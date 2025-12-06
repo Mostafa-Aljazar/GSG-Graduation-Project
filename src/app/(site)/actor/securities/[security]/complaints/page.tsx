@@ -1,41 +1,41 @@
-import type { Metadata, ResolvingMetadata } from 'next';
-import { getCommonComplaints } from '@/actions/actor/genral/complaints/getCommonComplaints';
-import { USER_RANK } from '@/constants/user-types';
-import { COMPLAINTS_STATUS, COMPLAINTS_TABS  } from '@/types/actor/common/index.type';
-import { APP_URL } from '@/constants/services';
-import { getDelegateRoutes } from '@/constants/routes';
-import { Stack } from '@mantine/core';
-import { Suspense } from 'react';
-import CommonComplaintsHeaderTabs from '@/components/actor/general/complaints/common-complaints-tabs';
 import CommonComplaintsContent from '@/components/actor/general/complaints/common-complaints-content';
+import CommonComplaintsHeaderTabs from '@/components/actor/general/complaints/common-complaints-tabs';
+import { Stack } from '@mantine/core';
+import type { Metadata, ResolvingMetadata } from 'next';
+import { APP_URL } from '@/constants/services';
+import { getCommonComplaints } from '@/actions/actor/genral/complaints/getCommonComplaints';
+import { COMPLAINTS_STATUS, COMPLAINTS_TABS } from '@/types/actor/common/index.type';
+import { getSecurityRoutes } from '@/constants/routes';
+import { USER_RANK } from '@/constants/user-types';
 
 const FALLBACK = {
-  TITLE: 'شكاوى المندوب | AL-AQSA Camp',
-  DESCRIPTION: 'عرض جميع الشكاوى المرسلة والمستقبلة الخاصة بالمندوبين في منصة مخيم الأقصى.',
+  TITLE: 'شكاوى الحراس | AL-AQSA Camp',
+  DESCRIPTION: 'عرض جميع الشكاوى الخاصة بالحراس على منصة مخيم الأقصى.',
   IMAGE: 'https://example.com/favicon.png',
-  // IMAGE: FAVICON.src,
+//   IMAGE: FAVICON.src,
 };
 
-interface IProps {
-  params: Promise<{ delegate: string }>;
+interface Props {
+  params: Promise<{ security: string }>;
   searchParams: Promise<{ 'complaints-tab'?: COMPLAINTS_TABS }>;
 }
 
 export async function generateMetadata(
-  { params, searchParams }: IProps,
+  { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { delegate } = await params;
+  const { security } = await params;
+  const securityId = Number(security);
+
   const { 'complaints-tab': tabParam } = await searchParams;
-  const delegateId = Number(delegate);
   const tab = tabParam || COMPLAINTS_TABS.SENT_COMPLAINTS;
 
   const previousImages = (await parent)?.openGraph?.images || [];
 
   try {
     const response = await getCommonComplaints({
-      actor_Id: delegateId,
-      role: USER_RANK.DELEGATE,
+      actor_Id: securityId,
+      role: USER_RANK.SECURITY_PERSON,
       complaint_type: tab,
       page: 1,
       limit: 1,
@@ -45,10 +45,9 @@ export async function generateMetadata(
     });
 
     const totalComplaints = response?.pagination?.total_items || 0;
-
-    const title = `شكاوى المندوب (${totalComplaints}) | AL-AQSA Camp` || FALLBACK.TITLE;
+    const title = `شكاوى الحارس (${totalComplaints}) | AL-AQSA Camp` || FALLBACK.TITLE;
     const description =
-      `عدد الشكاوى الخاصة بالمندوب: ${totalComplaints}. تصفح جميع الشكاوى في منصة مخيم الأقصى.` ||
+      `عدد الشكاوى الخاصة بالحارس: ${totalComplaints}. تصفح جميع الشكاوى في منصة مخيم الأقصى.` ||
       FALLBACK.DESCRIPTION;
 
     return {
@@ -60,9 +59,9 @@ export async function generateMetadata(
         title,
         description,
         type: 'website',
-        url: APP_URL + getDelegateRoutes({ delegateId: delegateId }).COMPLAINTS,
+        url: APP_URL + getSecurityRoutes({ securityId: securityId }).COMPLAINTS,
         images: [
-          { url: FALLBACK.IMAGE, width: 600, height: 600, alt: 'Delegate Complaints' },
+          { url: FALLBACK.IMAGE, width: 600, height: 600, alt: 'Security Complaints' },
           ...previousImages,
         ],
         locale: 'ar',
@@ -84,9 +83,9 @@ export async function generateMetadata(
         title: FALLBACK.TITLE,
         description: FALLBACK.DESCRIPTION,
         type: 'website',
-        url: APP_URL + getDelegateRoutes({ delegateId: delegateId }).COMPLAINTS,
+        url: APP_URL + getSecurityRoutes({ securityId: securityId }).COMPLAINTS,
         images: [
-          { url: FALLBACK.IMAGE, width: 600, height: 600, alt: 'Delegate Complaints' },
+          { url: FALLBACK.IMAGE, width: 600, height: 600, alt: 'Security Complaints' },
           ...previousImages,
         ],
         locale: 'ar',
@@ -101,19 +100,14 @@ export async function generateMetadata(
   }
 }
 
-export default async function DelegateComplaints({ params }: IProps) {
-  const { delegate } = await params;
-  const delegateId = Number(delegate);
+export default async function SecurityComplaints({ params }: Props) {
+  const { security } = await params;
+  const securityId = Number(security);
 
   return (
     <Stack justify='center' align='center' pt={20} w='100%' px={10}>
-      <Suspense fallback={<div>جارٍ التحميل...</div>}>
-        <CommonComplaintsHeaderTabs />
-      </Suspense>
-
-      <Suspense fallback={<div>جارٍ التحميل...</div>}>
-        <CommonComplaintsContent actor_Id={delegateId} rank={USER_RANK.DELEGATE} />
-      </Suspense>
+      <CommonComplaintsHeaderTabs />
+      <CommonComplaintsContent actor_Id={securityId} rank={USER_RANK.SECURITY_PERSON} />
     </Stack>
   );
 }

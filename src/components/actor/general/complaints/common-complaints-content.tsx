@@ -61,11 +61,6 @@ export default function CommonComplaintsContent({
         date_range: localFilters.date_range,
         search: query.search,
         complaint_type: query['complaints-tab'],
-        // role == USER_TYPE.DISPLACED
-        //   ? COMPLAINTS_TABS.SENT_COMPLAINTS
-        //   : role == USER_TYPE.MANAGER
-        //   ? COMPLAINTS_TABS.RECEIVED_COMPLAINTS
-        //   : query['complaints-tab'],
         role,
         actor_Id: actor_Id!,
       }),
