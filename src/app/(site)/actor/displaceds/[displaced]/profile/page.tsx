@@ -1,4 +1,4 @@
-import { DisplacedProfileForm } from '@/components';
+import DisplacedProfileForm from '@/components/actor/displaceds/profile/displaced-profile-form';
 
 interface Props {
   params: Promise<{ displaced: string }>;

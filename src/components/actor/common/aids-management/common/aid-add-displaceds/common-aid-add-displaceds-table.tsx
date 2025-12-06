@@ -19,7 +19,7 @@ import { notifications } from '@mantine/notifications';
 import { ListChecks, ListX } from 'lucide-react';
 import { useAlreadyUserStore } from '@/stores/alreadyUserStore';
 import { USER_TYPE } from '@/constants/user-types';
-import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displacesResponse.type';
+import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displaces-response.type';
 import { useDisplaceds } from '@/components/actor/general/displaceds/context/displaceds-context';
 import { getDisplaceds } from '@/actions/actor/general/displaceds/getDisplaceds';
 import { getDisplacedsIds } from '@/actions/actor/general/displaceds/getDisplacedsIds';

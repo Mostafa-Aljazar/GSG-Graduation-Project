@@ -1,5 +1,5 @@
 import { IGetSecurityDataProps } from "@/actions/actor/general/security-data/getSecurities";
-import { ISecuritiesNamesResponse, ISecuritiesResponse, ISecurity, ISecurityIdsResponse } from "@/types/actor/general/security-data/securitiesResponse.types";
+import { ISecuritiesNamesResponse, ISecuritiesResponse, ISecurity, ISecurityIdsResponse } from "@/types/actor/general/securities/securities-response.types";
 
  
 export const fakeSecurities: ISecurity[] = [

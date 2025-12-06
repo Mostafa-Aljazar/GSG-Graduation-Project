@@ -18,7 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/utils/cn';
 import { ListChecks, ListX, Users } from 'lucide-react';
 import { getDelegates } from '@/actions/actor/general/delegates/getDelegates';
-import { IDelegatesResponse } from '@/types/actor/general/delegates/delegatesResponse.type';
+import { IDelegatesResponse } from '@/types/actor/general/delegates/delegates-response.type';
 import { getDelegatesIds } from '@/actions/actor/general/delegates/getDelegatesIds';
 import DelegatesTableActions from '../delegates-table-actions';
 

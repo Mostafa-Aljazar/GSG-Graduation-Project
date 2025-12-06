@@ -1,7 +1,7 @@
 'use client';
 
 import { getDelegatesNames } from '@/actions/actor/general/delegates/getDelegatesNames';
-import { IDelegatesNamesResponse } from '@/types/actor/general/delegates/delegatesResponse.type';
+import { IDelegatesNamesResponse } from '@/types/actor/general/delegates/delegates-response.type';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { useQuery } from '@tanstack/react-query';
 

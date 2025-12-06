@@ -1,31 +1,31 @@
 import { USER_TYPE } from "@/constants/user-types";
-import { GENDER, SOCIAL_STATUS } from "@/types/common/actors-information.type";
-import { ManagerProfile, ManagerProfileResponse } from "@/types/manager/profile/manager-profile-response.type";
+import { GENDER, SOCIAL_STATUS } from "@/types/actor/common/index.type";
+import { IManagerProfile, IManagerProfileResponse } from "@/types/actor/manager/profile/manager-profile-response.type";
 
-export const fakeManagerProfile: ManagerProfile = {
+export const fakeManagerProfile: IManagerProfile = {
     id: 1,
     name: 'مصطفى يوسف',
     email: "alaqsa@gmail.com",
     gender: GENDER.MALE,
-    profile_image: '',
+    profileImage: '',
     identity: '123456789',
     nationality: 'فلسطيني',
-    phone_number: "0599999999",
-    alternative_phone_number: "0597777777",
-    social_status: SOCIAL_STATUS.MARRIED,
+    mobileNumber: "0599999999",
+    alternativeMobileNumber: "0597777777",
+    socialStatus: SOCIAL_STATUS.MARRIED,
     rank: USER_TYPE.MANAGER,
     role: USER_TYPE.MANAGER,
 }
 
-export const fakeManagerProfileResponse = ({ manager_Id }: { manager_Id: number }): ManagerProfileResponse => {
+export const fakeManagerProfileResponse = ({ managerId }: { managerId: number }): IManagerProfileResponse => {
 
-    const managerProfile: ManagerProfile = { ...fakeManagerProfile, id: manager_Id }
+    const managerProfile: IManagerProfile = { ...fakeManagerProfile, id: managerId }
 
     if (!managerProfile) {
         return {
             status: 404,
             message: 'المدير غير موجود',
-            user: {} as ManagerProfile,
+            user: {} as IManagerProfile,
             error: 'المدير غير موجود',
         };
     }

@@ -1,7 +1,7 @@
 'use client';
 
 import { getSecurityNames } from '@/actions/actor/general/security-data/getSecurityNames';
-import { ISecuritiesNamesResponse } from '@/types/actor/general/security-data/securitiesResponse.types';
+import { ISecuritiesNamesResponse } from '@/types/actor/general/securities/securities-response.types';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { useQuery } from '@tanstack/react-query';
 

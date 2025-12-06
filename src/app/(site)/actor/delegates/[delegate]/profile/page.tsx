@@ -1,4 +1,4 @@
-import DelegateProfileForm from '@/components/actor/delegate/profile/delegate-profile-form';
+import DelegateProfileForm from '@/components/actor/delegates/profile/delegate-profile-form';
 
 interface Props {
   params: Promise<{ delegate: string }>;

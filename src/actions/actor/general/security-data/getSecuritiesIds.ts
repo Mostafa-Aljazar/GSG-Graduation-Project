@@ -2,7 +2,7 @@
 
 import { fakeSecuritiesIdsResponse } from "@/content/actor/security/fake-data/fake-securities";
 import { AqsaAPI } from "@/services/api";
-import { ISecurityIdsResponse } from "@/types/actor/general/security-data/securitiesResponse.types";
+import { ISecurityIdsResponse } from "@/types/actor/general/securities/securities-response.types";
 
 
 const USE_FAKE = true;

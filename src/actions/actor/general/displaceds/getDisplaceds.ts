@@ -1,8 +1,8 @@
 'use server';
 
-import { fakeDisplacedResponse } from "@/content/actor/displaced/fake-data/fake-displaced";
+import { fakeDisplacedResponse } from "@/content/actor/displaceds/fake-data/fake-displaced";
 import { AqsaAPI } from "@/services/api";
-import { IDisplacedsResponse } from "@/types/actor/general/displaceds/displacesResponse.type";
+import { IDisplacedsResponse } from "@/types/actor/general/displaceds/displaces-response.type";
 import { TDisplacedsFilterFormValues } from "@/validations/actor/general/displaceds/displaceds-filter-form.schema";
 
 

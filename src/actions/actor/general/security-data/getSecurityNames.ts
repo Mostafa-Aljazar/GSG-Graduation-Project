@@ -2,7 +2,7 @@
 
 import { fakeSecuritiesNamesResponse } from "@/content/actor/security/fake-data/fake-securities";
 import { AqsaAPI } from "@/services/api";
-import { ISecuritiesNamesResponse } from "@/types/actor/general/security-data/securitiesResponse.types";
+import { ISecuritiesNamesResponse } from "@/types/actor/general/securities/securities-response.types";
 
 
 export interface GetSecurityNamesProps {

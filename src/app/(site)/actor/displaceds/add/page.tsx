@@ -1,8 +1,6 @@
-import { DisplacedProfileForm } from '@/components';
-import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/actors-information.type';
+import DisplacedProfileForm from '@/components/actor/displaceds/profile/displaced-profile-form';
+import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 
-const DisplacedAdd = () => {
+export default function DisplacedAdd() {
   return <DisplacedProfileForm destination={ACTION_ADD_EDIT_DISPLAY.ADD} />;
-};
-
-export default DisplacedAdd;
+}

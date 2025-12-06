@@ -1,7 +1,7 @@
 import { Stack } from '@mantine/core';
-import DisplacedReceivedAidHeaderTabs from '@/components/actor/displaced/received-aids/displaced-received-aids-tabs';
+import DisplacedReceivedAidHeaderTabs from '@/components/actor/displaceds/received-aids/displaced-received-aids-tabs';
 import { Suspense } from 'react';
-import DisplacedReceivedAidsFeed from '@/components/actor/displaced/received-aids/displaced-recived-aids-feed';
+import DisplacedReceivedAidsFeed from '@/components/actor/displaceds/received-aids/displaced-recived-aids-feed';
 
 interface IDisplacedReceivedAidPageProps {
   params: Promise<{ displaced: string }>;

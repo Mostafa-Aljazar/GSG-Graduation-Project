@@ -19,7 +19,7 @@ import { ListChecks, ListX, Users } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import useAuth from '@/hooks/useAuth';
 import { getSecurities } from '@/actions/actor/general/security-data/getSecurities';
-import { ISecuritiesResponse } from '@/types/actor/general/security-data/securitiesResponse.types';
+import { ISecuritiesResponse } from '@/types/actor/general/securities/securities-response.types';
 import { getSecuritiesIds } from '@/actions/actor/general/security-data/getSecuritiesIds';
 import { USER_RANK_LABELS } from '@/constants/user-types';
 import SecuritiesTableActions from '../securities-table-actions';

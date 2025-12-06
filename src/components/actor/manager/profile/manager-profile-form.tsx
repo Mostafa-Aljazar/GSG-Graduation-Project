@@ -16,34 +16,30 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { parseAsStringEnum, useQueryState } from 'nuqs';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { ProfileWrapper } from '../../common';
-
-import { getManagerProfile } from '@/actions/actors/manager/profile/getManagerProfile';
-import {
-  updateManagerProfile,
-  UpdateManagerProfileProps,
-} from '@/actions/actors/manager/profile/updateManagerProfile';
+import { getManagerProfile } from '@/actions/actor/manager/profile/getManagerProfile';
 import { CustomPhoneInput } from '@/components/common/custom/custom-phone-input';
 import useAuth from '@/hooks/useAuth';
-import {
-  ACTION_ADD_EDIT_DISPLAY,
-  GENDER,
-  GENDER_LABELS,
-  SOCIAL_STATUS,
-} from '@/types/common/actors-information.type';
-import { ManagerProfileResponse } from '@/types/manager/profile/manager-profile-response.type';
 import { handleUploadMedia } from '@/utils/uploadthing/handleUploadMedia';
 import {
   ManagerProfileSchema,
-  ManagerProfileType,
+  TManagerProfileFormValues,
 } from '@/validations/actor/manager/profile/manager-profile-Schema';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { UserPen } from 'lucide-react';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { useEffect, useState } from 'react';
+import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
+import { GENDER, GENDER_LABELS, SOCIAL_STATUS } from '@/types/actor/common/index.type';
+import { IManagerProfileResponse } from '@/types/actor/manager/profile/manager-profile-response.type';
+import {
+  IUpdateManagerProfileProps,
+  updateManagerProfile,
+} from '@/actions/actor/manager/profile/updateManagerProfile';
+import { IActionResponse } from '@/types/common/action-response.type';
+import ProfileWrapper from '../../common/profile-wrapper/profile-wrapper';
 
-const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
+export default function ManagerProfileForm({ managerId }: { managerId: number }) {
   const queryClient = useQueryClient();
 
   const { startUpload } = useUploadThing('mediaUploader');
@@ -64,18 +60,18 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
 
   const isDisplayMode = query === ACTION_ADD_EDIT_DISPLAY.DISPLAY;
 
-  const form = useForm<ManagerProfileType>({
+  const form = useForm<TManagerProfileFormValues>({
     mode: 'uncontrolled',
     initialValues: {
       name: '',
       identity: '',
       gender: GENDER.MALE,
-      social_status: SOCIAL_STATUS.SINGLE,
+      socialStatus: SOCIAL_STATUS.SINGLE,
       nationality: '',
       email: '',
-      phone_number: '',
-      profile_image: null,
-      alternative_phone_number: '',
+      mobileNumber: '',
+      profileImage: null,
+      alternativeMobileNumber: '',
     },
     validate: zod4Resolver(ManagerProfileSchema),
     validateInputOnChange: true, // validate Inputs On Change
@@ -85,17 +81,17 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
     data: managerProfileData,
     isLoading: isLoadingFetch,
     refetch,
-  } = useQuery<ManagerProfileResponse>({
+  } = useQuery<IManagerProfileResponse>({
     queryKey: ['manager-profile', managerId],
-    queryFn: () => getManagerProfile({ manager_Id: managerId as number }),
+    queryFn: () => getManagerProfile({ managerId: managerId as number }),
   });
 
-  const applyData = ({ managerData }: { managerData: ManagerProfileResponse | undefined }) => {
+  const applyData = ({ managerData }: { managerData: IManagerProfileResponse | undefined }) => {
     if (managerData) {
       if (managerData.status === 200 && managerData.user) {
         const userData = managerData.user;
 
-        setProfileImage(userData.profile_image ?? IMG_MAN.src);
+        setProfileImage(userData.profileImage ?? IMG_MAN.src);
 
         form.setValues({
           name: userData.name,
@@ -103,15 +99,15 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
           identity: userData.identity,
           gender: userData.gender,
           nationality: userData.nationality,
-          phone_number:
-            userData.phone_number.length === 10
-              ? `+970${userData.phone_number}`
-              : userData.phone_number,
-          alternative_phone_number:
-            userData.alternative_phone_number?.length === 10
-              ? `+970${userData.alternative_phone_number}`
-              : userData.alternative_phone_number || '',
-          social_status: userData.social_status,
+          mobileNumber:
+            userData.mobileNumber.length === 10
+              ? `+970${userData.mobileNumber}`
+              : userData.mobileNumber,
+          alternativeMobileNumber:
+            userData.alternativeMobileNumber?.length === 10
+              ? `+970${userData.alternativeMobileNumber}`
+              : userData.alternativeMobileNumber || '',
+          socialStatus: userData.socialStatus,
         });
         form.clearErrors();
         form.resetTouched();
@@ -139,11 +135,7 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
     }
   }, [profileImage]);
 
-  const updateProfileMutation = useMutation<
-    ManagerProfileResponse,
-    Error,
-    UpdateManagerProfileProps
-  >({
+  const updateProfileMutation = useMutation<IActionResponse, Error, IUpdateManagerProfileProps>({
     mutationFn: updateManagerProfile,
     onSuccess: (data) => {
       if (data.status === 200) {
@@ -155,7 +147,7 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
           withBorder: true,
         });
 
-        applyData({ managerData: data });
+        // applyData({ managerData: data });
         setQuery(ACTION_ADD_EDIT_DISPLAY.DISPLAY);
         refetch();
         queryClient.invalidateQueries({ queryKey: ['manager-profile'] });
@@ -198,16 +190,16 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
     }
   };
 
-  const handleSubmit = form.onSubmit(async (values: ManagerProfileType) => {
+  const handleSubmit = form.onSubmit(async (values: TManagerProfileFormValues) => {
     console.log('🚀 ~  ~ values:', values);
     const avatarUrl =
       profileImage instanceof File
         ? await uploadImages(profileImage)
         : (profileImage as string | null) ?? null;
 
-    const payload: ManagerProfileType = {
+    const payload: TManagerProfileFormValues = {
       ...values,
-      profile_image: avatarUrl ?? '',
+      profileImage: avatarUrl ?? '',
     };
     console.log('🚀 ~  ~ payload:', payload);
 
@@ -226,7 +218,7 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
     try {
       if (isEditMode) {
         updateProfileMutation.mutate(
-          { manager_Id: managerId as number, payload },
+          { managerId: managerId as number, payload },
           { onError: handleError }
         );
       }
@@ -238,7 +230,12 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
   const isMutationLoading = updateProfileMutation.isPending;
 
   return (
-    <ProfileWrapper mode={isEditMode} loading={isLoadingFetch || isMutationLoading || uploading}>
+    <ProfileWrapper
+      mode={isEditMode}
+      loading={isLoadingFetch || isMutationLoading || uploading}
+      profileImage={profileImage}
+      setProfileImage={setProfileImage}
+    >
       <Stack mt={100}>
         <form onSubmit={handleSubmit}>
           <Group wrap='nowrap' align='center'>
@@ -364,37 +361,37 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
               </Text>
               <Box dir='ltr' className='w-full'>
                 <PhoneInput
-                  name='phone_number'
+                  name='mobileNumber'
                   international
                   countryCallingCodeEditable={true}
                   defaultCountry='PS'
                   inputComponent={CustomPhoneInput}
                   placeholder='ادخل رقم الجوال...'
-                  value={form.getValues().phone_number as string}
-                  key={form.key('phone_number')}
-                  {...form.getInputProps('phone_number')}
+                  value={form.getValues().mobileNumber as string}
+                  key={form.key('mobileNumber')}
+                  {...form.getInputProps('mobileNumber')}
                   disabled={isDisplayMode}
                 />
               </Box>
             </Stack>
 
             {(isEditMode ||
-              (managerProfileData?.user.alternative_phone_number &&
-                managerProfileData.user.alternative_phone_number !== '')) && (
+              (managerProfileData?.user.alternativeMobileNumber &&
+                managerProfileData.user.alternativeMobileNumber !== '')) && (
               <Stack w='100%' gap={0}>
                 <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
                   رقم بديل :
                 </Text>
                 <Box dir='ltr' className='w-full'>
                   <PhoneInput
-                    name='alternative_phone_number'
+                    name='alternativeMobileNumber'
                     international
                     countryCallingCodeEditable={false}
                     defaultCountry='PS'
                     inputComponent={CustomPhoneInput}
                     placeholder='ادخل رقم بديل...'
-                    value={form.getValues().alternative_phone_number as string}
-                    {...form.getInputProps('alternative_phone_number')}
+                    value={form.getValues().alternativeMobileNumber as string}
+                    {...form.getInputProps('alternativeMobileNumber')}
                     disabled={isDisplayMode}
                   />
                 </Box>
@@ -423,6 +420,4 @@ const ManagerProfileForm = ({ managerId }: { managerId: number }) => {
       </Stack>
     </ProfileWrapper>
   );
-};
-
-export default ManagerProfileForm;
+}

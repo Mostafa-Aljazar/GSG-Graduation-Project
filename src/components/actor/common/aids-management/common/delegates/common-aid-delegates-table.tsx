@@ -24,7 +24,7 @@ import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import {
   IDelegate,
   IDelegatesResponse,
-} from '@/types/actor/general/delegates/delegatesResponse.type';
+} from '@/types/actor/general/delegates/delegates-response.type';
 import { getDelegatesByIds } from '@/actions/actor/general/delegates/getDelegatesByIds';
 import { ISelectedDelegatePortion } from '@/types/actor/common/aids-management/aids-management.types';
 import { DISTRIBUTION_MECHANISM, QUANTITY_AVAILABILITY } from '@/types/actor/common/index.type';

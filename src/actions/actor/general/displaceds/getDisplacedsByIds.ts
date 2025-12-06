@@ -1,8 +1,8 @@
 "use server";
 
-import { IDisplacedsResponse } from "@/types/actor/general/displaceds/displacesResponse.type";
+import { IDisplacedsResponse } from "@/types/actor/general/displaceds/displaces-response.type";
 import { AqsaAPI } from "@/services/api";
-import { fakeDisplacedByIdsResponse } from "@/content/actor/displaced/fake-data/fake-displaced";
+import { fakeDisplacedByIdsResponse } from "@/content/actor/displaceds/fake-data/fake-displaced";
 
 export interface IGetDisplacedByIdsProps {
     ids: number[];

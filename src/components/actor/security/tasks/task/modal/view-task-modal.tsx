@@ -19,7 +19,7 @@ import { ITask } from '@/types/actor/security/tasks/TasksResponse.type';
 import { TASKS_TABS } from '@/types/actor/common/index.type';
 import { formatDate } from '@/utils/formatDate';
 import { getSecurityNames } from '@/actions/actor/general/security-data/getSecurityNames';
-import { ISecuritiesNamesResponse } from '@/types/actor/general/security-data/securitiesResponse.types';
+import { ISecuritiesNamesResponse } from '@/types/actor/general/securities/securities-response.types';
 
 interface ISecurityTaskModalProps {
   opened: boolean;

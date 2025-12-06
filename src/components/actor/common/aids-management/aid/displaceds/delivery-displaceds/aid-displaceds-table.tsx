@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { cn } from '@/utils/cn';
 import { TAid } from '@/types/actor/common/aids-management/aids-management.types';
-import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displacesResponse.type';
+import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displaces-response.type';
 import { getDisplacedByIds } from '@/actions/actor/general/displaceds/getDisplacedsByIds';
 import ReceiveDisplacedAid from '../receive-displaceds-aid/receive-displaceds-aid';
 

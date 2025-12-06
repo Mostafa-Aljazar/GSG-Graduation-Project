@@ -1,8 +1,8 @@
 'use server';
 
 import { AqsaAPI } from '@/services/api';
-import { IDelegatesIdsResponse } from '@/types/actor/general/delegates/delegatesResponse.type';
-import { fakeDelegatesIdsResponse } from '@/content/actor/delegate/fake-data/fake-delegates';
+import { IDelegatesIdsResponse } from '@/types/actor/general/delegates/delegates-response.type';
+import { fakeDelegatesIdsResponse } from '@/content/actor/delegates/fake-data/fake-delegates';
 
 const USE_FAKE = true;
 

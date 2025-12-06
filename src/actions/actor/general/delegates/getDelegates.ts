@@ -1,8 +1,8 @@
 'use server';
 
-import { fakeDelegatesResponse } from "@/content/actor/delegate/fake-data/fake-delegates";
+import { fakeDelegatesResponse } from "@/content/actor/delegates/fake-data/fake-delegates";
 import { AqsaAPI } from "@/services/api";
-import { IDelegatesResponse } from "@/types/actor/general/delegates/delegatesResponse.type";
+import { IDelegatesResponse } from "@/types/actor/general/delegates/delegates-response.type";
 
 
 export interface IGetDelegatesProps {

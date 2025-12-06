@@ -1,8 +1,8 @@
 "use server";
 
-import { fakeDisplacedIdsResponse } from "@/content/actor/displaced/fake-data/fake-displaced";
+import { fakeDisplacedIdsResponse } from "@/content/actor/displaceds/fake-data/fake-displaced";
 import { AqsaAPI } from "@/services/api";
-import { IDisplacedsIdsResponse } from "@/types/actor/general/displaceds/displacesResponse.type";
+import { IDisplacedsIdsResponse } from "@/types/actor/general/displaceds/displaces-response.type";
 import { TDisplacedsFilterFormValues } from "@/validations/actor/general/displaceds/displaceds-filter-form.schema";
 
 export interface IGetDisplacedsIdsProps {

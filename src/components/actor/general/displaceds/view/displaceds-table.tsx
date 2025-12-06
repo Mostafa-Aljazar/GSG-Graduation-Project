@@ -20,7 +20,7 @@ import { ListChecks, ListX, Users } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useDisplaceds } from '../context/displaceds-context';
 import { getDisplaceds } from '@/actions/actor/general/displaceds/getDisplaceds';
-import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displacesResponse.type';
+import { IDisplacedsResponse } from '@/types/actor/general/displaceds/displaces-response.type';
 import { getDisplacedsIds } from '@/actions/actor/general/displaceds/getDisplacedsIds';
 import DisplacedTableActions from '../displaceds-table-actions';
 

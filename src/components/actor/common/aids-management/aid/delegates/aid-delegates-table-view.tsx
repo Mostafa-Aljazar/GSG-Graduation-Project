@@ -18,7 +18,7 @@ import { Users } from 'lucide-react';
 import {
   IDelegate,
   IDelegatesResponse,
-} from '@/types/actor/general/delegates/delegatesResponse.type';
+} from '@/types/actor/general/delegates/delegates-response.type';
 import { getDelegatesByIds } from '@/actions/actor/general/delegates/getDelegatesByIds';
 import { ISelectedDelegatePortion } from '@/types/actor/common/aids-management/aids-management.types';
 
