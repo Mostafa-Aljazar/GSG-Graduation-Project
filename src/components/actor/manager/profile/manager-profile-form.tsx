@@ -191,7 +191,6 @@ export default function ManagerProfileForm({ managerId }: { managerId: number })
   };
 
   const handleSubmit = form.onSubmit(async (values: TManagerProfileFormValues) => {
-    console.log('🚀 ~  ~ values:', values);
     const avatarUrl =
       profileImage instanceof File
         ? await uploadImages(profileImage)
@@ -201,7 +200,6 @@ export default function ManagerProfileForm({ managerId }: { managerId: number })
       ...values,
       profileImage: avatarUrl ?? '',
     };
-    console.log('🚀 ~  ~ payload:', payload);
 
     const handleError = (error: unknown) => {
       const errorMessage = (error as Error)?.message || 'فشل في حفظ الملف الشخصي للمدير';

@@ -1,4 +1,4 @@
-import { Activity, BookOpen, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, History, Package, Shirt, SprayCan, Utensils } from "lucide-react";
+import { Activity, BookOpen, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, History, MessageCircleQuestion, MessageSquareWarning, Package, Shirt, SprayCan, Utensils } from "lucide-react";
 import { IBaseAidForm, ICategoryRange } from "./aids-management/aids-management.types";
 
 
@@ -252,7 +252,7 @@ export const AIDS_TYPES_MAP = {
 };
 
 export const INITIAL_AID_FORM_VALUES: IBaseAidForm = {
-    aidName: 'ssssssss',
+    aidName: '',
     aidType: TYPE_AIDS.OTHER_AID,
     aidContent: '',
     deliveryDate: null,
@@ -263,4 +263,49 @@ export const INITIAL_AID_FORM_VALUES: IBaseAidForm = {
     additionalNotes: '',
     distributionMechanism: DISTRIBUTION_MECHANISM.DISPLACED_FAMILIES,
     existingQuantity: undefined,
+};
+
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+export enum COMPLAINTS_TABS {
+    SENT_COMPLAINTS = 'SENT_COMPLAINTS',
+    RECEIVED_COMPLAINTS = 'RECEIVED_COMPLAINTS',
+}
+
+// export const GET_COMPLAINTS_TABS = {
+//     [COMPLAINTS_TABS.SENT_COMPLAINTS]: {
+//         label: 'الشكاوي المرسلة',
+//         icon: MessageCircleQuestion,
+//     },
+//     [COMPLAINTS_TABS.RECEIVED_COMPLAINTS]: {
+//         label: 'الشكاوي المستقبلة',
+//         icon: MessageSquareWarning,
+//     },
+// } as const;
+
+
+export const getComplaintsTabs = () => {
+    return {
+        [COMPLAINTS_TABS.SENT_COMPLAINTS]: { label: 'الشكاوي المرسلة', icon: MessageCircleQuestion, },
+        [COMPLAINTS_TABS.RECEIVED_COMPLAINTS]: { label: 'الشكاوي المستقبلة', icon: MessageSquareWarning, },
+    } as const;
+}
+
+
+export enum COMPLAINTS_STATUS {
+    READ = 'READ',
+    PENDING = 'PENDING',
+    ALL = "ALL"
+}
+
+export const COMPLAINTS_STATUS_LABELS: Record<COMPLAINTS_STATUS, string> = {
+    [COMPLAINTS_STATUS.READ]: 'تمت القراءة',
+    [COMPLAINTS_STATUS.PENDING]: 'قيد الانتظار',
+    [COMPLAINTS_STATUS.ALL]: 'الكل',
 };

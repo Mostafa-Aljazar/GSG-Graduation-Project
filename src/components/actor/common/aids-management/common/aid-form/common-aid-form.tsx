@@ -99,7 +99,6 @@ export default function CommonAidForm({ handelActiveStep }: Props) {
   }, [formValues, query.action, query.aidId]);
 
   const handleSubmit = (values: TAddEditAidFormValues) => {
-    console.log('Submitted values:', values);
     setFormValues(values);
 
     if (values.distributionMechanism == DISTRIBUTION_MECHANISM.DELEGATES_LISTS) {

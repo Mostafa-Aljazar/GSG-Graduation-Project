@@ -266,7 +266,6 @@ const DelegateProfileForm = ({
       ...values,
       profileImage: avatarUrl,
     };
-    console.log('🚀 ~ Delegate_Profile_Form ~ payload:', payload);
 
     const handleError = (error: unknown) => {
       const errorMessage = (error as Error)?.message || 'فشل في حفظ الملف الشخصي للمندوب';

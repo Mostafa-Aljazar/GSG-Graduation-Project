@@ -53,7 +53,6 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
     selectedDelegatesPortions: STORE_selectedDelegatesPortions,
     setSelectedDelegatesPortions: STORE_setSelectedDelegatesPortions,
   } = useAidStore();
-  console.log('🚀 ~  STORE_selectedDelegatesPortions:', STORE_selectedDelegatesPortions);
 
   const [selectedDelegatesPortions, setSelectedDelegatesPortions] = useState<
     ISelectedDelegatePortion[]
@@ -382,7 +381,6 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
   const handleNext = ({ toNext }: { toNext: boolean }) => {
     if (toNext && formValues.distributionMechanism == DISTRIBUTION_MECHANISM.DELEGATES_LISTS) {
       STORE_setSelectedDelegatesPortions(selectedDelegatesPortions);
-      console.log('🚀 ~ handleNext ~ selectedDelegatesPortions:', selectedDelegatesPortions);
       handelActiveStep({ step: AidStep.AID_DISPLACEDS });
     } else {
       setSelectedDelegatesPortions([]);

@@ -115,7 +115,7 @@ export default function CommonAidsManagementFilters() {
             key={`dateRange-${resetKey}`}
             {...form.getInputProps('dateRange')}
             clearable
-            error={form.errors.date_range} // Display validation error
+            error={form.errors.dateRange} // Display validation error
             classNames={{
               input: 'placeholder:!text-sm !text-primary !font-normal',
             }}

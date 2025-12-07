@@ -354,7 +354,6 @@ export default function DisplacedProfileForm({
   };
 
   const handleSubmit = form.onSubmit(async (values: TDisplacedProfileFormValues) => {
-    console.log('🚀 ~ values:', values);
     const avatarUrl =
       profileImage instanceof File
         ? await uploadImages(profileImage)
@@ -364,7 +363,6 @@ export default function DisplacedProfileForm({
       ...values,
       profileImage: avatarUrl,
     };
-    console.log('🚀 ~ DisplacedProfileForm ~ payload:', payload);
 
     const handleError = (error: unknown) => {
       const errorMessage = (error as Error)?.message || 'فشل في حفظ الملف الشخصي للنازح';

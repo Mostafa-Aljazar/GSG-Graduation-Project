@@ -70,6 +70,7 @@ export default function DisplacedsFilters() {
 
   const initData: TDisplacedsFilterFormValues = localFilters;
 
+  // FIXME: add page to 1
   const [searchInput, setSearchInput] = useState('');
   const [resetKey, setResetKey] = useState(0);
   const [_, setSearch] = useQueryState('search', parseAsString.withDefault(''));

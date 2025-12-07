@@ -1,7 +1,7 @@
 'use client';
 
-import { Stack, LoadingOverlay, Group, Button, Text, Divider, Paper } from '@mantine/core';
-import { CheckSquare, SquarePen, SquarePlus } from 'lucide-react';
+import { Stack, LoadingOverlay, Group, Text, Divider } from '@mantine/core';
+import { SquarePen, SquarePlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
@@ -118,7 +118,6 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
   });
 
   const handleSubmit = () => {
-    console.log('🚀 ~ handleSubmit ~ formValues:', formValues);
     if (isDisplacedMechanism && selectedDisplacedIds.length === 0) {
       return notifications.show({ title: 'مطلوب', message: 'يجب اختيار نازحين', color: 'red' });
     }

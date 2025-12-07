@@ -119,11 +119,15 @@ export const getNavLinks = ({
             if (view === 'guest') return [
                 { label: 'الملف الشخصي', href: routes.PROFILE, icon: User },
                 { label: 'المهام', href: routes.TASKS, icon: ListTodo },
+                { label: 'الشكاوي', href: routes.COMPLAINTS, icon: MessageCircleWarning },
+
             ] as const;
 
             //what appear when other users open security page
             return [
                 { label: 'الملف الشخصي', href: routes.PROFILE, icon: User },
+                { label: 'الشكاوي', href: routes.COMPLAINTS, icon: MessageCircleWarning },
+
             ] as const;
         }
 

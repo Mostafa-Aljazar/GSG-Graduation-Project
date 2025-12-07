@@ -16,7 +16,14 @@ import Link from 'next/link';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
-import { AUTH_ROUTES, LANDING_ROUTES } from '@/constants/routes';
+import {
+  AUTH_ROUTES,
+  getDelegateRoutes,
+  getDisplacedRoutes,
+  getManagerRoutes,
+  getSecurityRoutes,
+  LANDING_ROUTES,
+} from '@/constants/routes';
 import { LOCALSTORAGE_SESSION_KEY } from '@/constants/session-key';
 import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
@@ -58,8 +65,21 @@ export default function LoginComponent() {
             withBorder: true,
           });
 
-          // TODO: redirect to actor dashboard
-          router.replace('/actor');
+          if (data.status === 200) {
+            // redirect immediately
+            const roleRedirects = {
+              [USER_TYPE.DISPLACED]: () =>
+                router.replace(getDisplacedRoutes({ displacedId: data.user.id }).PROFILE),
+              [USER_TYPE.MANAGER]: () =>
+                router.replace(getManagerRoutes({ managerId: data.user.id }).PROFILE),
+              [USER_TYPE.DELEGATE]: () =>
+                router.replace(getDelegateRoutes({ delegateId: data.user.id }).PROFILE),
+              [USER_TYPE.SECURITY_PERSON]: () =>
+                router.replace(getSecurityRoutes({ securityId: data.user.id }).PROFILE),
+            };
+
+            roleRedirects[data.user.role]?.();
+          }
         } catch (err) {
           console.error('Error saving session or showing notification', err);
         }
