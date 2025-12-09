@@ -1,6 +1,7 @@
 import { IMG_HOME_CHILD } from '@/assets/landing/home';
 import ChildSection from '@/components/landing/common/child-section';
 import HeroSection from '@/components/landing/common/hero-section';
+import DonationForm from '@/components/landing/donation/donation-form';
 import Services from '@/components/landing/home/services';
 import Statistics from '@/components/landing/home/statistics';
 import { DESTINATION_HERO_SECTION } from '@/types/landing/index.type';
@@ -19,6 +20,7 @@ export default function Home() {
       <Statistics />
       <Services />
       <ChildSection childImage={IMG_HOME_CHILD} desc={childDescription} />
+      <DonationForm />
     </>
   );
 }
