@@ -5,8 +5,8 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 
 export interface IDeleteAidProps {
-    aidId: number;
-    managerId: number;
+    aidId: string;
+    managerId: string;
 }
 
 const USE_FAKE = true;

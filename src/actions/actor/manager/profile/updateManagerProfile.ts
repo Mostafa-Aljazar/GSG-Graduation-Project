@@ -8,7 +8,7 @@ import {
 import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IUpdateManagerProfileProps {
-  managerId: number;
+  managerId: string;
   payload: TManagerProfileFormValues;
 }
 

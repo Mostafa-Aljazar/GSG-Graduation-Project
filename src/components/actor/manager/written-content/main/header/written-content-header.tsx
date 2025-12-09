@@ -10,7 +10,7 @@ import { parseAsStringEnum, useQueryState } from 'nuqs';
 
 interface IWrittenContentHeaderProps {
   visibleAdd: boolean;
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentHeader({

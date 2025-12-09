@@ -9,7 +9,7 @@ interface IProps {
 
 export default async function ManagerSingleWrittenContentPage({ params }: IProps) {
   const { id } = await params;
-  const contentId = Number(id);
+  const contentId = id;
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

@@ -8,11 +8,11 @@ import { IActionResponse } from '@/types/common/action-response.type';
 import { deleteWrittenContent } from '@/actions/actor/manager/written-content/deleteWrittenContent';
 
 interface IWrittenContentDeleteModalProps {
-  id: number;
+  id: string;
   type: TYPE_WRITTEN_CONTENT;
   opened: boolean;
   close: () => void;
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentDeleteModal({

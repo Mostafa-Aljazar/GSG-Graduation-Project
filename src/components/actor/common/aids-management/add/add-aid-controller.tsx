@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Stack, Paper, Center, Text, ThemeIcon } from '@mantine/core';
 import { MessageCircleWarning } from 'lucide-react';
-import { useQueryStates, parseAsInteger, parseAsStringEnum } from 'nuqs';
+import { useQueryStates, parseAsString, parseAsStringEnum } from 'nuqs';
 
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { getAid } from '@/actions/actor/common/aids-management/getAid';
@@ -21,7 +21,7 @@ export default function AddAidController() {
     action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
       ACTION_ADD_EDIT_DISPLAY.ADD
     ),
-    aidId: parseAsInteger.withDefault(0),
+    aidId: parseAsString.withDefault(''),
   });
 
   const { data, isLoading, isError, error } = useQuery({
@@ -32,7 +32,7 @@ export default function AddAidController() {
         actorId: userId,
         role: userType as USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
       }),
-    enabled: query.aidId > 0 && query.action !== ACTION_ADD_EDIT_DISPLAY.ADD,
+    enabled: !!query.aidId && query.action !== ACTION_ADD_EDIT_DISPLAY.ADD,
   });
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function AddAidController() {
         </Paper>
       ) : (
         <AddAidEditor
-          isLoading={isLoading || (query.action === ACTION_ADD_EDIT_DISPLAY.ADD && query.aidId > 0)}
+          isLoading={isLoading || (query.action === ACTION_ADD_EDIT_DISPLAY.ADD && !!query.aidId)}
         />
       )}
     </Stack>

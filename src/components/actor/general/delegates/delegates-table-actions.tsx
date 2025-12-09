@@ -29,8 +29,8 @@ interface IActionItem {
 }
 
 interface Props {
-  delegateId?: number;
-  delegateIds?: number[];
+  delegateId?: string;
+  delegateIds?: string[];
   disabled?: boolean;
 }
 
@@ -50,7 +50,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
 
   const closeModal = () => setModalType(null);
 
-  const buildRoute = (id: number, edit = false) => {
+  const buildRoute = (id: string, edit = false) => {
     const base = getDelegateRoutes({ delegateId: id });
     return edit ? `${base.PROFILE}?action=${ACTION_ADD_EDIT_DISPLAY.EDIT}` : base.PROFILE;
   };
@@ -66,12 +66,12 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
     {
       label: 'عرض',
       icon: Eye,
-      action: () => router.push(buildRoute(delegateId || 0)),
+      action: () => router.push(buildRoute(delegateId as string)),
     },
     {
       label: 'تعديل',
       icon: UserPen,
-      action: () => router.push(buildRoute(delegateId || 0, true)),
+      action: () => router.push(buildRoute(delegateId || '', true)),
     },
   ];
 
@@ -79,7 +79,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
     {
       label: 'عرض',
       icon: Eye,
-      action: () => router.push(buildRoute(delegateId || 0)),
+      action: () => router.push(buildRoute(delegateId || '')),
     },
     { label: 'استدعاء', icon: Speech, action: () => openModal('call') },
   ];

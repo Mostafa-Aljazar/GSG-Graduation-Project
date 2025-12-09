@@ -4,10 +4,10 @@ import { COMPLAINTS_STATUS } from "../../common/index.type";
 
 
 export interface IComplaint {
-    id: number;
+    id: string;
     date: Date | string;
-    sender: { id: number, name: string, image: string, role: TUserType | TUserRank };
-    receiver: { id: number, name: string, image: string, role: TUserType | TUserRank };
+    sender: { id: string, name: string, image: string, role: TUserType | TUserRank };
+    receiver: { id: string, name: string, image: string, role: TUserType | TUserRank };
     title: string;
     body: string;
     status: COMPLAINTS_STATUS;

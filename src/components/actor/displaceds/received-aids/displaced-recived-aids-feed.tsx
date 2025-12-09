@@ -10,7 +10,7 @@ import { IDisplacedReceivedAidsResponse } from '@/types/actor/displaceds/receive
 import { getDisplacedReceivedAids } from '@/actions/actor/displaceds/received-aids/getDisplacedReceivedAids';
 
 interface DelegateComplaintsContentProps {
-  displacedId: number;
+  displacedId: string;
 }
 
 export default function DisplacedReceivedAidsFeed({ displacedId }: DelegateComplaintsContentProps) {

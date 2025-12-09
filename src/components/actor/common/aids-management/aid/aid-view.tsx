@@ -9,8 +9,8 @@ import { MessageCircleWarning } from 'lucide-react';
 import AidContent from './aid-content';
 
 export interface IAidViewProps {
-  aidId: number;
-  actorId: number;
+  aidId: string;
+  actorId: string;
   role: USER_TYPE.DELEGATE | USER_TYPE.MANAGER;
 }
 

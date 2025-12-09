@@ -10,7 +10,7 @@ import { IWrittenContentsResponse } from '@/types/common/written-content/written
 import WrittenContentList from './card/written-content-list';
 
 interface IWrittenContentFeedProps {
-  managerId: number;
+  managerId: string;
 }
 export default function WrittenContentFeed({ managerId }: IWrittenContentFeedProps) {
   const [query] = useQueryStates({

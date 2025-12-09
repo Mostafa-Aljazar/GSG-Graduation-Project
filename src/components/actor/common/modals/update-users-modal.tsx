@@ -11,7 +11,7 @@ import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
 
 interface IUpdateUsersModalProps {
-  userIds: number[];
+  userIds: string[];
   userType: USER_TYPE;
   opened: boolean;
   close: () => void;

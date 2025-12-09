@@ -5,7 +5,7 @@ import { IManagerProfile, IManagerProfileResponse } from "@/types/actor/manager/
 import { AqsaAPI } from "@/services/api";
 
 export interface IGetManagerProfileProps {
-    managerId: number;
+    managerId: string;
 }
 
 const USE_FAKE = true;

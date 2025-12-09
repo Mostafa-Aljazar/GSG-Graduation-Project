@@ -3,8 +3,8 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { USER_RANK, USER_TYPE } from '@/constants/user-types';
-import { IUser } from '@/types/auth/loginResponse.type';
 import { getSession } from '@/utils/auth/getSession';
+import { IUser } from '@/types/actor/common/user/user.type';
 
 interface AuthState {
   isAuthenticated: boolean;

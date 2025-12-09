@@ -5,7 +5,7 @@ import { AqsaAPI } from "@/services/api";
 import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IDeleteUsersProps {
-    userIds: number[];
+    userIds: string[];
     userType: USER_TYPE;
 }
 

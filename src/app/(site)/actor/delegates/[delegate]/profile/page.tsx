@@ -6,7 +6,7 @@ interface Props {
 
 export default async function DelegateProfile({ params }: Props) {
   const { delegate } = await params;
-  const delegateId = Number(delegate);
+  const delegateId = delegate;
 
   return <DelegateProfileForm delegateId={delegateId} />;
 }

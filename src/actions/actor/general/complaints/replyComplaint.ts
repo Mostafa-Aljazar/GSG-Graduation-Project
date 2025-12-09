@@ -5,8 +5,8 @@ import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface IReplyComplaintProps {
-    actorId: number;
-    complaintId: number;
+    actorId: string;
+    complaintId: string;
     role: USER_RANK.SECURITY_OFFICER | USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
     reply: string;
 }

@@ -11,7 +11,7 @@ import { getManagerRoutes } from '@/constants/routes';
 
 interface IWrittenContentCardProps {
   writtenData: IWrittenContent;
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentCard({ writtenData, managerId }: IWrittenContentCardProps) {

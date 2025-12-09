@@ -32,7 +32,7 @@ export default function SecuritiesTable() {
     { shallow: true }
   );
 
-  const [selectedSecurityIds, setSelectedSecurityIds] = useState<number[]>([]);
+  const [selectedSecurityIds, setSelectedSecurityIds] = useState<string[]>([]);
   const [selectAllAcrossPages, setSelectAllAcrossPages] = useState(false);
 
   const currentPage = query.security_page || 1;
@@ -53,7 +53,7 @@ export default function SecuritiesTable() {
     data: allSecurityIds,
     isLoading: isLoadingAll,
     error: allQueryError,
-  } = useQuery<number[], Error>({
+  } = useQuery<string[], Error>({
     queryKey: ['securities_all'],
     queryFn: async () => (await getSecuritiesIds()).securitiesIds,
     enabled: selectAllAcrossPages,
@@ -71,7 +71,7 @@ export default function SecuritiesTable() {
   }, [allSecurityIds, selectAllAcrossPages]);
 
   const isRowSelected = useCallback(
-    (id: number) => selectedSecurityIds.includes(id),
+    (id: string) => selectedSecurityIds.includes(id),
     [selectedSecurityIds]
   );
 
@@ -81,7 +81,7 @@ export default function SecuritiesTable() {
   );
 
   const handleRowSelection = useCallback(
-    (id: number, checked: boolean) => {
+    (id: string, checked: boolean) => {
       setSelectedSecurityIds((prev) => {
         const updated = checked
           ? [...prev.filter((x) => x !== id), id]

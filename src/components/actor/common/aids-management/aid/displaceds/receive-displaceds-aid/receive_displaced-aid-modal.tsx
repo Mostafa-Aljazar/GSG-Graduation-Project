@@ -15,10 +15,10 @@ import { useMutation } from '@tanstack/react-query';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 
 interface CommonReceiveDisplacedAidModalProps {
-  displacedId?: number;
+  displacedId?: string;
   opened: boolean;
   close: () => void;
-  aidId: number;
+  aidId: string;
 }
 
 export default function ReceiveDisplacedAidModal({
@@ -79,7 +79,7 @@ export default function ReceiveDisplacedAidModal({
     receiveMutation.mutate({
       aidId,
       receiveCode: values.otp,
-      displacedId: displacedId,
+      displacedId: displacedId as string,
       role: user.role as USER_TYPE.DELEGATE | USER_TYPE.MANAGER,
       actorId: user.id,
     });

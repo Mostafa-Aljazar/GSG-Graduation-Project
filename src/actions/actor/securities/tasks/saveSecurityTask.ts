@@ -5,7 +5,7 @@ import { AqsaAPI } from "@/services/api";
 import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface ISecurityTaskProps {
-    taskId?: number;
+    taskId?: string;
     dateTime: Date;
     title: string;
     body: string;

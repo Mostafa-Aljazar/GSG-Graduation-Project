@@ -24,7 +24,7 @@ import { getWrittenContent } from '@/actions/common/written-content/getWrittenCo
 import { IWrittenContentResponse } from '@/types/common/written-content/written-content-response.type';
 
 interface ISingleWrittenContentViewProps {
-  writtenContentId: number;
+  writtenContentId: string;
   destination?: TYPE_WRITTEN_CONTENT;
 }
 

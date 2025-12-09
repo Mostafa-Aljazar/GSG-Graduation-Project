@@ -5,7 +5,7 @@ import { IDelegatesResponse } from '@/types/actor/general/delegates/delegates-re
 import { fakeDelegatesByIdsResponse } from '@/content/actor/delegates/fake-data/fake-delegates';
 
 export interface IGetDelegatesByIdsProps {
-    Ids: number[];
+    Ids: string[];
     page?: number;
     limit?: number;
 }

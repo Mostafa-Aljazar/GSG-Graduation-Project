@@ -5,8 +5,8 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 
 export interface IChangeDelegateProps {
-    displacedIds: number[];
-    delegateId: number;
+    displacedIds: string[];
+    delegateId: string;
 }
 
 const USE_FAKE = true;

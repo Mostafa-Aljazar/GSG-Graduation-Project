@@ -2,7 +2,8 @@
 
 import { USER_TYPE, USER_RANK } from '@/constants/user-types';
 import { AqsaGuestAPI } from '@/services/api';
-import { ILoginResponse, IUser } from '@/types/auth/loginResponse.type';
+import { IUser } from '@/types/actor/common/user/user.type';
+import { ILoginResponse, } from '@/types/auth/loginResponse.type';
 
 export interface ILoginProps {
     userType: USER_TYPE;
@@ -23,7 +24,7 @@ export const login = async ({
             message: 'تم تسجيل الدخول بنجاح',
             token: 'fake-jwt-token',
             user: {
-                id: 1,
+                id: "1",
                 name: 'John Doe',
                 email,
                 identity: '408656429',

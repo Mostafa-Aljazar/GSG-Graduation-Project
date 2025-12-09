@@ -5,7 +5,7 @@ import { SquarePen, SquarePlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
-import { parseAsStringEnum, useQueryStates, parseAsInteger } from 'nuqs';
+import { parseAsStringEnum, useQueryStates, parseAsString } from 'nuqs';
 
 import { DISTRIBUTION_MECHANISM, TYPE_GROUP_AIDS } from '@/types/actor/common/index.type';
 import { manageAid } from '@/actions/actor/common/aids-management/manageAid';
@@ -74,7 +74,7 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
     action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
       ACTION_ADD_EDIT_DISPLAY.ADD
     ),
-    aidId: parseAsInteger.withDefault(0),
+    aidId: parseAsString.withDefault(''),
   });
 
   // const isDisplay = query.action === ACTION_ADD_EDIT_DISPLAY.DISPLAY;
@@ -86,7 +86,7 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
       manageAid({
         payload: {
           ...formValues,
-          id: query.aidId ?? -1,
+          id: query.aidId ?? '',
           selectedDisplacedIds: isDisplacedMechanism ? selectedDisplacedIds : [],
           selectedDelegatesPortions: isDisplacedMechanism ? [] : selectedDelegatesPortions,
           isCompleted: true,

@@ -11,10 +11,7 @@ export default async function AdPage({ params }: IAdPageProps) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SingleWrittenContentView
-        writtenContentId={Number(id)}
-        destination={TYPE_WRITTEN_CONTENT.ADS}
-      />
+      <SingleWrittenContentView writtenContentId={id} destination={TYPE_WRITTEN_CONTENT.ADS} />
     </Suspense>
   );
 }

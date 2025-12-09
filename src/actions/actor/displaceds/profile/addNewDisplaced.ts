@@ -1,6 +1,6 @@
 "use server";
 
-import { USER_TYPE } from "@/constants/user-types";
+import { USER_TYPE, USER_RANK } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 import { AGES } from "@/types/actor/common/index.type";
 import { IDisplacedProfile } from "@/types/actor/displaceds/profile/displaced-profile.type";
@@ -19,7 +19,7 @@ export const addNewDisplaced = async ({
   const preparedPayload: IDisplacedProfile = {
     ...payload,
     role: USER_TYPE.DISPLACED,
-    rank: USER_TYPE.DISPLACED,
+    rank: USER_RANK.DISPLACED,
     additionalNotes: payload.additionalNotes || "",
     profileImage: payload.profileImage as string,
     alternativeMobileNumber: payload.alternativeMobileNumber || "",

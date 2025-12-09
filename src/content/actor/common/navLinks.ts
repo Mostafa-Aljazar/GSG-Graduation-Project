@@ -26,7 +26,7 @@ export const getNavLinks = ({
 }: {
 
     userRank: USER_TYPE | USER_RANK,
-    userId: number,
+    userId: string,
     view: TViewMode
 }
 ): readonly NavLink[] => {

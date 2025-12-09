@@ -4,8 +4,8 @@ import { AqsaAPI } from "@/services/api";
 import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IDeleteSecurityTaskProps {
-    taskId: number;
-    securityId: number;
+    taskId: string;
+    securityId: string;
 }
 
 const USE_FAKE = true;

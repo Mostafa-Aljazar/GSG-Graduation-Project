@@ -32,11 +32,12 @@ import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { saveSecurityTask } from '@/actions/actor/securities/tasks/saveSecurityTask';
 import useGetSecuritiesNames from '@/hooks/useGetSecuritiesNames';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
+import { ISecuritiesName } from '@/types/actor/general/securities/securities-response.types';
 
-interface ISecurityMan {
-  id: string;
-  name: string;
-}
+// interface ISecurityMan {
+//   string: string;
+//   name: string;
+// }
 
 interface ITaskFormModalProps {
   opened: boolean;
@@ -45,7 +46,7 @@ interface ITaskFormModalProps {
 }
 
 export default function TaskFormModal({ opened, onClose, taskToEdit }: ITaskFormModalProps) {
-  const [securityData, setSecurityData] = useState<ISecurityMan[]>([]);
+  const [securityData, setSecurityData] = useState<ISecuritiesName[]>([]);
   const queryClient = useQueryClient();
 
   const form = useForm<TSaveTaskFormValues>({
@@ -146,7 +147,7 @@ export default function TaskFormModal({ opened, onClose, taskToEdit }: ITaskForm
         onClose();
       }}
       title={
-        <Text fz={18} fw={600} ta='center' className='!text-primary'>
+        <Text fz={18} fw={600} ta='center' className='text-primary!'>
           {taskToEdit ? 'تعديل المهمة' : 'إنشاء مهمة أمنية جديدة'}
         </Text>
       }

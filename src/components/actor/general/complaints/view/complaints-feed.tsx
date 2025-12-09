@@ -53,7 +53,7 @@ export default function ComplaintsFeed() {
         complaintType: complaintType,
         userAlreadyId: userAlreadyId,
         userAlreadyType: userAlreadyType as USER_TYPE,
-        userVisitId: user?.id as number,
+        userVisitId: user?.id as string,
         userVisitType: user?.role as USER_TYPE,
       }),
     enabled: !!userAlreadyId && !!userAlreadyType && !!user?.id && !!user?.role,

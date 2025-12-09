@@ -12,7 +12,7 @@ export default function AlreadyUserStoreComponent({ id, userType }: IAlreadyUser
   const { setUser } = useAlreadyUserStore();
 
   useEffect(() => {
-    setUser(Number(id), userType);
+    setUser(id, userType);
   }, [id, userType, setUser]);
 
   return null;

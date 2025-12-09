@@ -15,7 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 
 interface IChangeDelegateModalProps {
-  displacedIds: number[];
+  displacedIds: string[];
   opened: boolean;
   close: () => void;
 }
@@ -74,7 +74,7 @@ export default function ChangeDelegateInDisplacedsModal({
   const handleSubmit = (values: TChangeDelegateFormValues) => {
     changeMutation.mutate({
       displacedIds,
-      delegateId: Number(values.delegateId),
+      delegateId: values.delegateId,
     });
   };
 

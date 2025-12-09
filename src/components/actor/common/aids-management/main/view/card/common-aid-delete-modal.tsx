@@ -8,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface ICommonAidDeleteModalProps {
-  aidId: number;
+  aidId: string;
   opened: boolean;
   close: () => void;
 }
@@ -52,7 +52,7 @@ export default function CommonAidDeleteModal({ aidId, opened, close }: ICommonAi
     if (isAvailableToDelete) {
       deleteMutation.mutate({
         aidId,
-        managerId: user?.id as number,
+        managerId: user?.id as string,
       });
     }
   };

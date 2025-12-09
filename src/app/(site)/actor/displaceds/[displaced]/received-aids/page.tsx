@@ -9,7 +9,7 @@ interface IDisplacedReceivedAidPageProps {
 
 export default async function DisplacedReceivedAidPage({ params }: IDisplacedReceivedAidPageProps) {
   const { displaced } = await params;
-  const displacedId = Number(displaced);
+  const displacedId = displaced;
 
   return (
     <Stack justify={'center'} align={'center'} pt={20} w={'100%'} px={10}>

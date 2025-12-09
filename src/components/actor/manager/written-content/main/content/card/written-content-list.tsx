@@ -10,7 +10,7 @@ interface IWrittenContentListProps {
   data: IWrittenContent[];
   totalPages: number;
   isLoading: boolean;
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentList({

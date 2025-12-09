@@ -1,9 +1,10 @@
+import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 import { GENDER, SOCIAL_STATUS } from "@/types/actor/common/index.type";
 import { IDelegateProfile, IDelegateProfileResponse } from "@/types/actor/delegates/profile/delegate-profile-response.type";
 
 export const fakeDelegateProfiles: IDelegateProfile[] = [
   {
-    id: -1,
+    id: "-1",
     name: "بدون مندوب",
     profileImage: "",
     identity: "960128155",
@@ -17,9 +18,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 0,
     numberOfFamilies: 0,
     nationality: "",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 1,
+    id: "1",
     name: "mostafa aljzar",
     profileImage: null,
     identity: "408656429",
@@ -33,9 +36,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 10,
     numberOfFamilies: 20,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 2,
+    id: "2",
     name: "علي خالد بن عمر",
     profileImage: null,
     identity: "960128156",
@@ -49,9 +54,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 12,
     numberOfFamilies: 25,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 3,
+    id: "3",
     name: "فاطمة زيد بنت حسن",
     profileImage: null,
     identity: "960128157",
@@ -65,9 +72,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 8,
     numberOfFamilies: 18,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 4,
+    id: "4",
     name: "خالد يوسف بن سالم",
     profileImage: null,
     identity: "960128158",
@@ -81,9 +90,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 11,
     numberOfFamilies: 22,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 5,
+    id: "5",
     name: "سارة ناصر بنت أحمد",
     profileImage: null,
     identity: "960128159",
@@ -97,9 +108,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 9,
     numberOfFamilies: 19,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 6,
+    id: "6",
     name: "عمر زياد بن محمود",
     profileImage: null,
     identity: "960128160",
@@ -113,9 +126,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 13,
     numberOfFamilies: 26,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 7,
+    id: "7",
     name: "ليلى صبري بنت رامي",
     profileImage: null,
     identity: "960128161",
@@ -129,9 +144,11 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 10,
     numberOfFamilies: 21,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
   {
-    id: 8,
+    id: "8",
     name: "ياسر حمد بن عبدالله",
     profileImage: null,
     identity: "960128162",
@@ -145,17 +162,17 @@ export const fakeDelegateProfiles: IDelegateProfile[] = [
     numberOfResponsibleCamps: 11,
     numberOfFamilies: 23,
     nationality: "فلسطيني",
+    role: USER_TYPE.DELEGATE,
+    rank: USER_RANK.DELEGATE
   },
 ]
 
 export const fakeDelegateProfileResponse = ({
   delegateId,
 }: {
-  delegateId: number
+  delegateId: string
 }): IDelegateProfileResponse => {
-  const delegateProfile = fakeDelegateProfiles.find(
-    (profile) => profile.id === Number(delegateId)
-  )
+  const delegateProfile = fakeDelegateProfiles.find((profile) => profile.id === delegateId)
 
   if (!delegateProfile) {
     return {

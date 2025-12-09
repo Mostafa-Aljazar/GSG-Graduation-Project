@@ -5,7 +5,7 @@ import { USER_TYPE } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface ISendComplaintProps {
-  actorId: number;
+  actorId: string;
   role: USER_TYPE.DELEGATE | USER_TYPE.DISPLACED | USER_TYPE.SECURITY_PERSON;
   reception: USER_TYPE.MANAGER | USER_TYPE.DELEGATE | USER_TYPE.SECURITY_PERSON;
   title: string;

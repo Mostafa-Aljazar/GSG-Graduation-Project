@@ -39,7 +39,7 @@ import {
 import { IActionResponse } from '@/types/common/action-response.type';
 import ProfileWrapper from '../../common/profile-wrapper/profile-wrapper';
 
-export default function ManagerProfileForm({ managerId }: { managerId: number }) {
+export default function ManagerProfileForm({ managerId }: { managerId: string }) {
   const queryClient = useQueryClient();
 
   const { startUpload } = useUploadThing('mediaUploader');
@@ -83,7 +83,7 @@ export default function ManagerProfileForm({ managerId }: { managerId: number })
     refetch,
   } = useQuery<IManagerProfileResponse>({
     queryKey: ['manager-profile', managerId],
-    queryFn: () => getManagerProfile({ managerId: managerId as number }),
+    queryFn: () => getManagerProfile({ managerId }),
   });
 
   const applyData = ({ managerData }: { managerData: IManagerProfileResponse | undefined }) => {
@@ -215,10 +215,7 @@ export default function ManagerProfileForm({ managerId }: { managerId: number })
 
     try {
       if (isEditMode) {
-        updateProfileMutation.mutate(
-          { managerId: managerId as number, payload },
-          { onError: handleError }
-        );
+        updateProfileMutation.mutate({ managerId, payload }, { onError: handleError });
       }
     } catch (error) {
       handleError(error);

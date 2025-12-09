@@ -8,7 +8,7 @@ import WrittenContentHeader from '../header/written-content-header';
 import WrittenContentFeed from './written-content-feed';
 
 interface IWrittenContentViewProps {
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentView({ managerId }: IWrittenContentViewProps) {

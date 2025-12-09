@@ -57,7 +57,7 @@ const DelegateProfileForm = ({
   delegateId,
   destination,
 }: {
-  delegateId?: number;
+  delegateId?: string;
   destination?: ACTION_ADD_EDIT_DISPLAY;
 }) => {
   const queryClient = useQueryClient();
@@ -107,7 +107,7 @@ const DelegateProfileForm = ({
     refetch,
   } = useQuery<IDelegateProfileResponse>({
     queryKey: ['delegate-profile', delegateId],
-    queryFn: () => getDelegateProfile({ delegateId: delegateId as number }),
+    queryFn: () => getDelegateProfile({ delegateId: delegateId as string }),
     enabled: isDisplayMode || isEditMode,
   });
 
@@ -285,7 +285,7 @@ const DelegateProfileForm = ({
       }
       if (isEditMode) {
         updateProfileMutation.mutate(
-          { delegateId: delegateId as number, payload },
+          { delegateId: delegateId as string, payload },
           { onError: handleError }
         );
       }

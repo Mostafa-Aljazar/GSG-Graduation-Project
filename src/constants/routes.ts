@@ -41,7 +41,7 @@ export const getDisplacedRoutes = (
   {
     displacedId
   }: {
-    displacedId: number
+    displacedId: string
   }) => {
   return {
     PROFILE: `/actor/displaceds/${displacedId}/profile`,
@@ -54,8 +54,8 @@ export const getDelegateRoutes = (
   {
     delegateId, aidId
   }: {
-    delegateId: number,
-    aidId?: number
+    delegateId: string,
+    aidId?: string
   }
 ) => {
   return {
@@ -77,10 +77,10 @@ export const getManagerRoutes = (
     aidId,
     writtenContent
   }: {
-    managerId: number,
-    aidId?: number,
+    managerId: string,
+    aidId?: string,
     writtenContent?: {
-      id: number,
+      id: string,
       type: TYPE_WRITTEN_CONTENT,
     }
 
@@ -108,7 +108,7 @@ export const getManagerRoutes = (
 
 export const getSecurityRoutes = (
   { securityId }: {
-    securityId: number,
+    securityId: string,
   }) => {
   return {
     PROFILE: `/actor/securities/${securityId}/profile`,

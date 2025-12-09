@@ -16,10 +16,10 @@ interface AidStore {
     formValues: IBaseAidForm;
     selectedCategories: ICategoryRange[];
 
-    selectedDisplacedIds: number[];
+    selectedDisplacedIds: string[];
     selectedDelegatesPortions: ISelectedDelegatePortion[];
     receivedDisplaceds: IReceivedDisplaceds[];
-    securitiesId: number[];
+    securitiesId: string[];
     isCompleted: boolean;
     aidStatus: TYPE_GROUP_AIDS;
 
@@ -33,18 +33,18 @@ interface AidStore {
     setFormValues: (values: Partial<IBaseAidForm>) => void;
 
     /** Displaced & delegates */
-    setSelectedDisplacedIds: (ids: number[]) => void;
+    setSelectedDisplacedIds: (ids: string[]) => void;
     setSelectedDelegatesPortions: (portions: ISelectedDelegatePortion[]) => void;
     setReceivedDisplaceds: (items: IReceivedDisplaceds[]) => void;
-    setSecuritiesId: (ids: number[]) => void;
+    setSecuritiesId: (ids: string[]) => void;
     setIsCompleted: (completed: boolean) => void;
     setAidStatus: (status: TYPE_GROUP_AIDS) => void;
 
-    addDisplacedId: (id: number) => void;
-    removeDisplacedId: (id: number) => void;
-    updateDelegatePortion: (delegateId: number, portion: number) => void;
+    addDisplacedId: (id: string) => void;
+    removeDisplacedId: (id: string) => void;
+    updateDelegatePortion: (delegateId: string, portion: number) => void;
     addReceivedDisplaced: (item: IReceivedDisplaceds) => void;
-    removeReceivedDisplaced: (displacedId: number) => void;
+    removeReceivedDisplaced: (displacedId: string) => void;
 
     resetAidStore: () => void;
 }

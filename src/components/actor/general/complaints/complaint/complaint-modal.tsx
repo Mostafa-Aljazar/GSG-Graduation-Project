@@ -140,7 +140,7 @@ export default function ComplaintModal({ complaint, opened, close }: IComplaintM
     replyMutation.mutate({
       reply: values.reply,
       complaintId: complaint.id,
-      actorId: user?.id as number,
+      actorId: user?.id as string,
       role: user?.rank as USER_RANK.SECURITY_OFFICER | USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
     });
   };

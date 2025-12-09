@@ -52,7 +52,7 @@ export default function AidDisplacedsTable({
     setDisplacedNum(DISPLACED_DATA?.pagination?.totalItems || 0);
   }, [DISPLACED_DATA, setDisplacedNum]);
 
-  const isRowReceived = (id: number) => receivedDisplacedIds?.includes(id) || false;
+  const isRowReceived = (id: string) => receivedDisplacedIds?.includes(id) || false;
 
   const headers = (
     <Table.Tr>
@@ -89,8 +89,8 @@ export default function AidDisplacedsTable({
       bg={isRowReceived(element.id) ? 'var(--mantine-color-blue-light)' : undefined}
     >
       <Table.Td px={5} ta='center' w='fit-content'>
-        {((query.displaced_page ?? (DISPLACED_DATA?.pagination?.page as number)) - 1) *
-          (DISPLACED_DATA?.pagination?.limit || 7) +
+        {((query.displaced_page ?? DISPLACED_DATA?.pagination?.page ?? 1) - 1) *
+          (DISPLACED_DATA?.pagination?.limit ?? 7) +
           index +
           1}
       </Table.Td>
@@ -116,7 +116,7 @@ export default function AidDisplacedsTable({
         {isRowReceived(element.id) ? (
           'تم'
         ) : (
-          <ReceiveDisplacedAid displacedId={element.id as number} aidId={aidData.id as number} />
+          <ReceiveDisplacedAid displacedId={element.id} aidId={aidData.id} />
         )}
       </Table.Td>
     </Table.Tr>

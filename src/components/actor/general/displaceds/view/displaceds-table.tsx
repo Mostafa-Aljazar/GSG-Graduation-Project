@@ -27,7 +27,7 @@ import DisplacedTableActions from '../displaceds-table-actions';
 export default function DisplacedsTable() {
   const { localFilters, setDisplacedNum } = useDisplaceds();
 
-  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<number[]>([]);
+  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<string[]>([]);
   const [selectAllAcrossPages, setSelectAllAcrossPages] = useState(false);
 
   const [query, setQuery] = useQueryStates(
@@ -58,7 +58,7 @@ export default function DisplacedsTable() {
     data: allDisplacedIDs,
     isLoading: isLoadingAll,
     error: allQueryError,
-  } = useQuery<number[], Error>({
+  } = useQuery<string[], Error>({
     queryKey: ['displaceds_all', query.search, localFilters],
     queryFn: async () => (await getDisplacedsIds({ filters: localFilters })).displacedsIds,
     enabled: selectAllAcrossPages,
@@ -81,7 +81,7 @@ export default function DisplacedsTable() {
   }, [allDisplacedIDs, selectAllAcrossPages]);
 
   const isRowSelected = useCallback(
-    (id: number) => selectedDisplacedIds.includes(id),
+    (id: string) => selectedDisplacedIds.includes(id),
     [selectedDisplacedIds]
   );
 
@@ -91,7 +91,7 @@ export default function DisplacedsTable() {
   );
 
   const handleRowSelection = useCallback(
-    (id: number, checked: boolean) => {
+    (id: string, checked: boolean) => {
       setSelectedDisplacedIds((prev) => {
         const updated = checked
           ? [...prev.filter((rowId) => rowId !== id), id]

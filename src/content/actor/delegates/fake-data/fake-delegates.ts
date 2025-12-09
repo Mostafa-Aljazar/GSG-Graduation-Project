@@ -5,15 +5,15 @@ import { IDelegate, IDelegatesIdsResponse, IDelegatesNamesResponse, IDelegatesRe
 
 
 export const fakeDelegates: IDelegate[] = [
-    { id: -1, name: 'بدون مندوب', identity: '999999999', displacedNumber: 0, familyNumber: 0, mobileNumber: '0595000000', tentsNumber: 0 },
-    { id: 1, name: "mostafa aljzar", identity: '408656429', displacedNumber: 50, familyNumber: 20, mobileNumber: '0595867456', tentsNumber: 10 },
-    { id: 2, name: 'علي خالد بن عمر', identity: '960128156', displacedNumber: 60, familyNumber: 25, mobileNumber: '0595867457', tentsNumber: 12 },
-    { id: 3, name: 'فاطمة زيد بنت حسن', identity: '960128157', displacedNumber: 45, familyNumber: 18, mobileNumber: '0595867458', tentsNumber: 8 },
-    { id: 4, name: 'خالد يوسف بن سالم', identity: '960128158', displacedNumber: 55, familyNumber: 22, mobileNumber: '0595867459', tentsNumber: 11 },
-    { id: 5, name: 'سارة ناصر بنت أحمد', identity: '960128159', displacedNumber: 48, familyNumber: 19, mobileNumber: '0595867460', tentsNumber: 9 },
-    { id: 6, name: 'عمر زياد بن محمود', identity: '960128160', displacedNumber: 62, familyNumber: 26, mobileNumber: '0595867461', tentsNumber: 13 },
-    { id: 7, name: 'ليلى صبري بنت رامي', identity: '960128161', displacedNumber: 53, familyNumber: 21, mobileNumber: '0595867462', tentsNumber: 10 },
-    { id: 8, name: 'ياسر حمد بن عبدالله', identity: '960128162', displacedNumber: 57, familyNumber: 23, mobileNumber: '0595867463', tentsNumber: 11 },
+    { id: '-1', name: 'بدون مندوب', identity: '999999999', displacedNumber: 0, familyNumber: 0, mobileNumber: '0595000000', tentsNumber: 0 },
+    { id: '1', name: "mostafa aljzar", identity: '408656429', displacedNumber: 50, familyNumber: 20, mobileNumber: '0595867456', tentsNumber: 10 },
+    { id: '2', name: 'علي خالد بن عمر', identity: '960128156', displacedNumber: 60, familyNumber: 25, mobileNumber: '0595867457', tentsNumber: 12 },
+    { id: '3', name: 'فاطمة زيد بنت حسن', identity: '960128157', displacedNumber: 45, familyNumber: 18, mobileNumber: '0595867458', tentsNumber: 8 },
+    { id: '4', name: 'خالد يوسف بن سالم', identity: '960128158', displacedNumber: 55, familyNumber: 22, mobileNumber: '0595867459', tentsNumber: 11 },
+    { id: '5', name: 'سارة ناصر بنت أحمد', identity: '960128159', displacedNumber: 48, familyNumber: 19, mobileNumber: '0595867460', tentsNumber: 9 },
+    { id: '6', name: 'عمر زياد بن محمود', identity: '960128160', displacedNumber: 62, familyNumber: 26, mobileNumber: '0595867461', tentsNumber: 13 },
+    { id: '7', name: 'ليلى صبري بنت رامي', identity: '960128161', displacedNumber: 53, familyNumber: 21, mobileNumber: '0595867462', tentsNumber: 10 },
+    { id: '8', name: 'ياسر حمد بن عبدالله', identity: '960128162', displacedNumber: 57, familyNumber: 23, mobileNumber: '0595867463', tentsNumber: 11 },
 ];
 
 export const fakeDelegatesResponse = ({ page = 1, limit = 10 }: IGetDelegatesProps): IDelegatesResponse => {

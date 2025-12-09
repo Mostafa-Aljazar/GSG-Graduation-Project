@@ -5,7 +5,7 @@ import { AqsaAPI } from '@/services/api';
 import { IDelegatesNamesResponse } from '@/types/actor/general/delegates/delegates-response.type';
 
 export interface IGetDelegatesNamesProps {
-    ids?: number[];
+    ids?: string[];
 }
 
 const USE_FAKE = true;

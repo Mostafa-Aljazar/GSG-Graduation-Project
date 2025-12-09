@@ -1,11 +1,11 @@
 import { LOCALSTORAGE_SESSION_KEY } from "@/constants/session-key";
 import { z } from "zod";
 import { USER_RANK, USER_TYPE } from "@/constants/user-types";
-import { IUser } from "@/types/auth/loginResponse.type";
+import { IUser } from "@/types/actor/common/user/user.type";
 
 // Validate user data including optional fields and complex types
 const UserSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
   email: z.string().email(),
   identity: z.string(),
@@ -13,8 +13,8 @@ const UserSchema = z.object({
   createdAt: z.union([z.string(), z.date()]),
   updatedAt: z.union([z.string(), z.date()]).optional(),
   profileImage: z.union([z.string(), z.null()]).optional(),
-  role: z.nativeEnum(USER_TYPE),
-  rank: z.nativeEnum(USER_RANK).optional(),
+  role: z.enum(USER_TYPE),
+  rank: z.enum(USER_RANK),
 });
 
 // Session schema with user nested
