@@ -10,7 +10,7 @@ export interface IBaseProfile {
     identity: string;
     nationality: string;
     gender: GENDER;
-    profileImage?: string | StaticImageData | null;
+    profileImage?: string | null;
     mobileNumber: string;
     alternativeMobileNumber?: string;
     role: USER_TYPE;
