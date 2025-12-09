@@ -1,27 +1,27 @@
 'use client';
 
+import { getWrittenContent } from '@/actions/common/written-content/getWrittenContent';
+import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
+import { IWrittenContentResponse } from '@/types/common/written-content/written-content-response.type';
+import { Carousel } from '@mantine/carousel';
 import {
   Box,
+  Center,
+  Divider,
   Group,
+  Image,
   LoadingOverlay,
   Paper,
-  Center,
-  ThemeIcon,
-  Text,
   Stack,
-  Divider,
-  Image,
+  Text,
+  ThemeIcon,
 } from '@mantine/core';
-import { StaticImageData } from 'next/image';
 import { useQuery } from '@tanstack/react-query';
-import { MessageCircleWarning } from 'lucide-react';
-import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { useRef } from 'react';
+import { MessageCircleWarning } from 'lucide-react';
+import { StaticImageData } from 'next/image';
 import { parseAsStringEnum, useQueryStates } from 'nuqs';
-import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
-import { getWrittenContent } from '@/actions/common/written-content/getWrittenContent';
-import { IWrittenContentResponse } from '@/types/common/written-content/written-content-response.type';
+import { useRef } from 'react';
 
 interface ISingleWrittenContentViewProps {
   writtenContentId: number;
