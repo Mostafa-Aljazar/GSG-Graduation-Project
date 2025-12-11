@@ -1,4 +1,3 @@
-import { StaticImageData } from "next/image";
 import { USER_TYPE, USER_RANK } from "@/constants/user-types";
 import { GENDER } from "../../common/index.type";
 

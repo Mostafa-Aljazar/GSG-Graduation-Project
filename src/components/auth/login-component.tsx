@@ -24,13 +24,14 @@ import {
   getSecurityRoutes,
   LANDING_ROUTES,
 } from '@/constants/routes';
-import { LOCALSTORAGE_SESSION_KEY } from '@/constants/session-key';
+import { COOKIE_NAME } from '@/constants/cookie-name';
 import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
 import { ILoginResponse } from '@/types/auth/loginResponse.type';
 import { loginFormSchema, TLoginFormValues } from '@/validations/auth/login.schema';
 import { ILoginProps, login } from '@/actions/auth/login';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
+import Cookies from 'js-cookie';
 
 export default function LoginComponent() {
   const [error, setError] = useState('');
@@ -55,8 +56,6 @@ export default function LoginComponent() {
 
       if (data.status === 200) {
         try {
-          localStorage.setItem(LOCALSTORAGE_SESSION_KEY, JSON.stringify(data));
-
           notifications.show({
             title: 'مرحبا بك',
             message: 'تم تسجيل الدخول بنجاح',

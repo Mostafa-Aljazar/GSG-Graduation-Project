@@ -8,7 +8,7 @@ export interface IGetManagerProfileProps {
     managerId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getManagerProfile = async ({
     managerId,
@@ -27,10 +27,11 @@ export const getManagerProfile = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IManagerProfileResponse>(
-            `/manager/${managerId}/profile`
+            `/actor/manager/${managerId}/profile`
         );
-
-        if (response.data.user) return response.data;
+        // console.log("🚀 ~ getManagerProfile ~ response:", response)
+        // src\app\api\actors\users\manager\[managerId]\profile\route.ts
+        if (response.data) return response.data;
 
         throw new Error("فشل في تحميل بيانات الملف الشخصي");
     } catch (err: unknown) {

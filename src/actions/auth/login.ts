@@ -1,58 +1,38 @@
-'use server';
+'use server'
 
-import { USER_TYPE, USER_RANK } from '@/constants/user-types';
-import { AqsaGuestAPI } from '@/services/api';
-import { IUser } from '@/types/actor/common/user/user.type';
-import { ILoginResponse, } from '@/types/auth/loginResponse.type';
+import { USER_TYPE, } from '@/constants/user-types'
+import { AqsaGuestAPI } from '@/services/api'
+import { IUser } from '@/types/actor/common/user/user.type'
+import { ILoginResponse } from '@/types/auth/loginResponse.type'
+import { setSessionCookie, getSessionCookie } from '@/utils/auth/cookies/serverCookies'
 
 export interface ILoginProps {
-    userType: USER_TYPE;
-    email: string;
-    password: string;
+    userType: USER_TYPE
+    email: string
+    password: string
 }
-
-const USE_FAKE = true;
 
 export const login = async ({
     email,
     password,
     userType,
 }: ILoginProps): Promise<ILoginResponse> => {
-    if (USE_FAKE) {
-        const fakeResponse: ILoginResponse = {
-            status: 200,
-            message: 'تم تسجيل الدخول بنجاح',
-            token: 'fake-jwt-token',
-            user: {
-                id: "1",
-                name: 'John Doe',
-                email,
-                identity: '408656429',
-                phoneNumber: '+1234567890',
-                createdAt: new Date(),
-                role: userType,
-                rank: USER_RANK[userType],
-                profileImage: null,
-            },
-            error: undefined,
-        };
-
-        return new Promise((resolve) => setTimeout(() => resolve(fakeResponse), 500));
-    }
-
-    /////////////////////////////////////////////////////////////
-    // REAL IMPLEMENTATION
-    /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaGuestAPI.post('/login', {
+        const response = await AqsaGuestAPI.post<ILoginResponse>('/auth/login', {
             email,
             password,
             role: userType,
-        });
+        })
 
         if (!response.data || response.status !== 200) {
-            throw new Error('حدث خطأ في تسجيل الدخول');
+            throw new Error('حدث خطأ في تسجيل الدخول')
         }
+
+        await setSessionCookie({ token: response.data.token, user: response.data.user })
+
+
+        console.log("🚀 ~ login ~ getCookieFromServer:", await getSessionCookie())
+
 
         return {
             status: 200,
@@ -60,22 +40,17 @@ export const login = async ({
             token: response.data.token,
             user: response.data.user,
             error: undefined,
-        };
-
-    } catch (err: unknown) {
-        const statusCode = 500;
-        let errorMessage = 'حدث خطأ في تسجيل الدخول';
-
-        if (err instanceof Error) {
-            errorMessage = err.message;
         }
+    } catch (err: unknown) {
+        let errorMessage = 'حدث خطأ في تسجيل الدخول'
+        if (err instanceof Error) errorMessage = err.message
 
         return {
-            status: statusCode,
+            status: 500,
             message: errorMessage,
             token: '',
             user: {} as IUser,
             error: errorMessage,
-        };
+        }
     }
-};
+}
