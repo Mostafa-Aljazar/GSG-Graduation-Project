@@ -31,6 +31,7 @@ function OTPContent() {
       email: parseAsString.withDefault(''),
       callback: parseAsString.withDefault('/'),
       date: parseAsInteger.withDefault(0),
+      otp: parseAsString.withDefault(''),
     },
     { shallow: true }
   );
@@ -82,7 +83,7 @@ function OTPContent() {
 
   const form = useForm<TOtpFormValues>({
     mode: 'uncontrolled',
-    initialValues: { otp: '' },
+    initialValues: { otp: query.otp },
     validate: zod4Resolver(otpFormSchema),
   });
 
@@ -119,6 +120,12 @@ function OTPContent() {
       });
     },
   });
+
+  // useEffect(() => {
+  //   if (query.otp !== '') {
+  //     verifyOtpMutation.mutate({ email: query.email, otp: query.otp });
+  //   }
+  // }, [query.otp]);
 
   const handleSubmit = form.onSubmit((values: TOtpFormValues) => {
     if (!seconds) {

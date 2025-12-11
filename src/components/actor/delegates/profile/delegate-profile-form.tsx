@@ -8,6 +8,7 @@ import {
   Group,
   NativeSelect,
   NumberInput,
+  Select,
   SimpleGrid,
   Stack,
   Text,
@@ -121,7 +122,8 @@ const DelegateProfileForm = ({
         form.setValues({
           name: userData.name,
           email: userData.email,
-          identity: userData.identity,
+          identity: '123456789',
+          // identity: userData.identity,
           gender: userData.gender,
           nationality: userData.nationality,
           mobileNumber:
@@ -132,10 +134,25 @@ const DelegateProfileForm = ({
             userData.alternativeMobileNumber?.length === 10
               ? `+970${userData.alternativeMobileNumber}`
               : userData.alternativeMobileNumber || '',
-          socialStatus: userData.socialStatus,
+          // socialStatus: 'SINGLE' as SOCIAL_STATUS,
+          // socialStatus: Object.values(SOCIAL_STATUS).includes(
+          //   userData.socialStatus as SOCIAL_STATUS
+          // )
+          //   ? (userData.socialStatus as SOCIAL_STATUS)
+          //   : SOCIAL_STATUS.SINGLE, // fallback if invalid
           age: userData.age,
           education: userData.education,
         });
+        // form.setValues({
+        //   ...form.values,
+        //   socialStatus: Object.values(SOCIAL_STATUS).includes(
+        //     userData.socialStatus as SOCIAL_STATUS
+        //   )
+        //     ? (userData.socialStatus as SOCIAL_STATUS)
+        //     : SOCIAL_STATUS.SINGLE, // fallback if invalid
+        // });
+
+        // form.setInitialValues()
         form.clearErrors();
         form.resetTouched();
         form.resetDirty();
@@ -382,7 +399,7 @@ const DelegateProfileForm = ({
               disabled={isDisplayMode}
             />
 
-            <NativeSelect
+            <Select
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
                   الحالة الاجتماعية :

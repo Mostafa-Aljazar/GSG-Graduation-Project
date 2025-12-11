@@ -40,7 +40,7 @@ export const updateDelegateProfile = async ({
   /////////////////////////////////////////////////////////////
   try {
     const response = await AqsaAPI.put<IActionResponse>(
-      `/delegates/${delegateId}/profile`,
+      `/actor/delegates/${delegateId}/profile`,
       preparedPayload
     );
 

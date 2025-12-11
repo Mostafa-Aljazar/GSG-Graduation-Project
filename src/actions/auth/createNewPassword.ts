@@ -9,7 +9,7 @@ export interface ICreateNewPasswordProps {
     confirmPassword: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const createNewPassword = async ({ email, password, confirmPassword }: ICreateNewPasswordProps): Promise<IActionResponse> => {
 
@@ -27,7 +27,7 @@ export const createNewPassword = async ({ email, password, confirmPassword }: IC
     /////////////////////////////////////////////////////////////
     try {
 
-        const response = await AqsaGuestAPI.post("/auth/create-new-password", {
+        const response = await AqsaGuestAPI.post<IActionResponse>("/auth/create-new-password", {
             password,
             confirmPassword,
             email

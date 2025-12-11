@@ -10,7 +10,7 @@ export interface IGetDelegatesByIdsProps {
     limit?: number;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDelegatesByIds = async ({
     Ids,
@@ -26,7 +26,7 @@ export const getDelegatesByIds = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IDelegatesResponse>('/delegates/by-ids', {
+        const response = await AqsaAPI.get<IDelegatesResponse>('/actor/delegates/by-ids', {
             params: { Ids, page, limit },
         });
 

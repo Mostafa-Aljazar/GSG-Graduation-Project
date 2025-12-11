@@ -208,7 +208,7 @@ model DelegateProfile {
   age                      Int
   socialStatus             SOCIAL_STATUS
   education                String
-  numberOfResponsibleCamps Int?
+  numberOfResponsibleCamps Int? //TODO: remove it
   numberOfFamilies         Int?
 }
 

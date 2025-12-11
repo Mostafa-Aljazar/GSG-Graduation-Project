@@ -9,7 +9,7 @@ export interface IVerifyOtpProps {
     email: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const verifyOtp = async ({
     email,

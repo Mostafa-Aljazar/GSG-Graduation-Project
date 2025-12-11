@@ -9,7 +9,7 @@ export interface IAddNewDelegateProps {
   payload: TDelegateProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const addNewDelegate = async ({
   payload,
@@ -37,7 +37,7 @@ export const addNewDelegate = async ({
   // REAL IMPLEMENTATION
   /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.post<IActionResponse>("/delegates/add", preparedPayload);
+    const response = await AqsaAPI.post<IActionResponse>("/actor/delegates/add", preparedPayload);
 
     if (response.data) return response.data;
 

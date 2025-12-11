@@ -8,7 +8,7 @@ export interface IGetDelegateProfileProps {
   delegateId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDelegateProfile = async ({
   delegateId,
@@ -23,7 +23,7 @@ export const getDelegateProfile = async ({
   // REAL IMPLEMENTATION
   /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.get<IDelegateProfileResponse>(`/delegates/${delegateId}/profile`);
+    const response = await AqsaAPI.get<IDelegateProfileResponse>(`/actor/delegates/${delegateId}/profile`);
 
     if (response.data.user) return response.data;
 
