@@ -5,7 +5,7 @@ import { AqsaAPI } from '@/services/api';
 import { IDelegateProfile, IDelegateProfileResponse } from '@/types/actor/delegates/profile/delegate-profile-response.type';
 
 export interface IGetDelegateProfileProps {
-  delegateId: number;
+  delegateId: string;
 }
 
 const USE_FAKE = true;

@@ -1,7 +1,7 @@
 import { IPagination } from "@/types/common/pagination.type";
 
 export interface ISecurity {
-    id: number;
+    id: string;
     name: string;
     identity: string;
     mobileNumber: string;
@@ -16,19 +16,20 @@ export interface ISecuritiesResponse {
     pagination: IPagination
 }
 
+export interface ISecuritiesName {
+    id: string;
+    name: string
+}
 
 export interface ISecuritiesNamesResponse {
     status: number;
     message: string;
-    securitiesNames: {
-        id: number;
-        name: string
-    }[];
+    securitiesNames: ISecuritiesName[];
     error?: string;
 }
 export interface ISecurityIdsResponse {
     status: number;
     message?: string;
-    securitiesIds: number[];
+    securitiesIds: string[];
     error?: string;
 }

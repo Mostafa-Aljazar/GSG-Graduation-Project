@@ -5,7 +5,7 @@ import { IDisplacedProfileResponse } from "@/types/actor/displaceds/profile/disp
 import { AqsaAPI } from "@/services/api";
 
 export interface IGetDisplacedProfileProps {
-    displacedId: number;
+    displacedId: string;
 }
 
 const USE_FAKE = true;

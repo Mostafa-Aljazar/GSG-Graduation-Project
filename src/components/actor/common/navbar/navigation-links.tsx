@@ -22,7 +22,7 @@ export default function NavigationLinks() {
     useAuth();
 
   const pathname = usePathname();
-  const userId = Number(user?.id) || 0;
+  const userId = user?.id || '';
 
   const { userId: alreadyUserId, userType: alreadyUserType } = useAlreadyUserStore();
 

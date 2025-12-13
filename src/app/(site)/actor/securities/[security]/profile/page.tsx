@@ -1,10 +1,12 @@
+import SecurityProfileForm from '@/components/actor/securities/profile/security-profile-form';
+
 interface ISecurityProfileProps {
   params: Promise<{ security: string }>;
 }
 
 export default async function SecurityProfile({ params }: ISecurityProfileProps) {
   const { security } = await params;
-  const securityId = Number(security);
+  const securityId = security;
 
-  return <>Hi from SecurityProfile {securityId}</>;
+  return <SecurityProfileForm securityId={securityId} />;
 }

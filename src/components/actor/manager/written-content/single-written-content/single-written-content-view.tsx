@@ -24,7 +24,7 @@ import { parseAsStringEnum, useQueryStates } from 'nuqs';
 import { useRef } from 'react';
 
 interface ISingleWrittenContentViewProps {
-  writtenContentId: number;
+  writtenContentId: string;
   destination?: TYPE_WRITTEN_CONTENT;
 }
 

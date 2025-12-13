@@ -7,8 +7,8 @@ import { AqsaAPI } from "@/services/api";
 import { IAidResponse, TAid } from "@/types/actor/common/aids-management/aids-management.types";
 
 export interface IGetAidProps {
-    aidId: number;
-    actorId: number;
+    aidId: string;
+    actorId: string;
     role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
 }
 

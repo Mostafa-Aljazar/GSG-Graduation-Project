@@ -6,7 +6,7 @@ import { IActionResponse } from "@/types/common/action-response.type";
 import { AGES } from "@/types/actor/common/index.type";
 
 export interface IUpdateDisplacedProfileProps {
-    displacedId: number;
+    displacedId: string;
     payload: TDisplacedProfileFormValues;
 }
 

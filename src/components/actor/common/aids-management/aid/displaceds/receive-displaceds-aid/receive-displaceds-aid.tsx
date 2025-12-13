@@ -4,8 +4,8 @@ import { useDisclosure } from '@mantine/hooks';
 import ReceiveDisplacedAidModal from './receive_displaced-aid-modal';
 
 interface IReceiveDisplacedAidProps {
-  displacedId: number;
-  aidId: number;
+  displacedId: string;
+  aidId: string;
   disabled?: boolean;
 }
 

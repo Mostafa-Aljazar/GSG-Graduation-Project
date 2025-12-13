@@ -41,7 +41,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
       action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
         ACTION_ADD_EDIT_DISPLAY.ADD
       ),
-      aidId: parseAsInteger.withDefault(0),
+      aidId: parseAsString.withDefault(''),
     },
     { shallow: true }
   );
@@ -54,12 +54,12 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
     setSelectedDisplacedIds: STORE_setSelectedDisplacedIds,
   } = useAidStore();
 
-  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<number[]>([]);
+  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (
       query.action === ACTION_ADD_EDIT_DISPLAY.EDIT &&
-      query.aidId !== 0 &&
+      query.aidId !== '' &&
       STORE_selectedDisplacedIds
     ) {
       startTransition(() => {
@@ -72,7 +72,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
 
   const limitSelectedDisplaced =
     role == USER_TYPE.DELEGATE
-      ? (selectedDelegatesPortions?.find((item) => item.delegateId == userId)?.portion as number)
+      ? selectedDelegatesPortions?.find((item) => item.delegateId == userId)?.portion ?? 0
       : -1;
 
   const [selectAllAcrossPages, setSelectAllAcrossPages] = useState(false);
@@ -104,7 +104,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
     data: allDisplacedIds,
     isLoading: isLoadingAll,
     error: allQueryError,
-  } = useQuery<number[], Error>({
+  } = useQuery<string[], Error>({
     queryKey: ['displaceds_all', query.search, localFilters],
     queryFn: async () => {
       const response = await getDisplacedsIds({
@@ -135,16 +135,16 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
     }
   }, [allDisplacedIds, selectAllAcrossPages, setSelectedDisplacedIds]);
 
-  const isRowSelected = (id: number) => selectedDisplacedIds.includes(id);
+  const isRowSelected = (id: string) => selectedDisplacedIds.includes(id);
 
   const areAllPagesRowsSelected = () =>
     selectedDisplacedIds.length === (displacedData?.pagination?.totalItems || 0);
 
-  const handleRowSelection = (id: number, checked: boolean) => {
+  const handleRowSelection = (id: string, checked: boolean) => {
     if (checked) {
       if (role == 'DELEGATE') {
         if (limitSelectedDisplaced > selectedDisplacedIds.length) {
-          const changeSelectedDisplacedIds: number[] = [
+          const changeSelectedDisplacedIds: string[] = [
             ...selectedDisplacedIds.filter((rowId) => rowId !== id),
             id,
           ];
@@ -162,7 +162,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
           });
         }
       } else {
-        const changeSelectedDisplacedIds: number[] = [
+        const changeSelectedDisplacedIds: string[] = [
           ...selectedDisplacedIds.filter((rowId) => rowId !== id),
           id,
         ];
@@ -171,7 +171,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
         if (areAllPagesRowsSelected()) setSelectAllAcrossPages(true);
       }
     } else {
-      const changeSelectedDisplacedIds: number[] = selectedDisplacedIds.filter(
+      const changeSelectedDisplacedIds: string[] = selectedDisplacedIds.filter(
         (rowId) => rowId !== id
       );
       setSelectedDisplacedIds(changeSelectedDisplacedIds);
@@ -183,7 +183,7 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
   const handleSelectAllAcrossAllPages = (checked: boolean) => {
     if (checked) {
       if (role == 'DELEGATE') {
-        if (limitSelectedDisplaced > (allDisplacedIds?.length as number)) {
+        if (limitSelectedDisplaced > (allDisplacedIds?.length ?? 0)) {
           setSelectAllAcrossPages(true);
           setSelectedDisplacedIds(allDisplacedIds || []);
         } else {

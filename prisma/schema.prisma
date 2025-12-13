@@ -1,0 +1,254 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------- ENUMS ----------------
+enum USER_TYPE {
+  DISPLACED
+  DELEGATE
+  MANAGER
+  SECURITY_PERSON
+}
+
+enum USER_RANK {
+  DISPLACED
+  DELEGATE
+  MANAGER
+  SECURITY_PERSON
+  SECURITY_OFFICER
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+}
+
+enum SOCIAL_STATUS {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+}
+
+enum AGES {
+  LESS_THAN_6_MONTHS
+  FROM_6_MONTHS_TO_2_YEARS
+  FROM_2_YEARS_To_6_YEARS
+  FROM_6_YEARS_To_12_YEARS
+  FROM_12_YEARS_To_18_YEARS
+  MORE_THAN_18
+}
+
+enum ACCOMMODATION_TYPE {
+  INDOOR_TENT
+  INDOOR_BUILDING
+  OUTDOOR
+}
+
+enum FAMILY_STATUS_TYPE {
+  NORMAL
+  DIFFICULT
+  CRITICAL
+}
+
+enum USER_STATUS {
+  ACTIVE
+  PENDING
+}
+
+// ---------------- USERS ----------------
+model User {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  email     String      @unique
+  password  String?
+  role      USER_TYPE
+  rank      USER_RANK
+  status    USER_STATUS @default(PENDING) // pending | active
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  displaced     DisplacedProfile?
+  delegate      DelegateProfile?
+  manager       ManagerProfile?
+  security      SecurityProfile?
+  displacements Displacement[]
+
+  otp UserOtp?
+}
+
+model UserOtp {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// ---------------- DISPLACED ----------------
+model DisplacedProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(DISPLACED)
+  rank USER_RANK @default(DISPLACED)
+
+  originalAddress String
+  wives           Wife[]
+  socialStatus    DisplacedSocialStatus @relation(fields: [socialStatusId], references: [id])
+  socialStatusId  String                @db.ObjectId
+  displacement    Displacement          @relation(fields: [displacementId], references: [id])
+  displacementId  String                @db.ObjectId
+
+  warInjuries       WarInjury[]
+  martyrs           Martyr[]
+  medicalConditions MedicalCondition[]
+
+  additionalNotes String?
+}
+
+model Wife {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id])
+
+  name        String
+  identity    String
+  nationality String
+  isPregnant  Boolean
+  isWetNurse  Boolean
+}
+
+model DisplacedSocialStatus {
+  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
+  status             SOCIAL_STATUS
+  numberOfWives      Int
+  numberOfMales      Int
+  numberOfFemales    Int
+  totalFamilyMembers Int
+
+  ageGroups         AgeGroup[]
+  displacedProfiles DisplacedProfile[]
+}
+
+model AgeGroup {
+  id             String                @id @default(auto()) @map("_id") @db.ObjectId
+  socialStatusId String                @db.ObjectId
+  socialStatus   DisplacedSocialStatus @relation(fields: [socialStatusId], references: [id])
+  ageGroup       AGES
+  count          Int
+}
+
+model Displacement {
+  id                String             @id @default(auto()) @map("_id") @db.ObjectId
+  tentNumber        String
+  tentType          ACCOMMODATION_TYPE
+  familyStatusType  FAMILY_STATUS_TYPE
+  displacementDate  DateTime
+  delegateId        String             @db.ObjectId
+  delegate          User               @relation(fields: [delegateId], references: [id])
+  displacedProfiles DisplacedProfile[]
+}
+
+model WarInjury {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id])
+  name        String
+  injury      String
+}
+
+model Martyr {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id])
+  name        String
+}
+
+model MedicalCondition {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id])
+  name        String
+  condition   String
+}
+
+// ---------------- DELEGATE ----------------
+model DelegateProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(DELEGATE)
+  rank USER_RANK @default(DELEGATE)
+
+  age                      Int
+  socialStatus             SOCIAL_STATUS
+  education                String
+  numberOfResponsibleCamps Int?
+  numberOfFamilies         Int?
+}
+
+// ---------------- MANAGER ----------------
+model ManagerProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(MANAGER)
+  rank USER_RANK @default(MANAGER)
+
+  socialStatus SOCIAL_STATUS
+}
+
+// ---------------- SECURITY ----------------
+model SecurityProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(SECURITY_PERSON)
+  rank USER_RANK
+
+  socialStatus    SOCIAL_STATUS
+  additionalNotes String?
+}

@@ -29,8 +29,8 @@ interface ActionItem {
 }
 
 interface Props {
-  securityId?: number;
-  securityIds?: number[];
+  securityId?: string;
+  securityIds?: string[];
   disabled?: boolean;
 }
 
@@ -50,7 +50,7 @@ export default function SecuritiesTableActions({ securityId, securityIds, disabl
 
   const closeModal = () => setModalType(null);
 
-  const buildRoute = (id: number, edit = false) => {
+  const buildRoute = (id: string, edit = false) => {
     const base = getSecurityRoutes({ securityId: id });
     return edit ? `${base.PROFILE}?action=${ACTION_ADD_EDIT_DISPLAY.EDIT}` : base.PROFILE;
   };
@@ -65,11 +65,11 @@ export default function SecuritiesTableActions({ securityId, securityIds, disabl
 
   // View/edit actions
   const viewEditActions: ActionItem[] = [
-    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(securityId || 0)) },
+    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(securityId || '')) },
     {
       label: 'تعديل',
       icon: UserPen,
-      action: () => router.push(buildRoute(securityId || 0, true)),
+      action: () => router.push(buildRoute(securityId || '', true)),
     },
   ];
 

@@ -18,9 +18,9 @@ interface ActionItem {
 }
 
 interface IWrittenContentCardActionProps {
-  writtenContentId: number;
+  writtenContentId: string;
   type: TYPE_WRITTEN_CONTENT;
-  managerId: number;
+  managerId: string;
 }
 
 export default function WrittenContentCardAction({

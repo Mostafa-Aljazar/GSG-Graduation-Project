@@ -3,8 +3,9 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { USER_RANK, USER_TYPE } from '@/constants/user-types';
-import { IUser } from '@/types/auth/loginResponse.type';
-import { getSession } from '@/utils/auth/getSession';
+// import { getcookie } from '@/utils/auth/getcookie';
+import { IUser } from '@/types/actor/common/user/user.type';
+import { cookieClient } from '@/utils/auth/cookies/clientCookies';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -34,11 +35,13 @@ export default function useAuth() {
 
   useEffect(() => {
     // This runs only on the client after mount
-    const session = getSession();
+    const cookie = cookieClient.get();
+
+    console.log('🚀 ~ useAuth ~ cookie:', cookie);
 
     // Use startTransition to avoid the "synchronous setState in effect" warning
     startTransition(() => {
-      if (!session) {
+      if (!cookie) {
         setAuthState({
           ...initialState,
           loading: false,
@@ -48,14 +51,14 @@ export default function useAuth() {
 
       setAuthState({
         isAuthenticated: true,
-        isManager: session.user.role === USER_TYPE.MANAGER,
-        isDelegate: session.user.role === USER_TYPE.DELEGATE,
-        isDisplaced: session.user.role === USER_TYPE.DISPLACED,
-        isSecurityPerson: session.user.role === USER_TYPE.SECURITY_PERSON,
+        isManager: cookie.user.role === USER_TYPE.MANAGER,
+        isDelegate: cookie.user.role === USER_TYPE.DELEGATE,
+        isDisplaced: cookie.user.role === USER_TYPE.DISPLACED,
+        isSecurityPerson: cookie.user.role === USER_TYPE.SECURITY_PERSON,
         isSecurityOfficer:
-          session.user.role === USER_TYPE.SECURITY_PERSON &&
-          session.user.rank === USER_RANK.SECURITY_OFFICER,
-        user: session.user,
+          cookie.user.role === USER_TYPE.SECURITY_PERSON &&
+          cookie.user.rank === USER_RANK.SECURITY_OFFICER,
+        user: cookie.user,
         loading: false,
       });
     });

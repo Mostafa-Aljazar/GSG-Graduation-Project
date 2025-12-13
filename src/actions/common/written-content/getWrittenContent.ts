@@ -6,7 +6,7 @@ import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { IWrittenContent, IWrittenContentResponse, } from '@/types/common/written-content/written-content-response.type';
 
 export interface IGetWrittenContentProps {
-  id: number;
+  id: string;
   type: TYPE_WRITTEN_CONTENT;
 }
 

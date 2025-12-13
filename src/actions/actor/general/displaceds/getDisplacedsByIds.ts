@@ -5,7 +5,7 @@ import { AqsaAPI } from "@/services/api";
 import { fakeDisplacedByIdsResponse } from "@/content/actor/displaceds/fake-data/fake-displaced";
 
 export interface IGetDisplacedByIdsProps {
-    ids: number[];
+    ids: string[];
     page?: number;
     limit?: number;
 }

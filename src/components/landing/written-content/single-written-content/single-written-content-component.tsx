@@ -23,7 +23,7 @@ import { IWrittenContentResponse } from '@/types/common/written-content/written-
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 
 interface ISingleWrittenContentComponentProps {
-  contentId: number;
+  contentId: string;
   contentType: TYPE_WRITTEN_CONTENT;
 }
 

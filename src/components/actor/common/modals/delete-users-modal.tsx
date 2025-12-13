@@ -8,7 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
 
 interface IDeleteUsersModalProps {
-  userIds: number[];
+  userIds: string[];
   userType: USER_TYPE;
   opened: boolean;
   close: () => void;

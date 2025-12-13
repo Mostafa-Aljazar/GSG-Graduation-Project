@@ -22,7 +22,7 @@ const optionalMobileSchema = z
 // Displaced Profile Schema
 // =======================
 export const displacedProfileFormSchema = z.object({
-    id: z.number().optional(),
+    id: z.string().optional(),
 
     profileImage: z.string().optional().nullable(),
 

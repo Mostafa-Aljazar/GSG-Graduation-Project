@@ -31,8 +31,8 @@ interface IActionItem {
 }
 
 interface DisplacedTableActionsProps {
-  displacedId?: number;
-  displacedIds?: number[];
+  displacedId?: string;
+  displacedIds?: string[];
   disabled?: boolean;
 }
 
@@ -56,7 +56,7 @@ export default function DisplacedTableActions({
 
   const closeModal = () => setModalType(null);
 
-  const buildRoute = (id: number, edit = false) => {
+  const buildRoute = (id: string, edit = false) => {
     const base = getDisplacedRoutes({ displacedId: id });
     return edit ? `${base.PROFILE}?action=${ACTION_ADD_EDIT_DISPLAY.EDIT}` : base.PROFILE;
   };
@@ -73,16 +73,16 @@ export default function DisplacedTableActions({
   ];
 
   const viewEditActions: IActionItem[] = [
-    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || 0)) },
+    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || '')) },
     {
       label: 'تعديل',
       icon: UserPen,
-      action: () => router.push(buildRoute(displacedId || 0, true)),
+      action: () => router.push(buildRoute(displacedId || '', true)),
     },
   ];
 
   const securityActions: IActionItem[] = [
-    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || 0)) },
+    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || '')) },
     { label: 'استدعاء', icon: Speech, action: () => openModal('call') },
   ];
 

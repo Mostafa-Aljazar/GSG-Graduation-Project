@@ -14,11 +14,11 @@ export interface IGetComplaintsProps {
     search?: string;
     complaintType: COMPLAINTS_TABS;
     // get the complaints of already user complaints
-    userAlreadyId: number;
+    userAlreadyId: string;
     userAlreadyType: TUserType | TUserRank;
 
     // get the complaints of already user complaints that send to userVisit
-    userVisitId: number;
+    userVisitId: string;
     userVisitType: TUserType | TUserRank;
 }
 

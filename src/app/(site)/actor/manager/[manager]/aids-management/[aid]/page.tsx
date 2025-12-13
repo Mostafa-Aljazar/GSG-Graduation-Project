@@ -8,8 +8,8 @@ interface Props {
 
 export default async function AidPage({ params }: Props) {
   const { manager, aid } = await params;
-  const managerId = Number(manager);
-  const aidId = Number(aid);
+  const managerId = manager;
+  const aidId = aid;
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

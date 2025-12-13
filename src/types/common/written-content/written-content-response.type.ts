@@ -2,7 +2,7 @@ import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { IPagination } from '@/types/common/pagination.type';
 
 export interface IWrittenContent {
-  id: number;
+  id: string;
   title: string;
   content: string;
   brief?: string;

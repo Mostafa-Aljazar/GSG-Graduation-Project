@@ -1,28 +1,21 @@
-import { GENDER, SOCIAL_STATUS } from "@/types/actor/common/index.type";
-import { StaticImageData } from "next/image";
+import { SOCIAL_STATUS } from "../../common/index.type";
+import { IBaseProfile } from "../../common/user/base-profile.type";
+import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 
-
-export interface IDelegateProfile {
-    id?: number; //HINT: optional in create delegate
-    name: string;
-    profileImage: null | string | StaticImageData;
-    gender: GENDER;
-    socialStatus: SOCIAL_STATUS;
-    identity: string;
-    nationality: string;
-    email: string;
+// ----------------- DELEGATE -----------------
+export interface IDelegateProfile extends IBaseProfile {
+    role: USER_TYPE.DELEGATE;
+    rank: USER_RANK.DELEGATE;
     age: number;
+    socialStatus: SOCIAL_STATUS;
     education: string;
-    mobileNumber: string;
-    alternativeMobileNumber?: string;
-    numberOfResponsibleCamps?: number; // Read-only, from backend
-    numberOfFamilies?: number; // Read-only, from backend
-    // responsibleCampGroup: string; // Removed
+    numberOfResponsibleCamps?: number;
+    numberOfFamilies?: number;
 }
 
 export interface IDelegateProfileResponse {
     status: number;
-    message?: string;
+    message: string;
     user: IDelegateProfile;
     error?: string;
 }

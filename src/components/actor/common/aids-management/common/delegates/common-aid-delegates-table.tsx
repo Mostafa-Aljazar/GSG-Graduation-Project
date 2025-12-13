@@ -14,7 +14,7 @@ import {
   Flex,
   Button,
 } from '@mantine/core';
-import { parseAsInteger, parseAsStringEnum, useQueryStates } from 'nuqs';
+import { parseAsInteger, parseAsStringEnum, parseAsString, useQueryStates } from 'nuqs';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useMemo, useState, useCallback, startTransition } from 'react';
 import { Users } from 'lucide-react';
@@ -63,13 +63,13 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
     action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
       ACTION_ADD_EDIT_DISPLAY.ADD
     ),
-    aidId: parseAsInteger.withDefault(0),
+    aidId: parseAsString.withDefault(''),
   });
 
   useEffect(() => {
     if (
       query.action === ACTION_ADD_EDIT_DISPLAY.EDIT &&
-      query.aidId !== 0 &&
+      query.aidId !== '' &&
       STORE_selectedDelegatesPortions
     ) {
       startTransition(() => {
@@ -216,7 +216,7 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
    *  ============================== */
 
   const handlePortionChange = useCallback(
-    ({ delegateId, value }: { delegateId: number; value: number }) => {
+    ({ delegateId, value }: { delegateId: string; value: number }) => {
       const changeSelectedDelegatesPortions = (): ISelectedDelegatePortion[] => {
         const prev: ISelectedDelegatePortion[] = selectedDelegatesPortions;
         if (value === 0) {
@@ -420,12 +420,12 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
         </Table>
       </ScrollArea>
 
-      {(delegatesData?.pagination.totalPages as number) > 1 && (
+      {(delegatesData?.pagination.totalPages ?? 0) > 1 && (
         <Flex justify='center'>
           <Pagination
             value={query.delegate_page}
             onChange={(page) => setQuery((prev) => ({ ...prev, delegate_page: page }))}
-            total={delegatesData?.pagination.totalPages as number}
+            total={delegatesData?.pagination.totalPages ?? 0}
             pt={30}
             size='sm'
             mx='auto'

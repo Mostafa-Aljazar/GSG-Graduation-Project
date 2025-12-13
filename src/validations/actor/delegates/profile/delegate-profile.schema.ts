@@ -22,7 +22,7 @@ const optionalMobileSchema = z
 // Delegate Profile Schema
 // =======================
 export const delegateProfileFormSchema = z.object({
-    id: z.number().optional(),
+    id: z.string().optional(),
 
     profileImage: z.string().optional().nullable(),
 

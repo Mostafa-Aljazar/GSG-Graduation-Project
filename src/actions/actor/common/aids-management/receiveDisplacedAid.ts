@@ -7,9 +7,9 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IReceiveDisplacedAidProps {
     receiveCode: string;
-    aidId: number;
-    displacedId: number;
-    actorId: number;
+    aidId: string;
+    displacedId: string;
+    actorId: string;
     role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
 }
 

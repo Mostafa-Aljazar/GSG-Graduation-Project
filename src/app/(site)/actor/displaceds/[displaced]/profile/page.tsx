@@ -6,7 +6,7 @@ interface Props {
 
 export default async function DisplacedProfile({ params }: Props) {
   const { displaced } = await params;
-  const displacedId = Number(displaced);
+  const displacedId = displaced;
 
   return <DisplacedProfileForm displacedId={displacedId} />;
 }

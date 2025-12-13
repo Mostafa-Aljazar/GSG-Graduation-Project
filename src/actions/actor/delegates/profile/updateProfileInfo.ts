@@ -5,7 +5,7 @@ import { IActionResponse } from "@/types/common/action-response.type";
 import { TDelegateProfileFormValues } from "@/validations/actor/delegates/profile/delegate-profile.schema";
 
 export interface IUpdateDelegateProfileProps {
-  delegateId: number;
+  delegateId: string;
   payload: TDelegateProfileFormValues;
 }
 
@@ -17,7 +17,7 @@ export const updateDelegateProfile = async ({
 }: IUpdateDelegateProfileProps): Promise<IActionResponse> => {
   const preparedPayload: TDelegateProfileFormValues = {
     ...payload,
-    id: delegateId,
+    id: delegateId as string,
     mobileNumber: payload.mobileNumber as string,
     alternativeMobileNumber: payload.alternativeMobileNumber || '',
     profileImage: payload.profileImage as string,

@@ -184,12 +184,12 @@ export default function AidDelegatesTableView({
         </Table>
       </ScrollArea>
 
-      {(delegatesData?.pagination.totalPages as number) > 1 && (
+      {(delegatesData?.pagination.totalPages ?? 0) > 1 && (
         <Flex justify='center'>
           <Pagination
             value={query.delegate_page}
             onChange={(page) => setQuery((prev) => ({ ...prev, delegate_page: page }))}
-            total={delegatesData?.pagination.totalPages as number}
+            total={delegatesData?.pagination.totalPages ?? 0}
             pt={30}
             size='sm'
             mx='auto'

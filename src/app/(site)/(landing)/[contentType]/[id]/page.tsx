@@ -11,7 +11,7 @@ export default async function SingleWrittenContentPage({ params }: IArticlePageP
 
   return (
     <Stack pt={60} className='w-full' mih='100vh'>
-      <SingleWrittenContentComponent contentId={parseInt(id)} contentType={contentType} />
+      <SingleWrittenContentComponent contentId={id} contentType={contentType} />
     </Stack>
   );
 }

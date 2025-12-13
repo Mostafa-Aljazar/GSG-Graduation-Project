@@ -7,7 +7,7 @@ import { IDisplacedReceivedAidsResponse } from "@/types/actor/displaceds/receive
 
 
 export interface IGetDisplacedReceivedAidsProps {
-    displacedId: number;
+    displacedId: string;
     page?: number;
     limit?: number;
     tabType?: DISPLACED_RECEIVED_AIDS_TABS;

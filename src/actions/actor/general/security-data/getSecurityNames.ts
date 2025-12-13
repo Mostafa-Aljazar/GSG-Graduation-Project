@@ -6,7 +6,7 @@ import { ISecuritiesNamesResponse } from "@/types/actor/general/securities/secur
 
 
 export interface GetSecurityNamesProps {
-    ids?: number[];
+    ids?: string[];
 }
 
 const USE_FAKE = true;

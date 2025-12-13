@@ -1,7 +1,7 @@
 import { IPagination } from "@/types/common/pagination.type";
 
 export interface IDisplaced {
-    id: number;
+    id: string;
     name: string;
     identity: string;
     tent: string;
@@ -11,7 +11,7 @@ export interface IDisplaced {
 }
 
 export interface IHisDelegate {
-    id: number;
+    id: string;
     name: string;
 }
 
@@ -28,7 +28,7 @@ export interface IDisplacedsNamesResponse {
     status: number;
     message: string;
     displacedsNames: {
-        id: number;
+        id: string;
         name: string
     }[];
     error?: string;
@@ -39,6 +39,6 @@ export interface IDisplacedsNamesResponse {
 export interface IDisplacedsIdsResponse {
     status: number;
     message?: string;
-    displacedsIds: number[];
+    displacedsIds: string[];
     error?: string;
 }

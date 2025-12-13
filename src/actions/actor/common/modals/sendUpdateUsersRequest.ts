@@ -7,7 +7,7 @@ import { IActionResponse } from '@/types/common/action-response.type';
 const USE_FAKE = true;
 
 export interface ISendUpdateUsersRequestProps {
-    userIds: number[];
+    userIds: string[];
     userType: USER_TYPE;
 }
 

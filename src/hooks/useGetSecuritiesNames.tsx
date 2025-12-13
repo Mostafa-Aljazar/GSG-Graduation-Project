@@ -6,7 +6,7 @@ import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { useQuery } from '@tanstack/react-query';
 
 interface IProps {
-  ids?: number[];
+  ids?: string[];
   mode: ACTION_ADD_EDIT_DISPLAY;
 }
 

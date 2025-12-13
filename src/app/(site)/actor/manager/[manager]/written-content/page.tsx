@@ -7,7 +7,7 @@ interface IWrittenContentPageProps {
 
 export default async function WrittenContentPage({ params }: IWrittenContentPageProps) {
   const { manager } = await params;
-  const managerId = Number(manager);
+  const managerId = manager;
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

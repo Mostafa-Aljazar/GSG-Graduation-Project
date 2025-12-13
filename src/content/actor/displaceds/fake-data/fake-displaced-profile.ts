@@ -1,9 +1,9 @@
-import { USER_TYPE } from "@/constants/user-types";
+import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 import { ACCOMMODATION_TYPE, AGES, FAMILY_STATUS_TYPE, GENDER, SOCIAL_STATUS } from "@/types/actor/common/index.type";
 import { IDisplacedProfile, IDisplacedProfileResponse } from "@/types/actor/displaceds/profile/displaced-profile.type";
 
 export const fakeDisplacedProfile: IDisplacedProfile = {
-    id: 1,
+    id: "1",
     email: "ameerabudraze@gmail.com",
     name: "Ameer Abu Draze",
     gender: GENDER.MALE,
@@ -82,7 +82,7 @@ export const fakeDisplacedProfile: IDisplacedProfile = {
         },
     ],
 
-    rank: USER_TYPE.DISPLACED,
+    rank: USER_RANK.DISPLACED,
     role: USER_TYPE.DISPLACED,
     additionalNotes: 'العائلة بحاجة إلى حليب أطفال وأدوية مزمنة.',
 };
@@ -90,7 +90,7 @@ export const fakeDisplacedProfile: IDisplacedProfile = {
 export const fakeDisplacedProfileResponse = ({
     displacedId,
 }: {
-    displacedId: number;
+    displacedId: string;
 }): IDisplacedProfileResponse => {
     const displacedProfile = fakeDisplacedProfile;
 

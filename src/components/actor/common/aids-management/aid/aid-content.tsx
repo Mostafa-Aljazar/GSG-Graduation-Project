@@ -9,7 +9,7 @@ import { DISTRIBUTION_MECHANISM } from '@/types/actor/common/index.type';
 import AidDelegatesListView from './delegates/aid-delegates-list';
 import AidDeliveryDisplaceds from './displaceds/delivery-displaceds/aid-delivery-displaceds';
 
-function AidHeader({ isCompleted = false }: { isCompleted: boolean; aidId: number }) {
+function AidHeader({ isCompleted = false, aidId }: { isCompleted?: boolean; aidId?: string }) {
   return (
     <Group gap={10} justify='space-between' w='100%'>
       <Group align='center' gap={5}>

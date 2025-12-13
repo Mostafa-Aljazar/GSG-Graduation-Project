@@ -19,7 +19,7 @@ import dayjs from 'dayjs';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 
 interface ISendUsersActionModalProps {
-  userIds: number[];
+  userIds: string[];
   userType: USER_TYPE;
   action: 'call' | 'meeting';
   opened: boolean;

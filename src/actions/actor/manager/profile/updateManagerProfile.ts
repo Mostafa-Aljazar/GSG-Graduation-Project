@@ -8,11 +8,11 @@ import {
 import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IUpdateManagerProfileProps {
-  managerId: number;
+  managerId: string;
   payload: TManagerProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const updateManagerProfile = async ({
   managerId,
@@ -44,9 +44,13 @@ export const updateManagerProfile = async ({
   /////////////////////////////////////////////////////////////
   try {
     const response = await AqsaAPI.put<IActionResponse>(
-      `/manager/${managerId}/profile`,
+      `/actor/manager/${managerId}/profile`,
       preparedPayload
     );
+
+    // const response = await AqsaAPI.get<IManagerProfileResponse>(
+    //   `/actor/manager/${managerId}/profile`
+    // );
 
     if (response.data) return response.data;
 

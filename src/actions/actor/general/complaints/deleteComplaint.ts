@@ -5,8 +5,8 @@ import { TUserRank, TUserType } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface IDeleteComplaintFunProps {
-  actorId: number;
-  complaintId: number;
+  actorId: string;
+  complaintId: string;
   role: TUserType | TUserRank;
 }
 

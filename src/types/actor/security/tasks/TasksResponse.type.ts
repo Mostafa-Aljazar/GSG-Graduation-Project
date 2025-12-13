@@ -3,11 +3,11 @@ import { TASKS_TABS } from "../../common/index.type";
 
 
 export interface ITask {
-    id: number;
+    id: string;
     dateTime: Date;
     title: string;
     body: string;
-    securitiesIds: number[]
+    securitiesIds: string[]
     type: TASKS_TABS;
 }
 

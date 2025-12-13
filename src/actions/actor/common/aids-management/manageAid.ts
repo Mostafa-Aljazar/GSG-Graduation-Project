@@ -7,7 +7,7 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IManageAidProps {
     payload: TAid;
-    actorId?: number; // Required for add
+    actorId?: string; // Required for add
     role?: USER_TYPE.MANAGER | USER_TYPE.DELEGATE; // Required for add
     isUpdate?: boolean; // true = update, false = add
 }

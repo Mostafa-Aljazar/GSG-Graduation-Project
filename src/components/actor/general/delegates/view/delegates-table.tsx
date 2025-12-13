@@ -28,7 +28,7 @@ export default function DelegatesTable() {
     { shallow: true }
   );
 
-  const [selectedDelegateIds, setSelectedDelegateIds] = useState<number[]>([]);
+  const [selectedDelegateIds, setSelectedDelegateIds] = useState<string[]>([]);
   const [selectAllAcrossPages, setSelectAllAcrossPages] = useState(false);
 
   const currentPage = query.delegate_page || 1;
@@ -49,7 +49,7 @@ export default function DelegatesTable() {
     data: allDelegatesIDs,
     isLoading: isLoadingAll,
     error: allQueryError,
-  } = useQuery<number[], Error>({
+  } = useQuery<string[], Error>({
     queryKey: ['delegates_all'],
     queryFn: async () => (await getDelegatesIds()).delegatesIds,
     enabled: selectAllAcrossPages,
@@ -70,7 +70,7 @@ export default function DelegatesTable() {
   }, [allDelegatesIDs, selectAllAcrossPages]);
 
   const handleRowSelection = useCallback(
-    (id: number, checked: boolean) => {
+    (id: string, checked: boolean) => {
       setSelectedDelegateIds((prev) => {
         const updated = checked
           ? [...prev.filter((x) => x !== id), id]

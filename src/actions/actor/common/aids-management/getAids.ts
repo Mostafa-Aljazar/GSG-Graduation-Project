@@ -7,7 +7,7 @@ import { TYPE_AIDS, TYPE_GROUP_AIDS } from "@/types/actor/common/index.type";
 import { fakeAidsResponse } from "@/content/actor/common/aids-management/fake-data/fake-aids";
 
 export interface IGetAidsProps {
-    actorId: number;
+    actorId: string;
     role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
     page: number;
     limit: number;

@@ -1,9 +1,9 @@
-import { USER_TYPE } from "@/constants/user-types";
+import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 import { GENDER, SOCIAL_STATUS } from "@/types/actor/common/index.type";
 import { IManagerProfile, IManagerProfileResponse } from "@/types/actor/manager/profile/manager-profile-response.type";
 
 export const fakeManagerProfile: IManagerProfile = {
-    id: 1,
+    id: "1",
     name: 'مصطفى يوسف',
     email: "alaqsa@gmail.com",
     gender: GENDER.MALE,
@@ -13,11 +13,11 @@ export const fakeManagerProfile: IManagerProfile = {
     mobileNumber: "0599999999",
     alternativeMobileNumber: "0597777777",
     socialStatus: SOCIAL_STATUS.MARRIED,
-    rank: USER_TYPE.MANAGER,
+    rank: USER_RANK.MANAGER,
     role: USER_TYPE.MANAGER,
 }
 
-export const fakeManagerProfileResponse = ({ managerId }: { managerId: number }): IManagerProfileResponse => {
+export const fakeManagerProfileResponse = ({ managerId }: { managerId: string }): IManagerProfileResponse => {
 
     const managerProfile: IManagerProfile = { ...fakeManagerProfile, id: managerId }
 

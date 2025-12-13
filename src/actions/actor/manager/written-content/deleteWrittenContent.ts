@@ -5,8 +5,8 @@ import { IActionResponse } from "@/types/common/action-response.type";
 import { TYPE_WRITTEN_CONTENT } from "@/types/common/index.type";
 
 export interface IDeleteWrittenContentProps {
-    contentId: number;
-    managerId: number;
+    contentId: string;
+    managerId: string;
     type: TYPE_WRITTEN_CONTENT;
 }
 

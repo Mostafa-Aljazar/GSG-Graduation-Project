@@ -69,7 +69,7 @@ export default function DisplacedProfileForm({
   displacedId,
   destination,
 }: {
-  displacedId?: number;
+  displacedId?: string;
   destination?: ACTION_ADD_EDIT_DISPLAY;
 }) {
   const queryClient = useQueryClient();
@@ -146,15 +146,15 @@ export default function DisplacedProfileForm({
     refetch,
   } = useQuery<IDisplacedProfileResponse>({
     queryKey: ['displaced-profile', displacedId],
-    queryFn: () => getDisplacedProfile({ displacedId: displacedId as number }),
+    queryFn: () => getDisplacedProfile({ displacedId: displacedId as string }),
     enabled: !!displacedId && (isDisplayMode || isEditMode),
   });
 
   // Fetch delegate data based on mode
   const { delegatesData, isLoading: isLoadingDelegates } = useGetDelegatesNames({
     ids:
-      isDisplayMode && displacedId
-        ? [Number(displacedProfileData?.user.displacement.delegate.id)]
+      isDisplayMode && displacedId && displacedProfileData?.user
+        ? [displacedProfileData.user.displacement.delegate.id]
         : undefined,
     mode: query,
   });
@@ -189,7 +189,7 @@ export default function DisplacedProfileForm({
     if (!isAddMode && displacedData && displacedData.status === 200 && displacedData.user) {
       const userData = displacedData.user;
 
-      setProfileImage(userData.profileImage ?? IMG_MAN.src);
+      setProfileImage((userData.profileImage as string) ?? IMG_MAN.src);
 
       const delegate = delegatesNames.find(
         (item) => item.id.toString() === userData.displacement.delegate.id.toString()
@@ -205,7 +205,7 @@ export default function DisplacedProfileForm({
         gender: userData.gender,
         nationality: userData.nationality,
         originalAddress: userData.originalAddress,
-        profileImage: userData.profileImage || null,
+        profileImage: (userData.profileImage as string) || null,
         mobileNumber:
           userData.mobileNumber.length === 10
             ? `+970${userData.mobileNumber}`
@@ -382,7 +382,7 @@ export default function DisplacedProfileForm({
       }
       if (isEditMode) {
         updateProfileMutation.mutate(
-          { displacedId: displacedId as number, payload },
+          { displacedId: displacedId as string, payload },
           { onError: handleError }
         );
       }
@@ -436,7 +436,7 @@ export default function DisplacedProfileForm({
     event.preventDefault();
     const selectedDelegateId = form.getValues().displacement.delegate.id;
     if (selectedDelegateId) {
-      router.push(getDelegateRoutes({ delegateId: Number(selectedDelegateId) }).PROFILE);
+      router.push(getDelegateRoutes({ delegateId: selectedDelegateId }).PROFILE);
     }
   };
 

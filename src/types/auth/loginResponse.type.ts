@@ -1,18 +1,4 @@
-import { TUserRank, TUserType } from '@/constants/user-types';
-import { StaticImageData } from 'next/image';
-
-export interface IUser {
-    id: number;
-    name: string;
-    email: string;
-    identity: string;
-    phoneNumber: string;
-    createdAt: Date;
-    updatedAt?: Date;
-    profileImage?: string | StaticImageData | null;
-    role: TUserType; // used for auth-based routing
-    rank?: TUserRank; // used for permission/access levels
-}
+import { IUser } from '../actor/common/user/user.type';
 
 export interface ILoginResponse {
     status: number;
@@ -21,3 +7,4 @@ export interface ILoginResponse {
     user: IUser;
     error?: string;
 }
+

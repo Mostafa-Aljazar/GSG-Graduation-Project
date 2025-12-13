@@ -16,7 +16,7 @@ import { FileWithPath } from '@mantine/dropzone';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { notifications } from '@mantine/notifications';
 import { useRouter } from 'next/navigation';
-import { parseAsInteger, parseAsStringEnum, useQueryStates } from 'nuqs';
+import { parseAsInteger, parseAsString, parseAsStringEnum, useQueryStates } from 'nuqs';
 import { cn } from '@/utils/cn';
 import useAuth from '@/hooks/useAuth';
 import { getManagerRoutes } from '@/constants/routes';
@@ -52,7 +52,7 @@ export default function AddWrittenContentForm() {
       'written-tab': parseAsStringEnum<TYPE_WRITTEN_CONTENT>(
         Object.values(TYPE_WRITTEN_CONTENT)
       ).withDefault(TYPE_WRITTEN_CONTENT.ADS),
-      id: parseAsInteger.withDefault(0),
+      id: parseAsString.withDefault(''),
     },
     { shallow: true }
   );
@@ -115,7 +115,7 @@ export default function AddWrittenContentForm() {
         form.reset();
         setSelectedFiles([]);
         router.push(
-          `${getManagerRoutes({ managerId: user?.id as number }).WRITTEN_CONTENTS}?written-tab=${
+          `${getManagerRoutes({ managerId: user?.id as string }).WRITTEN_CONTENTS}?written-tab=${
             query['written-tab']
           }`
         );
@@ -151,7 +151,7 @@ export default function AddWrittenContentForm() {
         form.reset();
         setSelectedFiles([]);
         router.push(
-          `${getManagerRoutes({ managerId: user?.id as number }).WRITTEN_CONTENTS}?written-tab=${
+          `${getManagerRoutes({ managerId: user?.id as string }).WRITTEN_CONTENTS}?written-tab=${
             query['written-tab']
           }`
         );

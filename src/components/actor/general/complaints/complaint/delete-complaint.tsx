@@ -14,7 +14,7 @@ import useAuth from '@/hooks/useAuth';
 import { USER_TYPE } from '@/constants/user-types';
 
 interface IDeleteComplaintProps {
-  complaintId: number;
+  complaintId: string;
 }
 
 export default function DeleteComplaint({ complaintId }: IDeleteComplaintProps) {
@@ -54,7 +54,7 @@ export default function DeleteComplaint({ complaintId }: IDeleteComplaintProps) 
     event.stopPropagation();
     deleteMutation.mutate({
       complaintId,
-      actorId: user?.id as number,
+      actorId: user?.id as string,
       role: user?.role as USER_TYPE,
     });
   };

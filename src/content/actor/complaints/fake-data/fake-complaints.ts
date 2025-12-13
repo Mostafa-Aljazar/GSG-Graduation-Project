@@ -8,10 +8,10 @@ import { IGetComplaintsProps } from '@/actions/actor/general/complaints/getCompl
 export const fakeComplaints: IComplaint[] = [
     // 1. Displaced → Delegate
     {
-        id: 1,
+        id: '1',
         date: '2024-10-20',
-        sender: { id: 1, name: 'Ameer Abu Draze', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
+        sender: { id: '1', name: 'Ameer Abu Draze', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: '1', name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
         title: 'مشكلة في الإيواء',
         body: 'الخيمة غير صالحة للسكن.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -19,10 +19,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 2. Displaced → Manager
     {
-        id: 2,
+        id: '2',
         date: '2024-10-20',
-        sender: { id: 1, name: 'Hala Khalil', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Hala Khalil', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'انقطاع المياه',
         body: 'هناك انقطاع مستمر في المياه.',
         status: COMPLAINTS_STATUS.READ,
@@ -31,10 +31,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 3. Displaced → Security Person
     {
-        id: 3,
+        id: '3',
         date: '2024-10-19',
-        sender: { id: 1, name: 'Samer Jaber', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Samer Jaber', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'إزعاج ليلي',
         body: 'هناك ضوضاء مستمرة قرب نقطة الأمن.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -42,10 +42,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 4. Delegate → Manager
     {
-        id: 4,
+        id: '4',
         date: '2024-10-18',
-        sender: { id: 1, name: 'Ahmed Jihad', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Ahmed Jihad', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'تأخير في المستلزمات',
         body: 'تم تأخير المواد لأكثر من أسبوع.',
         status: COMPLAINTS_STATUS.READ,
@@ -54,10 +54,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 5. Delegate → Security Person
     {
-        id: 5,
+        id: '5',
         date: '2024-10-18',
-        sender: { id: 1, name: 'Ahmed Jihad', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Ahmed Jihad', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'مشكلة في التنظيم',
         body: 'الطابور غير منظم ويحدث ازدحام.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -65,10 +65,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 6. Security Person → Manager
     {
-        id: 6,
+        id: '6',
         date: '2024-10-17',
-        sender: { id: 1, name: 'Hussein Nemer', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Hussein Nemer', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'نقص معدات',
         body: 'لا توجد معدات كافية للنقطة.',
         status: COMPLAINTS_STATUS.READ,
@@ -77,10 +77,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 7. Security Person → Security Officer
     {
-        id: 7,
+        id: '7',
         date: '2024-10-16',
-        sender: { id: 1, name: 'Hussein Nemer', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
+        sender: { id: "1", name: 'Hussein Nemer', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
         title: 'سوء تفاهم',
         body: 'حدث خلاف أثناء التفتيش.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -88,10 +88,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 8. Displaced → Manager
     {
-        id: 8,
+        id: '8',
         date: '2024-10-15',
-        sender: { id: 1, name: 'Samah Nabil', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Samah Nabil', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'عدم توفر كهرباء',
         body: 'الكهرباء تنقطع كل ليلة.',
         status: COMPLAINTS_STATUS.READ,
@@ -100,10 +100,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 9. Displaced → Security Person
     {
-        id: 9,
+        id: '9',
         date: '2024-10-14',
-        sender: { id: 1, name: 'Laila Jihad', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Laila Jihad', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'مشكلة لوجستية',
         body: 'المواد لم تصل في الوقت المناسب.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -111,10 +111,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 10. Delegate → Manager
     {
-        id: 10,
+        id: '10',
         date: '2024-10-14',
-        sender: { id: 1, name: 'Eyad Nasser', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Eyad Nasser', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'سوء تفاهم',
         body: 'حدث سوء فهم أثناء توزيع المعونات.',
         status: COMPLAINTS_STATUS.READ,
@@ -123,10 +123,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 11. Displaced → Manager
     {
-        id: 11,
+        id: "11",
         date: '2024-10-13',
-        sender: { id: 1, name: 'Salim Imad', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Salim Imad', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'طلب نقل',
         body: 'أرغب بنقل خيمتي لمكان آخر.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -134,10 +134,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 12. Security Person → Security Officer
     {
-        id: 12,
+        id: "12",
         date: '2024-10-12',
-        sender: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
+        sender: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
         title: 'ضغط عمل',
         body: 'النقطة تعاني من نقص أفراد.',
         status: COMPLAINTS_STATUS.READ,
@@ -146,10 +146,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 13. Delegate → Security Person
     {
-        id: 13,
+        id: "13",
         date: '2024-10-12',
-        sender: { id: 1, name: 'Rania Aref', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Rania Aref', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'مشاكل في الدور',
         body: 'المستفيدون لا يلتزمون بالدور.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -157,10 +157,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 14. Displaced → Delegate
     {
-        id: 14,
+        id: "14",
         date: '2024-10-11',
-        sender: { id: 1, name: 'Abdulrahman Salem', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
+        sender: { id: "1", name: 'Abdulrahman Salem', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
         title: 'نقص بطانيات',
         body: 'لا توجد بطانيات كافية.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -168,10 +168,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 15. Displaced → Manager
     {
-        id: 15,
+        id: "15",
         date: '2024-10-11',
-        sender: { id: 1, name: 'Aya Adel', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Aya Adel', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'ازدحام شديد',
         body: 'المنطقة مزدحمة جداً.',
         status: COMPLAINTS_STATUS.READ,
@@ -180,10 +180,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 16. Delegate → Security Person
     {
-        id: 16,
+        id: "16",
         date: '2024-10-10',
-        sender: { id: 1, name: 'Osama Rami', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Osama Rami', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'خلاف مع المستفيدين',
         body: 'بعض المستفيدين غير متعاونين.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -191,10 +191,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 17. Security Person → Manager
     {
-        id: 17,
+        id: "17",
         date: '2024-10-10',
-        sender: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'نقص معدات السلامة',
         body: 'لا توجد سترات واقية كافية.',
         status: COMPLAINTS_STATUS.READ,
@@ -203,10 +203,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 18. Displaced → Security Person
     {
-        id: 18,
+        id: "18",
         date: '2024-10-09',
-        sender: { id: 1, name: 'Maher Sulieman', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Maher Sulieman', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'مشاكل في التفتيش',
         body: 'التفتيش يستغرق وقتاً طويلاً.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -214,10 +214,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 19. Displaced → Manager
     {
-        id: 19,
+        id: "19",
         date: '2024-10-09',
-        sender: { id: 1, name: 'Nour Ahmad', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Nour Ahmad', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'طلب دعم إضافي',
         body: 'هناك نقص في الطعام.',
         status: COMPLAINTS_STATUS.READ,
@@ -226,10 +226,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 20. Delegate → Security Person
     {
-        id: 20,
+        id: '20',
         date: '2024-10-08',
-        sender: { id: 1, name: 'Ola Samer', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Ola Samer', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'تأخير في فتح البوابة',
         body: 'البوابة تتأخر في الافتتاح صباحاً.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -237,10 +237,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 21. Displaced → Manager
     {
-        id: 21,
+        id: '21',
         date: '2024-10-07',
-        sender: { id: 1, name: 'Yara Khaled', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Yara Khaled', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'مشكلة في توزيع الطعام',
         body: 'الوجبات تصل بكمية قليلة.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -248,10 +248,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 22. Delegate → Security Person
     {
-        id: 22,
+        id: '22',
         date: '2024-10-07',
-        sender: { id: 1, name: 'Basel Marwan', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Basel Marwan', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'ازدحام شديد',
         body: 'الأفراد يتجاوزون الدور.',
         status: COMPLAINTS_STATUS.READ,
@@ -260,10 +260,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 23. Displaced → Delegate
     {
-        id: 23,
+        id: '23',
         date: '2024-10-06',
-        sender: { id: 1, name: 'Muhannad Issa', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
+        sender: { id: "1", name: 'Muhannad Issa', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
         title: 'توقف الخدمات الطبية',
         body: 'لا يوجد طبيب في الفترة المسائية.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -271,10 +271,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 24. Security Person → Manager
     {
-        id: 24,
+        id: '24',
         date: '2024-10-06',
-        sender: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'حاجة لزيادة أفراد الأمن',
         body: 'النقطة تحتاج شخصين إضافيين.',
         status: COMPLAINTS_STATUS.READ,
@@ -283,10 +283,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 25. Displaced → Security Person
     {
-        id: 25,
+        id: '25',
         date: '2024-10-05',
-        sender: { id: 1, name: 'Reem Abu Qamar', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Reem Abu Qamar', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'خلاف أثناء التفتيش',
         body: 'حدث سوء تفاهم عند نقطة التفتيش.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -294,10 +294,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 26. Delegate → Manager
     {
-        id: 26,
+        id: '26',
         date: '2024-10-05',
-        sender: { id: 1, name: 'Abdelrahman Yassin', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Abdelrahman Yassin', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'تأخر في استلام المواد',
         body: 'تأخر تسليم الطرود اليومية.',
         status: COMPLAINTS_STATUS.READ,
@@ -306,10 +306,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 27. Security Person → Security Officer
     {
-        id: 27,
+        id: '27',
         date: '2024-10-04',
-        sender: { id: 1, name: 'Majdi Rafi', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
+        sender: { id: "1", name: 'Majdi Rafi', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
         title: 'نقص معدات الاتصال',
         body: 'أجهزة الاتصال لا تعمل جيداً.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -317,10 +317,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 28. Displaced → Manager
     {
-        id: 28,
+        id: '28',
         date: '2024-10-04',
-        sender: { id: 1, name: 'Khaled Fadel', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Khaled Fadel', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'طلب تحسين الإضاءة',
         body: 'المنطقة مظلمة في الليل.',
         status: COMPLAINTS_STATUS.READ,
@@ -329,10 +329,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 29. Delegate → Security Person
     {
-        id: 29,
+        id: '29',
         date: '2024-10-03',
-        sender: { id: 1, name: 'Yasmeen Tamer', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Yasmeen Tamer', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'مشكلة في تنظيم الدخول',
         body: 'بعض المستفيدين يدخلون من غير تسجيل.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -340,10 +340,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 30. Displaced → Delegate
     {
-        id: 30,
+        id: '30',
         date: '2024-10-03',
-        sender: { id: 1, name: 'Hasan Omar', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
+        sender: { id: "1", name: 'Hasan Omar', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
         title: 'عدم توفر أدوية',
         body: 'المركز الصحي ينقصه أدوية أساسية.',
         status: COMPLAINTS_STATUS.READ,
@@ -352,10 +352,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 31. Security Person → Manager
     {
-        id: 31,
+        id: '31',
         date: '2024-10-02',
-        sender: { id: 1, name: 'Ahmad Basheer', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Ahmad Basheer', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'تأخر في صرف الزي الرسمي',
         body: 'الزي الجديد لم يُسلّم بعد.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -363,10 +363,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 32. Displaced → Security Person
     {
-        id: 32,
+        id: '32',
         date: '2024-10-02',
-        sender: { id: 1, name: 'Samira Hasan', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Samira Hasan', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'ازدحام في نقطة الدخول',
         body: 'الانتظار يستغرق وقتاً طويلاً.',
         status: COMPLAINTS_STATUS.READ,
@@ -375,10 +375,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 33. Delegate → Manager
     {
-        id: 33,
+        id: '33',
         date: '2024-10-01',
-        sender: { id: 1, name: 'Ward Alqam', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Ward Alqam', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'نقص في الطاولات',
         body: 'الطاولات الحالية غير كافية.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -386,10 +386,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 34. Displaced → Manager
     {
-        id: 34,
+        id: '34',
         date: '2024-10-01',
-        sender: { id: 1, name: 'Aseel Wael', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Aseel Wael', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'طلب نقل عائلة',
         body: 'المنطقة الحالية مزدحمة جداً.',
         status: COMPLAINTS_STATUS.READ,
@@ -398,10 +398,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 35. Security Person → Security Officer
     {
-        id: 35,
+        id: '35',
         date: '2024-09-30',
-        sender: { id: 1, name: 'Naeem Barakat', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
+        sender: { id: "1", name: 'Naeem Barakat', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Majed Omar', image: '', role: USER_RANK.SECURITY_OFFICER },
         title: 'مشكلة في جهاز البصمة',
         body: 'جهاز البصمة لا يعمل.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -409,10 +409,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 36. Delegate → Security Person
     {
-        id: 36,
+        id: '36',
         date: '2024-09-30',
-        sender: { id: 1, name: 'Rashed Ali', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
+        sender: { id: "1", name: 'Rashed Ali', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Rana Fathy', image: '', role: USER_TYPE.SECURITY_PERSON },
         title: 'خلاف في نقطة التسجيل',
         body: 'حدث شجار صغير بين المستفيدين.',
         status: COMPLAINTS_STATUS.READ,
@@ -421,10 +421,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 37. Displaced → Delegate
     {
-        id: 37,
+        id: '37',
         date: '2024-09-29',
-        sender: { id: 1, name: 'Jalal Hassan', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
+        sender: { id: "1", name: 'Jalal Hassan', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Mostafa Aljzar', image: '', role: USER_TYPE.DELEGATE },
         title: 'عدم استلام وجبة',
         body: 'اسمي لم يكن على القائمة.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -432,10 +432,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 38. Displaced → Manager
     {
-        id: 38,
+        id: '38',
         date: '2024-09-29',
-        sender: { id: 1, name: 'Nisreen Tayseer', image: '', role: USER_TYPE.DISPLACED },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Nisreen Tayseer', image: '', role: USER_TYPE.DISPLACED },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'تأخر في نقل المرضى',
         body: 'الحالات تحتاج عربة إسعاف أسرع.',
         status: COMPLAINTS_STATUS.READ,
@@ -444,10 +444,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 39. Security Person → Manager
     {
-        id: 39,
+        id: '39',
         date: '2024-09-28',
-        sender: { id: 1, name: 'Mona Rami', image: '', role: USER_TYPE.SECURITY_PERSON },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Mona Rami', image: '', role: USER_TYPE.SECURITY_PERSON },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'تسرب مياه في النقطة',
         body: 'هناك تسرّب يعيق العمل.',
         status: COMPLAINTS_STATUS.PENDING,
@@ -455,10 +455,10 @@ export const fakeComplaints: IComplaint[] = [
 
     // 40. Delegate → Manager
     {
-        id: 40,
+        id: '40',
         date: '2024-09-28',
-        sender: { id: 1, name: 'Ziad Hatem', image: '', role: USER_TYPE.DELEGATE },
-        receiver: { id: 1, name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
+        sender: { id: "1", name: 'Ziad Hatem', image: '', role: USER_TYPE.DELEGATE },
+        receiver: { id: "1", name: 'Yousef Said', image: '', role: USER_TYPE.MANAGER },
         title: 'مشكلة في جدول التوزيع',
         body: 'الجدول لا يناسب أعداد المستفيدين.',
         status: COMPLAINTS_STATUS.READ,

@@ -51,9 +51,9 @@ export default function SendComplaint() {
 
   const allowedReceptions = (user?.role && ALLOWED_RECEPTIONS[user.role as TUserType]) || [];
 
-  const dynamicReceptionOptions = allowedReceptions.map((value) => ({
-    value: value as TUserRank,
-    label: USER_RANK_LABELS[value as TUserRank],
+  const dynamicReceptionOptions = allowedReceptions.map((value: TUserRank) => ({
+    value: value,
+    label: USER_RANK_LABELS[value],
   }));
 
   const formSchema = sendComplaintFormSchema.refine(

@@ -22,7 +22,7 @@ interface IActionItem {
 }
 
 interface ICommonAidActionProps {
-  aidId: number;
+  aidId: string;
   aidDistributionMechanism: DISTRIBUTION_MECHANISM;
 }
 

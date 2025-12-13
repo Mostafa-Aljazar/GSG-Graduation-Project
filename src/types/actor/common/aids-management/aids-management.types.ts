@@ -24,7 +24,7 @@ export interface ICategoryRange {
 //////////////////////////////////////////////////////
 
 export interface ISelectedDelegatePortion {
-    delegateId: number;
+    delegateId: string;
     portion: number;
 }
 
@@ -51,11 +51,11 @@ export interface IBaseAidForm {
 //////////////////////////////////////////////////////
 
 export type TAid = IBaseAidForm & {
-    id: number;
-    selectedDisplacedIds: number[];
+    id: string;
+    selectedDisplacedIds: string[];
     selectedDelegatesPortions?: ISelectedDelegatePortion[];
     receivedDisplaceds: IReceivedDisplaceds[];
-    securitiesId: number[];
+    securitiesId: string[];
     isCompleted: boolean;
     aidStatus: TYPE_GROUP_AIDS;
 };
@@ -65,7 +65,7 @@ export type TAid = IBaseAidForm & {
 //////////////////////////////////////////////////////
 
 export interface IReceivedDisplaceds {
-    displacedId: number;
+    displacedId: string;
     receivedTime: Date | string;
 }
 
