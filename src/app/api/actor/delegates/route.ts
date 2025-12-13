@@ -74,9 +74,13 @@ export async function GET(request: Request) {
             const familyNumber = allDisplacedProfiles.length
 
             const displacedNumber = allDisplacedProfiles.reduce(
-                (acc, p) => acc + (p.socialStatus?.totalFamilyMembers || 0),
+                (acc, p) => acc + (p.socialStatus?.numberOfFemales + p.socialStatus?.numberOfMales + p.socialStatus?.numberOfWives + 1 || 0),
                 0
             )
+            // const displacedNumber = allDisplacedProfiles.reduce(
+            //     (acc, p) => acc + (p.socialStatus?.totalFamilyMembers || 0),
+            //     0
+            // )
 
             return {
                 id: d.userId,
