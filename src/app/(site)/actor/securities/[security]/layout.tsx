@@ -6,7 +6,6 @@ interface Props {
   params: Promise<{ security: string }>;
   children: React.ReactNode;
 }
-
 export default async function SecuritiesLayout({ params, children }: Props) {
   const { security } = await params;
 

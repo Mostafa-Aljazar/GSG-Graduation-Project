@@ -5,12 +5,51 @@ import HeroSection from '@/components/landing/common/hero-section';
 import { DESTINATION_HERO_SECTION, TYPE_BLOG_OR_SUCCESS_STORIES } from '@/types/landing/index.type';
 import { Suspense } from 'react';
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
+import { IMG_FAVICON } from '@/assets/common';
+import { Metadata } from 'next';
+import { APP_URL } from '@/constants/services';
+import { LANDING_ROUTES } from '@/constants/routes';
 
 interface IWrittenContentPageProps {
   params: { contentType: TYPE_BLOG_OR_SUCCESS_STORIES };
 }
 
+  const FALLBACK = {
+  TITLE: 'المدونة | AL-AQSA Camp',
+  DESCRIPTION: 'تابع أحدث المقالات والقصص على منصة مخيم الأقصى للنازحين',
+  IMAGE: IMG_FAVICON.src,
+};
+
+export const metadata: Metadata = {
+  title: FALLBACK.TITLE,
+  description: FALLBACK.DESCRIPTION,
+  metadataBase: new URL(APP_URL),
+  openGraph: {
+    siteName: 'AL-AQSA Camp',
+    title: FALLBACK.TITLE,
+    description: FALLBACK.DESCRIPTION,
+    url: `${APP_URL + LANDING_ROUTES.BLOG}`,
+    images: [
+      {
+        url: FALLBACK.IMAGE,
+        width: 64,
+        height: 64,
+        alt: 'AL-AQSA Camp favicon',
+      },
+    ],
+    locale: 'ar',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: FALLBACK.TITLE,
+    description: FALLBACK.DESCRIPTION,
+    images: [FALLBACK.IMAGE],
+  },
+};
+
 export default async function WrittenContentPage({ params }: IWrittenContentPageProps) {
+
   const { contentType } = await params;
 
   const destinationHero =
