@@ -9,7 +9,7 @@ export interface IGetSecurityDataProps {
     limit?: number;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getSecurities = async ({
     page = 1,
@@ -24,7 +24,7 @@ export const getSecurities = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<ISecuritiesResponse>("/securities", {
+        const response = await AqsaAPI.get<ISecuritiesResponse>("/actor/securities", {
             params: { page, limit },
         });
 

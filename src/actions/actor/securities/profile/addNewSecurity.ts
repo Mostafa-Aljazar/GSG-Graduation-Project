@@ -8,7 +8,7 @@ export interface IAddNewSecurityProps {
     payload: TSecurityProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const addNewSecurity = async ({
     payload,
@@ -30,7 +30,9 @@ export const addNewSecurity = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>("/securities/add", preparedPayload);
+        // src\app\api\actor\securities\add
+        const response = await AqsaAPI.post<IActionResponse>("/actor/securities/add", preparedPayload);
+        console.log("🚀 ~ addNewSecurity ~ response:", response)
 
         if (response.data) {
             return response.data;

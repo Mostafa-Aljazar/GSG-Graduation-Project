@@ -9,7 +9,7 @@ export interface GetSecurityNamesProps {
     ids?: string[];
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getSecurityNames = async ({
     ids,
@@ -23,7 +23,7 @@ export const getSecurityNames = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<ISecuritiesNamesResponse>("/securities/names", {
+        const response = await AqsaAPI.get<ISecuritiesNamesResponse>("/actor/securities/names", {
             params: { ids },
         });
 

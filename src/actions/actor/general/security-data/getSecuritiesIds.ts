@@ -5,7 +5,7 @@ import { AqsaAPI } from "@/services/api";
 import { ISecurityIdsResponse } from "@/types/actor/general/securities/securities-response.types";
 
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getSecuritiesIds = async (): Promise<ISecurityIdsResponse> => {
     if (USE_FAKE) {
@@ -17,7 +17,7 @@ export const getSecuritiesIds = async (): Promise<ISecurityIdsResponse> => {
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<ISecurityIdsResponse>("/securities/ids");
+        const response = await AqsaAPI.get<ISecurityIdsResponse>("/actor/securities/ids");
 
         if (response.data?.securitiesIds) {
             return response.data;

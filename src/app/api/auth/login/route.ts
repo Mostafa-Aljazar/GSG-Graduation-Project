@@ -3,13 +3,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { comparePassword, createJWT } from '@/utils/auth';
-import { USER_TYPE, USER_RANK } from '@/constants/user-types';
+// import { USER_TYPE, USER_RANK } from '@/constants/user-types';
 import { IUser } from '@/types/actor/common/user/user.type';
 import { COOKIE_NAME } from '@/constants/cookie-name';
+import { USER_TYPE } from '@prisma/client';
+import { USER_TYPE as USER_TYPE_LOCAL, USER_RANK as USER_RANK_LOCAL } from '@/constants/user-types';
 
 export async function POST(req: NextRequest) {
     try {
         const { email, password, role } = await req.json();
+        console.log("🚀 ~ POST ~ email, password, role:", email, password, role)
 
         if (!email || !password || !role) {
             return NextResponse.json(
@@ -18,56 +21,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // include الديناميكي حسب نوع المستخدم
-        const includeMap = {
-            DISPLACED: { displaced: true },
-            DELEGATE: { delegate: true },
-            MANAGER: { manager: true },
-            SECURITY_PERSON: { security: true },
-        };
-
-        const includeRelation = includeMap[role as keyof typeof includeMap] || {};
-
-        // تعريف النوع بعد include
-        type UserWithProfile = {
-            id: string;
-            email: string;
-            password: string | null;
-            role: USER_TYPE;
-            rank: USER_RANK;
-            status: string;
-            createdAt: Date;
-            updatedAt: Date;
-            displaced?: {
-                name: string;
-                identity: string;
-                phoneNumber: string;
-                profileImage?: string | null;
-            };
-            delegate?: {
-                name: string;
-                identity: string;
-                phoneNumber: string;
-                profileImage?: string | null;
-            };
-            manager?: {
-                name: string;
-                identity: string;
-                phoneNumber: string;
-                profileImage?: string | null;
-            };
-            security?: {
-                name: string;
-                identity: string;
-                phoneNumber: string;
-                profileImage?: string | null;
-            };
-        };
-
-        const userRecord = (await prisma.user.findFirst({
-            where: { email, role },
-            include: includeRelation,
-        })) as UserWithProfile | null;
+        // Step 1: Find user by email and role
+        const userRecord = await prisma.user.findFirst({
+            where: { email, role: role as USER_TYPE },
+        });
+        console.log("🚀 ~ POST ~ userRecord:", userRecord)
 
         if (!userRecord || !userRecord.password) {
             return NextResponse.json(
@@ -76,6 +34,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Step 2: Verify password
         const isValid = await comparePassword({
             password,
             hash: userRecord.password,
@@ -88,85 +47,103 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const token = createJWT({
-            id: userRecord.id,
-            role: userRecord.role as USER_TYPE,
-            rank: userRecord.rank as USER_RANK,
-        });
-
-        // profileData حسب نوع المستخدم
-        const profileData: {
+        // Step 3: Fetch profile separately
+        let profileData: {
             name: string;
             identity: string;
             phoneNumber: string;
             profileImage: string | null;
-        } = (() => {
-            switch (role) {
-                case USER_TYPE.DISPLACED:
-                    return {
-                        name: userRecord.displaced?.name || '',
-                        identity: userRecord.displaced?.identity || '',
-                        phoneNumber: userRecord.displaced?.phoneNumber || '',
-                        profileImage: userRecord.displaced?.profileImage || null,
-                    };
-                case USER_TYPE.DELEGATE:
-                    return {
-                        name: userRecord.delegate?.name || '',
-                        identity: userRecord.delegate?.identity || '',
-                        phoneNumber: userRecord.delegate?.phoneNumber || '',
-                        profileImage: userRecord.delegate?.profileImage || null,
-                    };
-                case USER_TYPE.MANAGER:
-                    return {
-                        name: userRecord.manager?.name || '',
-                        identity: userRecord.manager?.identity || '',
-                        phoneNumber: userRecord.manager?.phoneNumber || '',
-                        profileImage: userRecord.manager?.profileImage || null,
-                    };
-                case USER_TYPE.SECURITY_PERSON:
-                    return {
-                        name: userRecord.security?.name || '',
-                        identity: userRecord.security?.identity || '',
-                        phoneNumber: userRecord.security?.phoneNumber || '',
-                        profileImage: userRecord.security?.profileImage || null,
-                    };
-                default:
-                    return {
-                        name: '',
-                        identity: '',
-                        phoneNumber: '',
-                        profileImage: null,
-                    };
-            }
-        })();
+        } | null = null;
 
+        switch (role) {
+            case USER_TYPE.DISPLACED:
+                const displaced = await prisma.displacedProfile.findUnique({
+                    where: { userId: userRecord.id },
+                });
+                profileData = displaced
+                    ? {
+                        name: displaced.name,
+                        identity: displaced.identity,
+                        phoneNumber: displaced.phoneNumber,
+                        profileImage: displaced.profileImage || null,
+                    }
+                    : { name: '', identity: '', phoneNumber: '', profileImage: null };
+                break;
+
+            case USER_TYPE.DELEGATE:
+                const delegate = await prisma.delegateProfile.findUnique({
+                    where: { userId: userRecord.id },
+                });
+                profileData = delegate
+                    ? {
+                        name: delegate.name,
+                        identity: delegate.identity,
+                        phoneNumber: delegate.phoneNumber,
+                        profileImage: delegate.profileImage || null,
+                    }
+                    : { name: '', identity: '', phoneNumber: '', profileImage: null };
+                break;
+
+            case USER_TYPE.MANAGER:
+                const manager = await prisma.managerProfile.findUnique({
+                    where: { userId: userRecord.id },
+                });
+                profileData = manager
+                    ? {
+                        name: manager.name,
+                        identity: manager.identity,
+                        phoneNumber: manager.phoneNumber,
+                        profileImage: manager.profileImage || null,
+                    }
+                    : { name: '', identity: '', phoneNumber: '', profileImage: null };
+                break;
+
+            case USER_TYPE.SECURITY_PERSON:
+                const security = await prisma.securityProfile.findUnique({
+                    where: { userId: userRecord.id },
+                });
+                profileData = security
+                    ? {
+                        name: security.name,
+                        identity: security.identity,
+                        phoneNumber: security.phoneNumber,
+                        profileImage: security.profileImage || null,
+                    }
+                    : { name: '', identity: '', phoneNumber: '', profileImage: null };
+                break;
+
+            default:
+                profileData = { name: '', identity: '', phoneNumber: '', profileImage: null };
+        }
+
+        // Step 4: Generate JWT
+        const token = createJWT({
+            id: userRecord.id,
+            role: userRecord.role as USER_TYPE,
+            rank: userRecord.rank,
+        });
+
+        // Step 5: Build user object
         const user: IUser = {
             id: userRecord.id,
-            name: profileData.name,
             email: userRecord.email,
+            role: userRecord.role as USER_TYPE_LOCAL,
+            rank: userRecord.rank as USER_RANK_LOCAL,
+            name: profileData.name,
             identity: profileData.identity,
             phoneNumber: profileData.phoneNumber,
-            createdAt: userRecord.createdAt,
-            role: userRecord.role as USER_TYPE,
-            rank: userRecord.rank as USER_RANK,
             profileImage: profileData.profileImage,
+            createdAt: userRecord.createdAt,
         };
 
-        // return NextResponse.json({
-        //     status: 200,
-        //     message: 'تم تسجيل الدخول بنجاح',
-        //     token,
-        //     user,
-        // });
-
+        // Step 6: Send response with cookie
         const res = NextResponse.json({
             status: 200,
             message: 'تم تسجيل الدخول بنجاح',
             token,
             user,
-        })
+        });
 
-        // Set cookie in response
         res.cookies.set({
             name: COOKIE_NAME,
             value: JSON.stringify({ token, user }),
@@ -174,11 +151,10 @@ export async function POST(req: NextRequest) {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             path: '/',
-            maxAge: 60 * 60 * 24 * 7,
-        })
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+        });
 
-        return res
-
+        return res;
     } catch (err: any) {
         return NextResponse.json(
             { status: 500, message: err.message || 'حدث خطأ أثناء تسجيل الدخول' },

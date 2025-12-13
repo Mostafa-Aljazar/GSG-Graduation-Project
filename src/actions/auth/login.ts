@@ -18,11 +18,13 @@ export const login = async ({
     userType,
 }: ILoginProps): Promise<ILoginResponse> => {
     try {
+        // src\app\api\auth\login
         const response = await AqsaGuestAPI.post<ILoginResponse>('/auth/login', {
             email,
             password,
             role: userType,
         })
+        console.log("🚀 ~ login ~ response:", response)
 
         if (!response.data || response.status !== 200) {
             throw new Error('حدث خطأ في تسجيل الدخول')

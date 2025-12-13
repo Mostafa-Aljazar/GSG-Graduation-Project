@@ -8,7 +8,7 @@ export interface IGetSecurityProfileProps {
     securityId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getSecurityProfile = async ({
     securityId,
@@ -25,7 +25,7 @@ export const getSecurityProfile = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<ISecurityProfileResponse>(
-            `/securities/${securityId}/profile`
+            `/actor/securities/${securityId}/profile`
         );
 
         if (response.data?.user) return response.data;

@@ -125,7 +125,7 @@ export default function SecurityProfileForm({
         gender: u.gender,
         mobileNumber: u.mobileNumber,
         alternativeMobileNumber: u.alternativeMobileNumber || undefined,
-        role: u.role,
+        role: USER_TYPE.SECURITY_PERSON,
         rank: u.rank,
         socialStatus: u.socialStatus,
         additionalNotes: u.additionalNotes || undefined,
@@ -311,7 +311,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('name')}
               disabled={isDisplayMode}
             />
-
             <TextInput
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -329,7 +328,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('identity')}
               disabled={isDisplayMode}
             />
-
             <NativeSelect
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -349,7 +347,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('gender')}
               disabled={isDisplayMode}
             />
-
             <NativeSelect
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -369,7 +366,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('socialStatus')}
               disabled={isDisplayMode}
             />
-
             <TextInput
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -386,7 +382,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('nationality')}
               disabled={isDisplayMode}
             />
-
             <TextInput
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -404,7 +399,6 @@ export default function SecurityProfileForm({
               {...form.getInputProps('email')}
               disabled={isDisplayMode}
             />
-
             {/* <NumberInput
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
@@ -424,21 +418,48 @@ export default function SecurityProfileForm({
               {...form.getInputProps('age')}
               disabled={isDisplayMode}
             /> */}
-
-            <TextInput
-              label={
-                <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
-                  الرتبة :
-                </Text>
-              }
-              placeholder='ادخل الرتبة...'
-              size='sm'
-              w='100%'
-              {...form.getInputProps('rank')}
-              disabled={isDisplayMode}
-            />
-
-            <TextInput
+            {isDisplayMode && (
+              <TextInput
+                label={
+                  <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
+                    الرتبة :
+                  </Text>
+                }
+                size='sm'
+                w='100%'
+                value={USER_RANK_LABELS[securityProfileData?.user.rank as USER_RANK]}
+                // {...form.getInputProps('rank')}
+                disabled={isDisplayMode}
+                classNames={{
+                  input:
+                    'disabled:cursor-text! bg-white! placeholder:text-sm! text-primary! font-normal!',
+                }}
+              />
+            )}
+            {!isDisplayMode && (
+              <NativeSelect
+                label={
+                  <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
+                    الرتبة :
+                  </Text>
+                }
+                data={Object.entries([USER_RANK.SECURITY_PERSON, USER_RANK.SECURITY_OFFICER]).map(
+                  ([_, value]) => ({
+                    value,
+                    label: USER_RANK_LABELS[value],
+                  })
+                )}
+                size='sm'
+                w='100%'
+                classNames={{
+                  input:
+                    'disabled:cursor-text! bg-white! placeholder:text-sm! text-primary! font-normal!',
+                }}
+                {...form.getInputProps('rank')}
+                disabled={isDisplayMode}
+              />
+            )}
+            {/* <TextInput
               label={
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
                   الدور :
@@ -449,8 +470,7 @@ export default function SecurityProfileForm({
               w='100%'
               {...form.getInputProps('role')}
               disabled={isDisplayMode}
-            />
-
+            /> */}
             <Stack w='100%' gap={0}>
               <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>
                 رقم الجوال :
@@ -470,7 +490,6 @@ export default function SecurityProfileForm({
                 />
               </Box>
             </Stack>
-
             {(isEditMode || isAddMode || securityProfileData?.user.alternativeMobileNumber) && (
               <Stack w='100%' gap={0}>
                 <Text fz={16} fw={500} mb={4} className='text-dark! text-nowrap!'>

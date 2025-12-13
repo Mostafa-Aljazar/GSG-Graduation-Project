@@ -9,7 +9,7 @@ export interface IUpdateSecurityProfileProps {
     payload: TSecurityProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const updateSecurityProfile = async ({
     securityId,
@@ -31,7 +31,7 @@ export const updateSecurityProfile = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.put<IActionResponse>(
-            `/securities/${securityId}/profile`,
+            `/actor/securities/${securityId}/profile`,
             preparedPayload
         );
 
