@@ -135,12 +135,12 @@ model Wife {
 }
 
 model DisplacedSocialStatus {
-  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
-  status             SOCIAL_STATUS
-  numberOfWives      Int
-  numberOfMales      Int
-  numberOfFemales    Int
-  totalFamilyMembers Int
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  status          SOCIAL_STATUS
+  numberOfWives   Int
+  numberOfMales   Int
+  numberOfFemales Int
+  // totalFamilyMembers Int
 
   ageGroups         AgeGroup[]
   displacedProfiles DisplacedProfile[]
@@ -251,4 +251,24 @@ model SecurityProfile {
 
   socialStatus    SOCIAL_STATUS
   additionalNotes String?
+}
+
+// ---------------- WRITTEN CONTENT ----------------
+
+enum TYPE_WRITTEN_CONTENT {
+  BLOG
+  SUCCESS_STORIES
+  ADS
+}
+
+model WrittenContent {
+  id      String               @id @default(auto()) @map("_id") @db.ObjectId
+  title   String
+  content String
+  brief   String?
+  imgs    String[]
+  type    TYPE_WRITTEN_CONTENT
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

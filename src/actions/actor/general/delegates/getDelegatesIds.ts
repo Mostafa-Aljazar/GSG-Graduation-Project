@@ -16,7 +16,7 @@ export const getDelegatesIds = async (): Promise<IDelegatesIdsResponse> => {
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IDelegatesIdsResponse>('/delegates/ids');
+        const response = await AqsaAPI.get<IDelegatesIdsResponse>('/actor/delegates/ids');
 
         if (response.data?.delegatesIds) {
             return response.data;

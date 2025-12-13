@@ -13,7 +13,7 @@ export interface IDisplacedSocialStatus {
   numberOfWives: number;
   numberOfMales: number;
   numberOfFemales: number;
-  totalFamilyMembers: number;
+  totalFamilyMembers?: number;
   ageGroups: Record<AGES, number>;
 }
 

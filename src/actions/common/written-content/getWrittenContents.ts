@@ -11,7 +11,7 @@ export interface IGetWrittenContentsProps {
   type: TYPE_WRITTEN_CONTENT;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getWrittenContents = async ({
   page = 1,
@@ -32,7 +32,7 @@ export const getWrittenContents = async ({
   /////////////////////////////////////////////////////////////
 
   try {
-    const response = await AqsaGuestAPI.get<IWrittenContentsResponse>('/written-content', {
+    const response = await AqsaGuestAPI.get<IWrittenContentsResponse>('/actor/common/written-contents', {
       params: { page, limit, type },
     });
 

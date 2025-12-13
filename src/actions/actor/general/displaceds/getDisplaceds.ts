@@ -13,7 +13,7 @@ export interface IGetDisplacedsProps {
     filters?: TDisplacedsFilterFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDisplaceds = async ({
     page = 1,
@@ -31,12 +31,12 @@ export const getDisplaceds = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IDisplacedsResponse>("/displaceds", {
+        const response = await AqsaAPI.get<IDisplacedsResponse>("/actor/displaceds", {
             params: {
                 page,
                 limit,
                 search,
-                filters,
+                filters: JSON.stringify(filters)
             }
         });
 

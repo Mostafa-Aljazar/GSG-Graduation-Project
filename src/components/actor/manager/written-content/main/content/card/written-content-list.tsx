@@ -30,12 +30,27 @@ export default function WrittenContentList({
           ))}
         </Stack>
       ) : data.length === 0 ? (
-        <Group gap={10} w={'100%'} justify='center' mt={30}>
-          <Package size={25} className='text-primary!' />
-          <Text fw={500} fz={24} ta='center' className='text-primary!'>
-            لا توجد بيانات المحتوى لعرضها
+        <Stack gap='sm' w='100%' align='center' justify='center' mt={40}>
+          <Flex
+            align='center'
+            justify='center'
+            w={60}
+            h={60}
+            bg='gray.0'
+            className='rounded-xl'
+            mb='md'
+          >
+            <Package size={32} className='text-primary' />
+          </Flex>
+
+          <Text fw={600} fz={22} ta='center' c='gray.7'>
+            لا توجد بيانات محتوى لعرضها
           </Text>
-        </Group>
+
+          <Text fw={400} fz={16} ta='center' c='gray.5' maw={300}>
+            عند إضافة محتوى جديد سيتم عرضه هنا تلقائيًا.
+          </Text>
+        </Stack>
       ) : (
         <Stack gap='xs'>
           {data.map((item) => (

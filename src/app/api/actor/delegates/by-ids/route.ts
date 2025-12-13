@@ -64,7 +64,7 @@ export async function GET(request: Request) {
             const allDisplacedProfiles = d.user.displacements.flatMap(dis => dis.displacedProfiles)
             const familyNumber = allDisplacedProfiles.length
             const displacedNumber = allDisplacedProfiles.reduce(
-                (acc, p) => acc + (p.socialStatus?.totalFamilyMembers || 0),
+                (acc, p) => acc + (p.socialStatus?.numberOfFemales + p.socialStatus?.numberOfMales + p.socialStatus?.numberOfWives + 1 || 0),
                 0
             )
 

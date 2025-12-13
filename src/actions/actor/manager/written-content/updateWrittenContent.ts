@@ -14,7 +14,7 @@ export interface IUpdateWrittenContentProps {
     type: TYPE_WRITTEN_CONTENT
 }
 
-const USE_FAKE = true
+const USE_FAKE = false
 
 export const updateWrittenContent = async ({
     id,
@@ -39,7 +39,7 @@ export const updateWrittenContent = async ({
     // FIXME: THIS IS THE REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.put<IActionResponse>(`/written-content/${id}`, {
+        const response = await AqsaAPI.put<IActionResponse>(`/actor/common/written-contents/${id}`, {
             title,
             content,
             brief,

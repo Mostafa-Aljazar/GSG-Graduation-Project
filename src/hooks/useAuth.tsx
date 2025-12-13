@@ -37,8 +37,6 @@ export default function useAuth() {
     // This runs only on the client after mount
     const cookie = cookieClient.get();
 
-    console.log('🚀 ~ useAuth ~ cookie:', cookie);
-
     // Use startTransition to avoid the "synchronous setState in effect" warning
     startTransition(() => {
       if (!cookie) {

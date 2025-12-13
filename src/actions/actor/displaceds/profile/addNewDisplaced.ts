@@ -11,7 +11,7 @@ export interface IAddNewDisplacedProps {
   payload: TDisplacedProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const addNewDisplaced = async ({
   payload,
@@ -34,6 +34,7 @@ export const addNewDisplaced = async ({
     },
     displacement: payload.displacement,
   };
+  console.log("🚀 ~ addNewDisplaced ~ preparedPayload:", preparedPayload)
 
   if (USE_FAKE) {
     const fakeData: IActionResponse = {
@@ -50,7 +51,7 @@ export const addNewDisplaced = async ({
   // REAL IMPLEMENTATION
   /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.post<IActionResponse>("/displaceds/add", preparedPayload);
+    const response = await AqsaAPI.post<IActionResponse>("/actor/displaceds/add", preparedPayload);
 
     if (response.data) {
       return response.data;

@@ -9,7 +9,7 @@ export interface IGetDisplacedsIdsProps {
     filters: TDisplacedsFilterFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDisplacedsIds = async ({
     filters,
@@ -27,9 +27,11 @@ export const getDisplacedsIds = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDisplacedsIdsResponse>(
-            "/displaceds/ids",
+            "/actor/displaceds/ids",
             {
-                params: { filters },
+                params: {
+                    filters: JSON.stringify(filters)
+                },
             }
         );
 

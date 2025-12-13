@@ -111,7 +111,6 @@ export default function DisplacedProfileForm({
         numberOfWives: 0,
         numberOfMales: 0,
         numberOfFemales: 0,
-        totalFamilyMembers: 1,
         ageGroups: {
           [AGES.LESS_THAN_6_MONTHS]: 0,
           [AGES.FROM_6_MONTHS_TO_2_YEARS]: 0,
@@ -220,7 +219,6 @@ export default function DisplacedProfileForm({
           numberOfWives: userData.socialStatus?.numberOfWives || 0,
           numberOfMales: userData.socialStatus?.numberOfMales || 0,
           numberOfFemales: userData.socialStatus?.numberOfFemales || 0,
-          totalFamilyMembers: userData.socialStatus?.totalFamilyMembers || 1,
           ageGroups: {
             [AGES.LESS_THAN_6_MONTHS]:
               userData.socialStatus?.ageGroups?.[AGES.LESS_THAN_6_MONTHS] || 0,
@@ -933,7 +931,7 @@ export default function DisplacedProfileForm({
                 data={delegateOptions}
                 searchable
                 clearable
-                disabled={isDisplayMode || isLoadingDelegates || !isManager}
+                disabled={isDisplayMode || isLoadingDelegates}
                 aria-label='اختر المندوب'
                 clearButtonProps={{ 'aria-label': 'مسح المندوب' }}
                 value={form.getValues().displacement.delegate.id.toString() || undefined}

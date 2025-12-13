@@ -8,7 +8,7 @@ export interface IGetDelegatesNamesProps {
     ids?: string[];
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDelegatesNames = async ({
     ids,
@@ -23,7 +23,7 @@ export const getDelegatesNames = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDelegatesNamesResponse>(
-            '/delegates/names',
+            '/actor/delegates/names',
             { params: { ids } }
         );
 

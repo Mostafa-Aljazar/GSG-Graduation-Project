@@ -10,7 +10,7 @@ export interface IGetDisplacedByIdsProps {
     limit?: number;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDisplacedByIds = async ({
     ids,
@@ -35,7 +35,7 @@ export const getDisplacedByIds = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDisplacedsResponse>(
-            "/displaceds/by-ids",
+            "/actor/displaceds/by-ids",
             {
                 params: {
                     page,

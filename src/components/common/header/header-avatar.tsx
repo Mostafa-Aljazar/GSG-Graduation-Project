@@ -120,7 +120,7 @@ export default function HeaderAvatar() {
             size='xs'
             radius='md'
             leftSection={<LogOut size={16} />}
-            onClick={logout}
+            onClick={() => logout()} // <-- fix
           >
             تسجيل الخروج
           </Button>

@@ -29,8 +29,7 @@ export const getManagerProfile = async ({
         const response = await AqsaAPI.get<IManagerProfileResponse>(
             `/actor/manager/${managerId}/profile`
         );
-        // console.log("🚀 ~ getManagerProfile ~ response:", response)
-        // src\app\api\actors\users\manager\[managerId]\profile\route.ts
+
         if (response.data) return response.data;
 
         throw new Error("فشل في تحميل بيانات الملف الشخصي");

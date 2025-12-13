@@ -44,7 +44,7 @@ AqsaAPI.interceptors.response.use(
     if (!err.response) {
       return Promise.reject({ status: 500, error: 'حدث خطأ في الشبكة' })
     }
-    console.log("🚀 ~ err.response.status:", err.response.status)
+    console.log("🚀 ~ err.response:", err.response)
     if (err.response.status === 401) {
       // await clearSessionCookie()
     }

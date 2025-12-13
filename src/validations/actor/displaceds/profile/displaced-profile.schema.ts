@@ -60,7 +60,6 @@ export const displacedProfileFormSchema = z.object({
         numberOfWives: z.number().int().min(0),
         numberOfMales: z.number().int().min(0),
         numberOfFemales: z.number().int().min(0),
-        totalFamilyMembers: z.number().int().min(1),
         ageGroups: z.record(z.enum(AGES), z.number().int().min(0)),
     }),
 

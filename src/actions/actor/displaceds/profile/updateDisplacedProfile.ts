@@ -10,7 +10,7 @@ export interface IUpdateDisplacedProfileProps {
     payload: TDisplacedProfileFormValues;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const updateDisplacedProfile = async ({
     displacedId,
@@ -53,7 +53,7 @@ export const updateDisplacedProfile = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.put<IActionResponse>(
-            `/displaceds/${displacedId}/profile`,
+            `/actor/displaceds/${displacedId}/profile`,
             preparedPayload
         );
 

@@ -13,7 +13,7 @@ export interface IAddWrittenContentProps {
     type: TYPE_WRITTEN_CONTENT
 }
 
-const USE_FAKE = true
+const USE_FAKE = false
 
 export const addWrittenContent = async ({
     title,
@@ -35,7 +35,7 @@ export const addWrittenContent = async ({
     // FIXME: THIS IS THE REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>('/written-content', {
+        const response = await AqsaAPI.post<IActionResponse>('/actor/common/written-contents/create', {
             title,
             content,
             brief,

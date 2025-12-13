@@ -65,8 +65,9 @@ export default function AddWrittenContentForm() {
     queryFn: async () => {
       return await getWrittenContent({ id: query.id, type: query['written-tab'] });
     },
-    enabled: query.action === ACTION_ADD_EDIT_DISPLAY.EDIT && !!Number(query.id),
+    enabled: query.action === ACTION_ADD_EDIT_DISPLAY.EDIT && !!query.id,
   });
+  console.log('🚀 ~ AddWrittenContentForm ~ existingData:', existingData);
 
   const [selectedFiles, setSelectedFiles] = useState<FileWithPath[]>([]);
   const [loadingImages, setLoadingImages] = useState(false);
@@ -291,7 +292,7 @@ export default function AddWrittenContentForm() {
                   </Text>
                 }
                 size='sm'
-                disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
+                // disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
               />
               <Radio
                 value={TYPE_WRITTEN_CONTENT.ADS}
@@ -301,7 +302,7 @@ export default function AddWrittenContentForm() {
                   </Text>
                 }
                 size='sm'
-                disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
+                // disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
               />
               <Radio
                 value={TYPE_WRITTEN_CONTENT.SUCCESS_STORIES}
@@ -311,7 +312,7 @@ export default function AddWrittenContentForm() {
                   </Text>
                 }
                 size='sm'
-                disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
+                // disabled={query.action === ACTION_ADD_EDIT_DISPLAY.EDIT}
               />
             </Group>
           </Radio.Group>

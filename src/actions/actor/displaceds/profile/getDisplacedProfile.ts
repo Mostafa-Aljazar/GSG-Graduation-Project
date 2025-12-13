@@ -8,7 +8,7 @@ export interface IGetDisplacedProfileProps {
     displacedId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDisplacedProfile = async ({
     displacedId,
@@ -23,8 +23,9 @@ export const getDisplacedProfile = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDisplacedProfileResponse>(
-            `/displaceds/${displacedId}/profile`
+            `/actor/displaceds/${displacedId}/profile`
         );
+        console.log("🚀 ~ getDisplacedProfile ~ response:", response)
 
         if (response.data?.user) return response.data;
 

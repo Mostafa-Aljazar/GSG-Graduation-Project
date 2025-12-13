@@ -10,7 +10,7 @@ export interface IGetWrittenContentProps {
   type: TYPE_WRITTEN_CONTENT;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getWrittenContent = async ({
   id,
@@ -26,7 +26,7 @@ export const getWrittenContent = async ({
   /////////////////////////////////////////////////////////////
 
   try {
-    const response = await AqsaGuestAPI.get<IWrittenContentResponse>(`/written-content/${id}`, {
+    const response = await AqsaGuestAPI.get<IWrittenContentResponse>(`/actor/common/written-contents/${id}`, {
       params: {
         type,
       },

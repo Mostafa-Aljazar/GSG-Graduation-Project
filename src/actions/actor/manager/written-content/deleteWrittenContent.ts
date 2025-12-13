@@ -10,7 +10,7 @@ export interface IDeleteWrittenContentProps {
     type: TYPE_WRITTEN_CONTENT;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const deleteWrittenContent = async ({
     contentId,
@@ -33,10 +33,12 @@ export const deleteWrittenContent = async ({
     /////////////////////////////////////////////////////////////
 
     try {
-        const response = await AqsaAPI.delete<IActionResponse>(`/written-content`,
-            {
-                params: { type, contentId, managerId, }
-            });
+        const id = contentId;
+        const response = await AqsaAPI.delete<IActionResponse>(`/actor/common/written-contents/${id}`,
+            // {
+            //     params: { type }
+            // }
+        );
 
         if (
             (response.data.error && response.data.error.length > 0) ||

@@ -77,24 +77,19 @@ export async function PUT(
     { params }: { params: Promise<{ delegateId: string; }> }
 ) {
     try {
-        const token = request.headers.get('authorization')?.split(' ')[1];
+        const token = request.headers.get('authorization');
         if (!token) {
             return NextResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
         }
 
         const verifiedUser = verifyJWT(token);
         if (!verifiedUser) {
-            return NextResponse.json({ status: 401, message: 'Invalid token' }, { status: 401 });
+            // if (verifiedUser.role !== USER_TYPE.MANAGER) {
+            return NextResponse.json({ status: 401, message: 'Not authorized' }, { status: 401 });
         }
 
         const { delegateId } = await params;
         const body = await request.json();
-
-        const isAuthorized =
-            delegateId === verifiedUser.id && verifiedUser.role === USER_TYPE.DELEGATE;
-        if (!isAuthorized) {
-            return NextResponse.json({ status: 401, message: 'Not authorized' }, { status: 401 });
-        }
 
         const userRecord = await prisma.user.findUnique({
             where: { id: delegateId },
