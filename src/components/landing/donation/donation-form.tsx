@@ -1,11 +1,15 @@
 'use client';
 
+import { useDonationStore } from '@/stores/donation-store';
 import { donationFormSchema, TDonationFormType } from '@/validations/landing/donation.schema';
 import { Button, Group, Stack, Text, Textarea, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
+import { useRouter } from 'next/navigation';
 
 const DonationForm = () => {
+  const router = useRouter();
+  const setDonationData = useDonationStore((state) => state.setDonationData);
   const form = useForm<TDonationFormType>({
     mode: 'uncontrolled',
     initialValues: {
@@ -18,7 +22,13 @@ const DonationForm = () => {
     validateInputOnChange: true,
   });
   const handleSubmit = form.onSubmit((data: TDonationFormType) => {
-    console.log(data);
+    setDonationData({
+      name: data.name,
+      email: data.email,
+      price: Number(data.price),
+      message: data.message,
+    });
+    router.push('/checkout');
   });
   return (
     <Stack
