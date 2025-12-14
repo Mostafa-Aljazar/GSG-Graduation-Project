@@ -2,7 +2,14 @@ import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dates/styles.css';
-import '@mantine/dropzone/styles.css';
+
+
+// Removed the import for '@mantine/dropzone/styles.css' because,
+// Mantine v7 no longer provides a styles.css file for the Dropzone component.
+// Dropzone now uses internal styling and does not require external CSS imports.
+// import '@mantine/dropzone/styles.css';
+
+
 import '@mantine/tiptap/styles.css';
 
 import {
