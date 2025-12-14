@@ -9,11 +9,11 @@ export interface ISecurityTaskProps {
     dateTime: Date;
     title: string;
     body: string;
-    securitiesIds: number[];
+    securitiesIds: string[];
     type: TASKS_TABS;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const saveSecurityTask = async ({
     taskId,
@@ -47,9 +47,9 @@ export const saveSecurityTask = async ({
         };
 
         const response = taskId
-            ? await AqsaAPI.put<IActionResponse>(`/securities/tasks/${taskId}`, payload)
-            : await AqsaAPI.post<IActionResponse>('/securities/tasks/add', payload);
-
+            ? await AqsaAPI.put<IActionResponse>(`/actor/securities/tasks/${taskId}`, payload)
+            : await AqsaAPI.post<IActionResponse>('/actor/securities/tasks/add', payload);
+        console.log("🚀 ~ saveSecurityTask ~ response:", response)
         const successStatus = taskId ? 200 : 201;
         const successMessage = taskId
             ? "تم تعديل المهمة بنجاح"

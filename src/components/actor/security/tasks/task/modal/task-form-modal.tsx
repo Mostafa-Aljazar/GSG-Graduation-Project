@@ -90,7 +90,7 @@ export default function TaskFormModal({ opened, onClose, taskToEdit }: ITaskForm
     mutationFn: async (data: TSaveTaskFormValues) => {
       const payload = {
         ...data,
-        securitiesIds: data.securitiesIds.map(Number),
+        securitiesIds: data.securitiesIds.map(String),
       };
 
       if (taskToEdit) {

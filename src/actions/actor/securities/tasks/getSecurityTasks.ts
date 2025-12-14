@@ -11,7 +11,7 @@ export interface IGetSecuritiesTasksProps {
     taskType: TASKS_TABS;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getSecurityTasks = async ({
     page = 1,
@@ -27,11 +27,12 @@ export const getSecurityTasks = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<ITasksResponse>("/securities/tasks", {
+        const response = await AqsaAPI.get<ITasksResponse>("/actor/securities/tasks", {
             params: { page, limit, taskType },
         });
 
-        if (response.data?.tasks) return response.data;
+        console.log("🚀 ~ getSecurityTasks ~ response.data:", response.data)
+        if (response.data) return response.data;
 
         throw new Error("بيانات المهام غير متوفرة");
     } catch (err: unknown) {

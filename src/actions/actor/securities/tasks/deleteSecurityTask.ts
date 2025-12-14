@@ -5,14 +5,12 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IDeleteSecurityTaskProps {
     taskId: string;
-    securityId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const deleteSecurityTask = async ({
     taskId,
-    securityId,
 }: IDeleteSecurityTaskProps): Promise<IActionResponse> => {
     if (USE_FAKE) {
         const fakeResponse: IActionResponse = {
@@ -26,9 +24,7 @@ export const deleteSecurityTask = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.delete<IActionResponse>("/securities/tasks", {
-            params: { taskId, securityId },
-        });
+        const response = await AqsaAPI.delete<IActionResponse>(`/actor/securities/tasks/${taskId}`);
 
         if (response.data?.status === 200) {
             return {

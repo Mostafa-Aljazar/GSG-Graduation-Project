@@ -20,7 +20,7 @@ interface SecurityTaskActionProps {
 }
 
 export default function SecurityTaskActions({ task }: SecurityTaskActionProps) {
-  const { isSecurityOfficer } = useAuth();
+  const { isSecurityOfficer, isManager } = useAuth();
   const [openedPopover, setOpenedPopover] = useState(false);
   const [modalType, setModalType] = useState<'edit' | 'delete' | null>(null);
 
@@ -31,20 +31,21 @@ export default function SecurityTaskActions({ task }: SecurityTaskActionProps) {
 
   const closeModal = () => setModalType(null);
 
-  const ACTIONS: ActionItem[] = isSecurityOfficer
-    ? [
-        {
-          label: 'تعديل',
-          icon: Pencil,
-          action: () => openModal('edit'),
-        },
-        {
-          label: 'حذف',
-          icon: Trash,
-          action: () => openModal('delete'),
-        },
-      ]
-    : [];
+  const ACTIONS: ActionItem[] =
+    isSecurityOfficer || isManager
+      ? [
+          {
+            label: 'تعديل',
+            icon: Pencil,
+            action: () => openModal('edit'),
+          },
+          {
+            label: 'حذف',
+            icon: Trash,
+            action: () => openModal('delete'),
+          },
+        ]
+      : [];
 
   const DropdownItems = ACTIONS.map((item, index) => (
     <Button

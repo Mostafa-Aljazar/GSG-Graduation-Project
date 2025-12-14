@@ -81,21 +81,21 @@ export default function SecurityProfileForm({
     query === ACTION_ADD_EDIT_DISPLAY.DISPLAY && destination !== ACTION_ADD_EDIT_DISPLAY.ADD;
 
   const form = useForm<TSecurityProfileFormValues>({
-    mode: 'uncontrolled',
+    mode: 'controlled',
     initialValues: {
-      id: undefined,
-      profileImage: null,
+      // id: '',
+      profileImage: '',
       name: '',
       email: '',
       identity: '',
       nationality: '',
       gender: GENDER.MALE,
       mobileNumber: '',
-      alternativeMobileNumber: undefined,
+      alternativeMobileNumber: '',
       role: USER_TYPE.SECURITY_PERSON,
       rank: USER_RANK.SECURITY_PERSON,
       socialStatus: SOCIAL_STATUS.SINGLE,
-      additionalNotes: undefined,
+      additionalNotes: '',
     },
     validate: zod4Resolver(securityProfileFormSchema),
     validateInputOnChange: true,

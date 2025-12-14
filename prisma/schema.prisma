@@ -79,7 +79,10 @@ model User {
   security      SecurityProfile?
   displacements Displacement[]
 
-  otp UserOtp?
+  otp                     UserOtp?
+  notifications           Notification[]
+  notificationRecipients  NotificationRecipient[]
+  securityTaskAssignments SecurityTaskAssignment[]
 }
 
 model UserOtp {
@@ -271,4 +274,92 @@ model WrittenContent {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ---------------- ENUMS ----------------
+enum NOTIFICATION_STATUS {
+  READ
+  UNREAD
+}
+
+enum NOTIFICATION_ACTION {
+  CHANGE_DELEGATE
+  EDIT
+  DELETE
+  CALL
+  UPDATE
+  MEETING
+  ADD_AID
+  ANOTHER
+}
+
+enum AID_TYPE {
+  FINANCIAL_AID
+  FOOD_AID
+  MEDICAL_AID
+  CLEANING_AID
+  CLOTHING_AIDS
+  EDUCATIONAL_AID
+  OTHER_AID
+}
+
+// ---------------- NOTIFICATIONS ----------------
+model Notification {
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String
+  status    NOTIFICATION_STATUS @default(UNREAD)
+  action    NOTIFICATION_ACTION
+  aidType   AID_TYPE?
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  fromUserId String @db.ObjectId
+  fromUser   User   @relation(fields: [fromUserId], references: [id])
+
+  toUsers NotificationRecipient[]
+}
+
+// Pivot table for many-to-many relation: notifications can go to multiple users
+model NotificationRecipient {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  notificationId String       @db.ObjectId
+  notification   Notification @relation(fields: [notificationId], references: [id])
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  status NOTIFICATION_STATUS @default(UNREAD)
+  readAt DateTime?
+}
+
+// ---------------- TASKS ----------------
+enum TASKS_TABS {
+  COMPLETED_TASKS
+  UPCOMING_TASKS
+}
+
+model SecurityTask {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  dateTime  DateTime
+  title     String
+  body      String
+  type      TASKS_TABS
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Many-to-many relation with Security (User)
+  assignedSecurities SecurityTaskAssignment[]
+}
+
+// Pivot table for task assignments
+model SecurityTaskAssignment {
+  id     String       @id @default(auto()) @map("_id") @db.ObjectId
+  taskId String       @db.ObjectId
+  task   SecurityTask @relation(fields: [taskId], references: [id])
+
+  securityId String @db.ObjectId
+  security   User   @relation(fields: [securityId], references: [id])
+
+  assignedAt DateTime @default(now())
 }
