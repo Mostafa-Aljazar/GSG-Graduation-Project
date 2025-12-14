@@ -8,14 +8,14 @@ import NotificationCard from './notification/notification-card';
 import NotificationSkeleton from './notification/notification-skeleton';
 
 interface NotificationsListProps {
-  notification_items: INotificationItem[];
-  total_pages: number;
+  notificationItems: INotificationItem[];
+  totalPages: number;
   loading: boolean;
 }
 
 export default function Notifications_List({
-  notification_items,
-  total_pages,
+  notificationItems,
+  totalPages,
   loading,
 }: NotificationsListProps) {
   const [query, setQuery] = useQueryStates({
@@ -30,7 +30,7 @@ export default function Notifications_List({
             <NotificationSkeleton key={index} />
           ))}
         </Stack>
-      ) : notification_items.length === 0 ? (
+      ) : notificationItems.length === 0 ? (
         <Paper p='xl' radius='md' withBorder>
           <Group gap={10} w={'100%'} justify='center' mt={30}>
             <MessageCircleWarning size={25} className='text-primary!' />
@@ -41,19 +41,17 @@ export default function Notifications_List({
         </Paper>
       ) : (
         <Stack gap='xs'>
-          {notification_items &&
-            notification_items.map((item) => (
-              <NotificationCard key={item.id} notification={item} />
-            ))}
+          {notificationItems &&
+            notificationItems.map((item) => <NotificationCard key={item.id} notification={item} />)}
         </Stack>
       )}
 
-      {!loading && total_pages > 1 && (
+      {!loading && totalPages > 1 && (
         <Flex justify='center' mt='xl'>
           <Pagination
             value={query['notifications-page']}
             onChange={(value: number) => setQuery({ 'notifications-page': value })}
-            total={total_pages}
+            total={totalPages}
             size='sm'
             radius='xl'
             withControls={false}

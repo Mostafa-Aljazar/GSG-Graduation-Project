@@ -16,13 +16,13 @@ export default function Notification_Modal({
   onClose,
   notification,
 }: NotificationModalProps) {
-  const date = notification.dateTime.toLocaleDateString('en-GB', {
+  const date = new Date(notification.dateTime).toLocaleDateString('en-GB', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
   });
 
-  const time = notification.dateTime.toLocaleTimeString('en-EG', {
+  const time = new Date(notification.dateTime).toLocaleTimeString('en-EG', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,

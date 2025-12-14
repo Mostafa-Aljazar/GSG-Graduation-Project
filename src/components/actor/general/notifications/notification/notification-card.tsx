@@ -1,11 +1,14 @@
 'use client';
-import { INotificationItem, NotificationStatus } from '@/types/actor/general/notification/notification-response.type';
+import { INotificationItem } from '@/types/actor/general/notification/notification-response.type';
 import { Flex, Group, Paper, Stack, Text, ThemeIcon } from '@mantine/core';
 import React from 'react';
 import NotificationIcon from './notification-icon';
 import NotificationModal from './notification-modal';
 import { useMutation } from '@tanstack/react-query';
-import { changeNotificationStatus, IchangeNotificationStatusProps } from '@/actions/actor/general/notifications/changeNotificationStatus';
+import {
+  changeNotificationStatus,
+  IChangeNotificationStatusProps,
+} from '@/actions/actor/general/notifications/changeNotificationStatus';
 import { notifications } from '@mantine/notifications';
 import useAuth from '@/hooks/useAuth';
 import { useDisclosure } from '@mantine/hooks';
@@ -13,6 +16,7 @@ import { USER_RANK_LABELS, TUserType } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Calendar } from 'lucide-react';
 import { getTimeSince } from '@/utils/getTimeSince';
+import { NotificationStatus } from '@/types/actor/common/index.type';
 
 interface NotificationCardProps {
   notification: INotificationItem;
@@ -26,7 +30,7 @@ export default function Notification_Card({ notification }: NotificationCardProp
   const changeStatusMutation = useMutation<
     IActionResponse,
     unknown,
-    IchangeNotificationStatusProps
+    IChangeNotificationStatusProps
   >({
     mutationFn: changeNotificationStatus,
     onSuccess: (data) => {
@@ -57,8 +61,8 @@ export default function Notification_Card({ notification }: NotificationCardProp
   const handleOpenModal = async ({ n }: { n: INotificationItem }) => {
     if (n.status === NotificationStatus.UNREAD) {
       changeStatusMutation.mutate({
-        notification_Id: n.id,
-        actor_Id: Number(user?.id ?? 0),
+        notificationId: n.id,
+        actorId: String(user?.id ?? 0),
         role: user?.role as TUserType,
       });
     }
@@ -89,7 +93,7 @@ export default function Notification_Card({ notification }: NotificationCardProp
 
               <Group gap={5}>
                 <Text fz={12} c='dimmed'>
-                  {getTimeSince(notification.dateTime)}
+                  {getTimeSince(new Date(notification.dateTime))}
                 </Text>
 
                 <ThemeIcon size='sm' variant='light' color='green'>
@@ -97,7 +101,7 @@ export default function Notification_Card({ notification }: NotificationCardProp
                 </ThemeIcon>
               </Group>
             </Flex>
-            <Text fz={14} fw={500} c='dimmed'>
+            <Text fz={14} fw={400} c='dimmed'>
               من: {notification.from.name} ({` ${USER_RANK_LABELS[notification.from.role]} `})
             </Text>
           </Stack>

@@ -22,14 +22,13 @@ export default function NotificationsContent() {
     data: notificationsData,
     isLoading,
     error,
-    refetch,
   } = useQuery<INotificationsResponse, Error>({
     queryKey: ['notifications', query['notifications-page'], user],
     queryFn: () =>
       getNotifications({
         page: query['notifications-page'],
         limit: limit,
-        actor_Id: Number(user?.id),
+        actorId: String(user?.id),
         role: user?.role as TUserType,
       }),
   });
@@ -52,8 +51,8 @@ export default function NotificationsContent() {
         </Paper>
       ) : (
         <NotificationsList
-          notification_items={notificationsData?.notifications ?? []}
-          total_pages={notificationsData?.pagination.total_pages ?? 1}
+          notificationItems={notificationsData?.notifications ?? []}
+          totalPages={notificationsData?.pagination.totalPages ?? 1}
           loading={isLoading}
         />
       )}

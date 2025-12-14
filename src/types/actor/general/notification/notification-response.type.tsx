@@ -1,35 +1,21 @@
 import { TUserType } from '@/constants/user-types';
-import { TYPE_AIDS } from '../../common/index.type';
+import { NotificationActions, NotificationStatus, TYPE_AIDS } from '../../common/index.type';
+import { IPagination } from '@/types/common/pagination.type';
 
-export type TNotificationAction =
-  | 'change_delegate'
-  | 'edit'
-  | 'delete'
-  | 'call'
-  | 'update'
-  | 'meeting'
-  | 'add-aid'
-  | 'another-notification';
-
-export interface NotificationType {
-  action: TNotificationAction;
-  aid_type?: TYPE_AIDS;
-}
-
-export enum NotificationStatus {
-  READ = 'READ',
-  UNREAD = 'UNREAD',
+export interface INotificationType {
+  action: NotificationActions;
+  aidType?: TYPE_AIDS;
 }
 
 export interface INotificationItem {
-  id: number;
-  dateTime: Date;
+  id: string;
+  dateTime: Date | string;
   title: string;
   body: string;
   status: NotificationStatus;
-  notification_type: NotificationType;
+  notificationType: INotificationType;
   from: {
-    id: number;
+    id: string;
     name: string;
     role: TUserType;
   };
@@ -40,10 +26,5 @@ export interface INotificationsResponse {
   message?: string;
   notifications: INotificationItem[];
   error?: string;
-  pagination: {
-    page: number;
-    limit: number;
-    total_items: number;
-    total_pages: number;
-  };
+  pagination: IPagination;
 }

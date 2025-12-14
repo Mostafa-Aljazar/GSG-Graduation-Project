@@ -1,4 +1,4 @@
-import { Activity, BookOpen, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Gift, HandHeart, HeartPulse, History, MessageCircleQuestion, MessageSquareWarning, Package, Shirt, SprayCan, Utensils } from "lucide-react";
+import { Activity, BellRing, BookOpen, Calendar, CalendarCheck, CalendarClock, CheckCircle2, DollarSign, Edit, Gift, HandHeart, HeartPulse, History, MessageCircleQuestion, MessageSquareWarning, Package, Phone, RefreshCcw, Shirt, SprayCan, Trash2, UserCheck, Utensils } from "lucide-react";
 import { IBaseAidForm, ICategoryRange } from "./aids-management/aids-management.types";
 
 
@@ -309,3 +309,33 @@ export const COMPLAINTS_STATUS_LABELS: Record<COMPLAINTS_STATUS, string> = {
     [COMPLAINTS_STATUS.PENDING]: 'قيد الانتظار',
     [COMPLAINTS_STATUS.ALL]: 'الكل',
 };
+
+/////////////////////////////////////////////////////////////////////////
+
+export enum NotificationStatus {
+    READ = 'READ',
+    UNREAD = 'UNREAD',
+}
+
+export enum NotificationActions {
+    CHANGE_DELEGATE = 'CHANGE_DELEGATE',
+    EDIT = 'EDIT',
+    DELETE = 'DELETE',
+    CALL = 'CALL',
+    UPDATE = 'UPDATE',
+    MEETING = 'MEETING',
+    ADD_AID = 'ADD_AID',
+    ANOTHER = 'ANOTHER',
+}
+
+export const Notification_Actions_ICONS: Record<NotificationActions, any> = {
+    [NotificationActions.CHANGE_DELEGATE]: UserCheck,
+    [NotificationActions.EDIT]: Edit,
+    [NotificationActions.DELETE]: Trash2,
+    [NotificationActions.CALL]: Phone,
+    [NotificationActions.UPDATE]: RefreshCcw,
+    [NotificationActions.MEETING]: Calendar,
+    [NotificationActions.ANOTHER]: BellRing,
+    [NotificationActions.ADD_AID]: Package,
+};
+

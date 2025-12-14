@@ -5,56 +5,60 @@ import { TUserType } from '@/constants/user-types';
 import { fakeNotificationsResponse } from '@/content/actor/notifications/fake-notifications';
 import { AqsaAPI } from '@/services/api';
 
-export interface IgetNotificationsProps {
-  actor_Id: number;
+export interface IGetNotificationsProps {
+  actorId: string;
   role: TUserType;
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 }
+
+const USE_FAKE = true;
 
 export const getNotifications = async ({
   page = 1,
   limit = 7,
-  actor_Id,
+  actorId,
   role,
-}: IgetNotificationsProps): Promise<INotificationsResponse> => {
-  const fakeResponse = fakeNotificationsResponse({ page, limit, actor_Id, role });
-  return await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(fakeResponse);
-    }, 500);
-  });
+}: IGetNotificationsProps): Promise<INotificationsResponse> => {
+  if (USE_FAKE) {
+    const fakeData: INotificationsResponse = fakeNotificationsResponse({
+      page,
+      limit,
+      actorId,
+      role,
+    });
 
+    return new Promise((resolve) => setTimeout(() => resolve(fakeData), 500));
+  }
 
-  
-  // FIXME: THIS IS THE REAL IMPLEMENTATION
+  /////////////////////////////////////////////////////////////
+  // REAL IMPLEMENTATION
+  /////////////////////////////////////////////////////////////
   try {
     const response = await AqsaAPI.get<INotificationsResponse>('/notifications', {
-      params: { page, limit, actor_Id, role },
+      params: { page, limit, actorId, role },
     });
 
     if (response.data?.notifications) {
-      return {
-        status: 200,
-        message: 'تم جلب الاشعارات بنجاح',
-        notifications: response.data.notifications,
-        pagination: response.data.pagination,
-      };
+      return response.data;
     }
 
     throw new Error('بيانات الاشعارات غير متوفرة');
-  } catch (error: any) {
-    const errorMessage =
-      error.response?.data?.error || error.message || 'حدث خطأ أثناء جلب الاشعارات';
+  } catch (err: unknown) {
+    let errorMessage = 'حدث خطأ أثناء جلب الاشعارات';
+    const statusCode = 500;
+
+    if (err instanceof Error) errorMessage = err.message;
+
     return {
-      status: error.response?.status || 500,
+      status: statusCode,
       message: errorMessage,
       notifications: [],
       pagination: {
         page: 1,
         limit: 0,
-        total_items: 0,
-        total_pages: 0,
+        totalItems: 0,
+        totalPages: 0,
       },
       error: errorMessage,
     };
