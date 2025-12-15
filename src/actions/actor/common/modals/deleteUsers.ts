@@ -9,7 +9,7 @@ export interface IDeleteUsersProps {
     userType: USER_TYPE;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const deleteUsers = async ({
     userIds,
@@ -27,12 +27,13 @@ export const deleteUsers = async ({
     /////////////////////////////////////////////////////////////
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
-    try {
+    try {//src\app\api\actor\displaceds\delete\route.ts
         const endpoint = `${USER_ENDPOINTS[userType]}/delete`;
 
-        const response = await AqsaAPI.delete<IActionResponse>(endpoint, {
-            params: { userIds },
-        });
+        const response = await AqsaAPI.delete<IActionResponse>(endpoint,
+            { data: { userIds } }
+        );
+        console.log("🚀 ~ deleteUsers ~ response:", response)
 
         if (response.status === 200) {
             return {
@@ -46,17 +47,16 @@ export const deleteUsers = async ({
             message: `حدث خطأ أثناء حذف ${USER_RANK_LABELS[userType]}`,
             error: response.data?.error || "خطأ غير متوقع",
         };
-    } catch (err: unknown) {
-        let errorMessage = `حدث خطأ أثناء حذف ${USER_RANK_LABELS[userType]}`;
+    } catch (err: any) {
+        console.log("🚀 ~ deleteUsers ~ err:", err);
 
-        if (err instanceof Error) {
-            errorMessage = err.message;
-        }
+        const errorMessage = `حدث خطأ أثناء حذف ${USER_RANK_LABELS[userType]}`;
+        const errorDetail: string | undefined = err.response?.data?.error;
 
         return {
             status: 500,
             message: errorMessage,
-            error: errorMessage,
+            error: errorDetail,
         };
     }
 };

@@ -50,7 +50,7 @@ export default function DeleteTaskModal({ taskId, opened, close }: IDeleteTaskMo
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    deleteMutation.mutate({ securityId, taskId });
+    deleteMutation.mutate({ taskId });
   };
 
   return (

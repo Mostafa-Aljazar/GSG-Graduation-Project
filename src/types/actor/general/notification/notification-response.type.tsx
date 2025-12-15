@@ -13,11 +13,13 @@ export interface INotificationItem {
   title: string;
   body: string;
   status: NotificationStatus;
-  notificationType: INotificationType;
+  // notificationType: INotificationType;
+  action: NotificationActions;
+  aidType?: TYPE_AIDS;
   from: {
     id: string;
-    name: string;
-    role: TUserType;
+    // name: string;
+    rank: TUserType;
   };
 }
 

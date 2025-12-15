@@ -9,7 +9,7 @@ export interface IChangeDelegateProps {
     delegateId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const changeDelegate = async ({
     displacedIds,
@@ -27,7 +27,9 @@ export const changeDelegate = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>("/displaceds/change-delegate", {
+
+        // src\app\api\actor\common\modals\change-delegate\route.ts
+        const response = await AqsaAPI.post<IActionResponse>("/actor/common/modals/change-delegate", {
             displacedIds,
             delegateId,
         });

@@ -40,18 +40,20 @@ export async function GET(
             },
         })
 
-        const delegateName = await prisma.delegateProfile.findUnique({
-            where: { userId: displacedRaw?.displacement.delegateId },
-            select: {
-                name: true
-            }
-        })
-
         if (!displacedRaw)
             return NextResponse.json(
                 { status: 404, message: 'Not found', user: {} },
                 { status: 404 }
             )
+
+
+        const delegateName = await prisma.delegateProfile.findUnique({
+            where: { userId: displacedRaw?.displacement.delegateId || "" },
+            select: {
+                name: true
+            }
+        })
+
 
         // Transform Prisma response to match IDisplacedProfile
         const user: IDisplacedProfile = {
@@ -95,7 +97,7 @@ export async function GET(
                 familyStatusType: displacedRaw.displacement.familyStatusType as FAMILY_STATUS_TYPE,
                 displacementDate: displacedRaw.displacement.displacementDate.toISOString(),
                 delegate: {
-                    id: displacedRaw.displacement.delegateId,
+                    id: displacedRaw.displacement.delegateId || "",
                     name: delegateName?.name || '',
                 },
             },

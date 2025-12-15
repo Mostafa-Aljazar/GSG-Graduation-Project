@@ -5,7 +5,7 @@ import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface IDeleteUsersModalProps {
   userIds: string[];
@@ -20,6 +20,8 @@ export default function DeleteUsersModal({
   opened,
   close,
 }: IDeleteUsersModalProps) {
+  const queryClient = useQueryClient();
+
   const deleteMutation = useMutation<IActionResponse, unknown, IDeleteUsersProps>({
     mutationFn: deleteUsers,
     onSuccess: (data) => {
@@ -32,6 +34,13 @@ export default function DeleteUsersModal({
           withBorder: true,
         });
         close();
+        if (userType == USER_TYPE.DISPLACED) {
+          queryClient.invalidateQueries({ queryKey: ['displaceds'] });
+        } else if (userType == USER_TYPE.DELEGATE) {
+          queryClient.invalidateQueries({ queryKey: ['delegates'] });
+        } else {
+          queryClient.invalidateQueries({ queryKey: ['securities'] });
+        }
       } else {
         throw new Error(data.error || 'فشل في الحذف');
       }

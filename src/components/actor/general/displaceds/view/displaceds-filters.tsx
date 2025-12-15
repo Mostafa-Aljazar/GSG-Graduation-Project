@@ -65,12 +65,14 @@ export default function DisplacedsFilters() {
     chronicDisease: null,
     accommodationType: null,
     familyStatusType: null,
-    delegate: isDelegate && user?.id ? [user.id.toString()] : [],
+    delegate: [],
+    // delegate: isDelegate && user?.id ? [user.id.toString()] : [],
   };
 
   const initData: TDisplacedsFilterFormValues = localFilters;
 
   // FIXME: add page to 1
+  // FIXME: just get the displaced based on the delegated id
   const [searchInput, setSearchInput] = useState('');
   const [resetKey, setResetKey] = useState(0);
   const [_, setSearch] = useQueryState('search', parseAsString.withDefault(''));
@@ -307,6 +309,8 @@ export default function DisplacedsFilters() {
               }))}
               // disabled={destination == 'AID' && role == 'DELEGATE'}
               size='sm'
+              // key={`delegate`}
+              // defaultValue={isDelegate && user?.id ? [user.id.toString()] : []}
               key={`delegate-${resetKey}`}
               {...form.getInputProps('delegate')}
               classNames={{

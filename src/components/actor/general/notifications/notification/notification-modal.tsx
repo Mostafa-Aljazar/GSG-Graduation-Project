@@ -3,7 +3,7 @@
 import { Modal, Stack, Group, Text, Paper, ThemeIcon, Flex } from '@mantine/core';
 import { UserCircle, Info, Calendar } from 'lucide-react';
 import { INotificationItem } from '@/types/actor/general/notification/notification-response.type';
-import { USER_RANK_LABELS, TUserRank } from '@/constants/user-types';
+import { USER_RANK_LABELS } from '@/constants/user-types';
 
 interface NotificationModalProps {
   opened: boolean;
@@ -58,8 +58,7 @@ export default function Notification_Modal({
               <UserCircle size={16} />
             </ThemeIcon>
             <Text size='sm' c='dimmed'>
-              من: {notification.from.name} (
-              {` ${USER_RANK_LABELS[notification.from.role as TUserRank]} `})
+              من : ال{USER_RANK_LABELS[notification.from.rank]}
             </Text>
           </Group>
 

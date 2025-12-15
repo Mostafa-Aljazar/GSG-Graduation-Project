@@ -21,7 +21,7 @@ import { zod4Resolver } from 'mantine-form-zod-resolver';
 interface ISendUsersActionModalProps {
   userIds: string[];
   userType: USER_TYPE;
-  action: 'call' | 'meeting';
+  action: 'CALL' | 'MEETING';
   opened: boolean;
   close: () => void;
 }
@@ -53,7 +53,7 @@ export default function SendUsersActionModal({
     onSuccess: (data) => {
       if (data.status === 200) {
         notifications.show({
-          title: action === 'call' ? 'تم الاستدعاء' : 'تم إرسال طلب الاجتماع',
+          title: action === 'CALL' ? 'تم الاستدعاء' : 'تم إرسال طلب الاجتماع',
           message: data.message,
           color: 'grape',
           position: 'top-left',
@@ -86,7 +86,7 @@ export default function SendUsersActionModal({
     });
   };
 
-  const actionLabel = action === 'call' ? 'استدعاء' : 'طلب اجتماع';
+  const actionLabel = action === 'CALL' ? 'استدعاء' : 'طلب اجتماع';
   const userLabel = USER_RANK_LABELS[userType];
 
   return (

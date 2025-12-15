@@ -12,7 +12,7 @@ export interface IGetNotificationsProps {
   limit?: number;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getNotifications = async ({
   page = 1,
@@ -35,9 +35,11 @@ export const getNotifications = async ({
   // REAL IMPLEMENTATION
   /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.get<INotificationsResponse>('/notifications', {
-      params: { page, limit, actorId, role },
+    //src\app\api\actor\common\notifications
+    const response = await AqsaAPI.get<INotificationsResponse>('/actor/common/notifications', {
+      params: { page, limit, },
     });
+    console.log("🚀 ~ getNotifications ~ response:", response.data.notifications)
 
     if (response.data?.notifications) {
       return response.data;

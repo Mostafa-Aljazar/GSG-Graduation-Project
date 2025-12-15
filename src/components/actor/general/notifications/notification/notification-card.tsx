@@ -10,9 +10,8 @@ import {
   IChangeNotificationStatusProps,
 } from '@/actions/actor/general/notifications/changeNotificationStatus';
 import { notifications } from '@mantine/notifications';
-import useAuth from '@/hooks/useAuth';
 import { useDisclosure } from '@mantine/hooks';
-import { USER_RANK_LABELS, TUserType } from '@/constants/user-types';
+import { USER_RANK_LABELS } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { Calendar } from 'lucide-react';
 import { getTimeSince } from '@/utils/getTimeSince';
@@ -22,10 +21,8 @@ interface NotificationCardProps {
   notification: INotificationItem;
 }
 
-export default function Notification_Card({ notification }: NotificationCardProps) {
+export default function NotificationCard({ notification }: NotificationCardProps) {
   const [modalOpened, { open: openModal, close: closeModal }] = useDisclosure(false);
-
-  const { user } = useAuth();
 
   const changeStatusMutation = useMutation<
     IActionResponse,
@@ -62,8 +59,6 @@ export default function Notification_Card({ notification }: NotificationCardProp
     if (n.status === NotificationStatus.UNREAD) {
       changeStatusMutation.mutate({
         notificationId: n.id,
-        actorId: String(user?.id ?? 0),
-        role: user?.role as TUserType,
       });
     }
     openModal();
@@ -102,7 +97,7 @@ export default function Notification_Card({ notification }: NotificationCardProp
               </Group>
             </Flex>
             <Text fz={14} fw={400} c='dimmed'>
-              من: {notification.from.name} ({` ${USER_RANK_LABELS[notification.from.role]} `})
+              من : ال{USER_RANK_LABELS[notification.from.rank]}
             </Text>
           </Stack>
         </Group>

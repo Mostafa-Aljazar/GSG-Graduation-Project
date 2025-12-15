@@ -44,7 +44,7 @@ export default function DisplacedsTable() {
     isLoading: isLoadingRegular,
     error: queryError,
   } = useQuery<IDisplacedsResponse, Error>({
-    queryKey: ['displaceds', query.search, localFilters, currentPage],
+    queryKey: ['displaceds', query, localFilters, currentPage],
     queryFn: () =>
       getDisplaceds({
         page: currentPage,
@@ -147,9 +147,9 @@ export default function DisplacedsTable() {
         <Table.Th px={5} ta='center'>
           رقم الجوال
         </Table.Th>
-        {/* <Table.Th px={5} ta='center' style={{ whiteSpace: 'nowrap' }}>
+        <Table.Th px={5} ta='center' style={{ whiteSpace: 'nowrap' }}>
           اسم المندوب
-        </Table.Th> */}
+        </Table.Th>
         <Table.Th px={5} ta='center'>
           الإجراءات
         </Table.Th>
@@ -189,9 +189,9 @@ export default function DisplacedsTable() {
         <Table.Td px={5} ta='center'>
           {element.mobileNumber}
         </Table.Td>
-        {/* <Table.Td px={5} ta='center' style={{ whiteSpace: 'nowrap' }}>
+        <Table.Td px={5} ta='center' style={{ whiteSpace: 'nowrap' }}>
           {element.delegate.name}
-        </Table.Td> */}
+        </Table.Td>
         <Table.Td px={5} ta='center'>
           <DisplacedTableActions displacedId={element.id} />
         </Table.Td>

@@ -4,7 +4,7 @@ import { USER_ENDPOINTS, USER_RANK_LABELS, USER_TYPE } from '@/constants/user-ty
 import { AqsaAPI } from '@/services/api';
 import { IActionResponse } from '@/types/common/action-response.type';
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export interface ISendUpdateUsersRequestProps {
     userIds: string[];
@@ -28,10 +28,10 @@ export const sendUpdateUsersRequest = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const endpoint = `${USER_ENDPOINTS[userType]}/update`;
-
-        const response = await AqsaAPI.post<IActionResponse>(endpoint, {
+        // src\app\api\actor\common\modals\update-request
+        const response = await AqsaAPI.post<IActionResponse>("/actor/common/modals/update-request", {
             userIds,
+            userType
         });
 
         if (response.status === 200) {

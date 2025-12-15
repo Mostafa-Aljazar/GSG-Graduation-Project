@@ -1,17 +1,17 @@
 'use server';
 
-import { USER_ENDPOINTS, USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
+import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import { AqsaAPI } from '@/services/api';
 import { IActionResponse } from '@/types/common/action-response.type';
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export interface ISendUsersActionRequestProps {
     userIds: string[];
     userType: USER_TYPE;
     dateTime: Date;
     details: string;
-    action: 'call' | 'meeting'; // نوع الإجراء لتحديد endpoint والرسائل
+    action: 'CALL' | 'MEETING'; // نوع الإجراء لتحديد endpoint والرسائل
 }
 
 export const sendUsersActionRequest = async ({
@@ -21,8 +21,8 @@ export const sendUsersActionRequest = async ({
     details,
     action,
 }: ISendUsersActionRequestProps): Promise<IActionResponse> => {
-    const actionLabel = action === 'call' ? 'استدعاء' : 'طلب الاجتماع';
-    const endpoint = `${USER_ENDPOINTS[userType]}/${action}`;
+    const actionLabel = action === 'CALL' ? 'استدعاء' : 'طلب الاجتماع';
+    // const endpoint = `${USER_ENDPOINTS[userType]}/${action}`;
 
     // Fake Mode
     if (USE_FAKE) {
@@ -37,11 +37,14 @@ export const sendUsersActionRequest = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>(endpoint, {
+        //src\app\api\actor\common\modals\call-meet
+        const response = await AqsaAPI.post<IActionResponse>("/actor/common/modals/call-meet", {
             userIds,
             dateTime,
             details,
+            action
         });
+        console.log("🚀 ~ sendUsersActionRequest ~ response:", response)
 
         if (response.status === 200) {
             return {

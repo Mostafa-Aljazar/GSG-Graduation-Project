@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
             displacedData.map(async (d) => {
                 // Get delegate info
                 const delegate = await prisma.delegateProfile.findUnique({
-                    where: { userId: d.displacement.delegateId },
+                    where: { userId: d.displacement.delegateId || "" },
                     select: { name: true, userId: true },
                 });
 

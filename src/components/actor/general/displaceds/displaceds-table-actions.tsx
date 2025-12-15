@@ -6,12 +6,11 @@ import {
   EllipsisVertical,
   Eye,
   Hammer,
-  Repeat,
-  Speech,
-  Trash,
-  UserCog,
-  UserPen,
-  Users,
+  UserCheck,
+  Trash2,
+  Phone,
+  RefreshCcw,
+  Calendar,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -23,11 +22,13 @@ import ChangeDelegateInDisplacedsModal from '../../common/modals/change-delegate
 import DeleteUsersModal from '../../common/modals/delete-users-modal';
 import SendUsersActionModal from '../../common/modals/send-users-action-request-modal';
 import UpdateUsersModal from '../../common/modals/update-users-modal';
+import { NotificationActions } from '@/types/actor/common/index.type';
 
 interface IActionItem {
   label: string;
   icon: React.ComponentType<{ size?: number | string }>;
   action: () => void;
+  type: NotificationActions;
 }
 
 interface DisplacedTableActionsProps {
@@ -43,13 +44,11 @@ export default function DisplacedTableActions({
 }: DisplacedTableActionsProps) {
   const { isDelegate, isManager, isSecurityPerson, isSecurityOfficer } = useAuth();
   const [openedPopover, setOpenedPopover] = useState(false);
-  const [modalType, setModalType] = useState<
-    'change_delegate' | 'edit' | 'delete' | 'call' | 'update' | 'meeting' | null
-  >(null);
+  const [modalType, setModalType] = useState<NotificationActions | null>(null);
 
   const router = useRouter();
 
-  const openModal = (type: typeof modalType) => {
+  const openModal = (type: NotificationActions) => {
     setModalType(type);
     setOpenedPopover(false);
   };
@@ -62,28 +61,69 @@ export default function DisplacedTableActions({
   };
 
   const commonActions: IActionItem[] = [
-    { label: 'حذف', icon: Trash, action: () => openModal('delete') },
-    { label: 'استدعاء', icon: Speech, action: () => openModal('call') },
-    { label: 'تحديث بيانات', icon: UserCog, action: () => openModal('update') },
-    { label: 'اجتماع', icon: Users, action: () => openModal('meeting') },
+    {
+      label: 'حذف',
+      icon: Trash2,
+      action: () => openModal(NotificationActions.DELETE),
+      type: NotificationActions.DELETE,
+    },
+    {
+      label: 'استدعاء',
+      icon: Phone,
+      action: () => openModal(NotificationActions.CALL),
+      type: NotificationActions.CALL,
+    },
+    {
+      label: 'تحديث بيانات',
+      icon: RefreshCcw,
+      action: () => openModal(NotificationActions.UPDATE),
+      type: NotificationActions.UPDATE,
+    },
+    {
+      label: 'اجتماع',
+      icon: Calendar,
+      action: () => openModal(NotificationActions.MEETING),
+      type: NotificationActions.MEETING,
+    },
   ];
 
   const managerExtras: IActionItem[] = [
-    { label: 'تغيير المندوب', icon: Repeat, action: () => openModal('change_delegate') },
+    {
+      label: 'تغيير المندوب',
+      icon: UserCheck,
+      action: () => openModal(NotificationActions.CHANGE_DELEGATE),
+      type: NotificationActions.CHANGE_DELEGATE,
+    },
   ];
 
   const viewEditActions: IActionItem[] = [
-    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || '')) },
+    {
+      label: 'عرض',
+      icon: Eye,
+      action: () => router.push(buildRoute(displacedId || '')),
+      type: NotificationActions.EDIT,
+    },
     {
       label: 'تعديل',
-      icon: UserPen,
+      icon: Eye,
       action: () => router.push(buildRoute(displacedId || '', true)),
+      type: NotificationActions.EDIT,
     },
   ];
 
   const securityActions: IActionItem[] = [
-    { label: 'عرض', icon: Eye, action: () => router.push(buildRoute(displacedId || '')) },
-    { label: 'استدعاء', icon: Speech, action: () => openModal('call') },
+    {
+      label: 'عرض',
+      icon: Eye,
+      action: () => router.push(buildRoute(displacedId || '')),
+      type: NotificationActions.EDIT,
+    },
+    {
+      label: 'استدعاء',
+      icon: Phone,
+      action: () => openModal(NotificationActions.CALL),
+      type: NotificationActions.CALL,
+    },
   ];
 
   const getActions = (): IActionItem[] => {
@@ -169,7 +209,7 @@ export default function DisplacedTableActions({
       {isManager && (
         <ChangeDelegateInDisplacedsModal
           displacedIds={IDs}
-          opened={modalType === 'change_delegate'}
+          opened={modalType === NotificationActions.CHANGE_DELEGATE}
           close={closeModal}
         />
       )}
@@ -178,7 +218,7 @@ export default function DisplacedTableActions({
         <DeleteUsersModal
           userIds={IDs}
           userType={USER_TYPE.DISPLACED}
-          opened={modalType === 'delete'}
+          opened={modalType === NotificationActions.DELETE}
           close={closeModal}
         />
       )}
@@ -186,8 +226,8 @@ export default function DisplacedTableActions({
       <SendUsersActionModal
         userIds={IDs}
         userType={USER_TYPE.DISPLACED}
-        action='call'
-        opened={modalType === 'call'}
+        action='CALL'
+        opened={modalType === NotificationActions.CALL}
         close={closeModal}
       />
 
@@ -195,7 +235,7 @@ export default function DisplacedTableActions({
         <UpdateUsersModal
           userIds={IDs}
           userType={USER_TYPE.DISPLACED}
-          opened={modalType === 'update'}
+          opened={modalType === NotificationActions.UPDATE}
           close={closeModal}
         />
       )}
@@ -204,8 +244,8 @@ export default function DisplacedTableActions({
         <SendUsersActionModal
           userIds={IDs}
           userType={USER_TYPE.DISPLACED}
-          action='meeting'
-          opened={modalType === 'meeting'}
+          action='MEETING'
+          opened={modalType === NotificationActions.MEETING}
           close={closeModal}
         />
       )}

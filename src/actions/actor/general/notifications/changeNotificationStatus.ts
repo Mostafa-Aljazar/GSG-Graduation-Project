@@ -1,20 +1,15 @@
 "use server";
 
 import { IActionResponse } from "@/types/common/action-response.type";
-import { TUserType } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface IChangeNotificationStatusProps {
-    actorId: string;
-    role: TUserType;
     notificationId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const changeNotificationStatus = async ({
-    actorId,
-    role,
     notificationId,
 }: IChangeNotificationStatusProps): Promise<IActionResponse> => {
     /////////////////////////////////////////////////////////////
@@ -33,9 +28,8 @@ export const changeNotificationStatus = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>(
-            "/notifications/change-status",
-            { actorId, role, notificationId }
+        const response = await AqsaAPI.patch<IActionResponse>(
+            `/actor/common/notifications/read/${notificationId}`,
         );
 
         if (response.data) {

@@ -25,7 +25,7 @@ export default function HeaderComponent({ opened, toggle }: IHeaderProps) {
   const router = useRouter();
 
   return (
-    <AppShell.Header withBorder={false} zIndex={50} className='bg-second-light! shadow-sm'>
+    <AppShell.Header withBorder={false} zIndex={50} px={20} className='bg-second-light! shadow-sm'>
       <Flex justify='space-between' align='center' h='100%' px={{ base: 'md', lg: 'lg' }}>
         <Group gap='md'>
           <Burger opened={opened} onClick={toggle} size='sm' hiddenFrom='lg' />

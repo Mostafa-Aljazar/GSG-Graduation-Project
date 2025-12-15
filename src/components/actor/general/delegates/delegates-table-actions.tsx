@@ -174,7 +174,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
       <SendUsersActionModal
         userIds={IDs}
         userType={USER_TYPE.DELEGATE}
-        action='call'
+        action='CALL'
         opened={modalType === 'call'}
         close={closeModal}
       />
@@ -182,7 +182,7 @@ export default function DelegatesTableActions({ delegateId, delegateIds, disable
       <SendUsersActionModal
         userIds={IDs}
         userType={USER_TYPE.DELEGATE}
-        action='meeting'
+        action='MEETING'
         opened={modalType === 'meeting'}
         close={closeModal}
       />
