@@ -6,7 +6,7 @@ import { IDisplacedsIdsResponse } from "@/types/actor/general/displaceds/displac
 import { TDisplacedsFilterFormValues } from "@/validations/actor/general/displaceds/displaceds-filter-form.schema";
 
 export interface IGetDisplacedsIdsProps {
-    filters: TDisplacedsFilterFormValues;
+    filters?: TDisplacedsFilterFormValues;
 }
 
 const USE_FAKE = false;

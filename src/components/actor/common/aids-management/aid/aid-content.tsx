@@ -8,8 +8,11 @@ import CommonAidView from './aid-info-view';
 import { DISTRIBUTION_MECHANISM } from '@/types/actor/common/index.type';
 import AidDelegatesListView from './delegates/aid-delegates-list';
 import AidDeliveryDisplaceds from './displaceds/delivery-displaceds/aid-delivery-displaceds';
+import { useAlreadyUserStore } from '@/stores/alreadyUserStore';
+import { USER_TYPE } from '@/constants/user-types';
+import AidAddDisplaceds from '../add-displaceds/aid-add-displaceds';
 
-function AidHeader({ isCompleted = false, aidId }: { isCompleted?: boolean; aidId?: string }) {
+function AidHeader({ isCompleted = false }: { isCompleted?: boolean; aidId?: string }) {
   return (
     <Group gap={10} justify='space-between' w='100%'>
       <Group align='center' gap={5}>
@@ -38,6 +41,8 @@ interface IAidContentProps {
 }
 
 export default function AidContent({ aidData, isLoading }: IAidContentProps) {
+  const { userType: role } = useAlreadyUserStore();
+
   return (
     <Stack pos={'relative'}>
       <LoadingOverlay
@@ -52,7 +57,11 @@ export default function AidContent({ aidData, isLoading }: IAidContentProps) {
 
       <Divider h={1} bg='#DFDEDC' w='100%' flex={1} />
 
-      {aidData &&
+      {/* add displaced for delegates just */}
+      {role == USER_TYPE.DELEGATE && aidData && <AidAddDisplaceds aidData={aidData} />}
+
+      {role == USER_TYPE.MANAGER &&
+        aidData &&
         aidData?.distributionMechanism == DISTRIBUTION_MECHANISM.DELEGATES_LISTS &&
         aidData.selectedDelegatesPortions && (
           <AidDelegatesListView selectedDelegatesPortions={aidData.selectedDelegatesPortions} />
