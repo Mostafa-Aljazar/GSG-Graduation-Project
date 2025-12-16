@@ -83,6 +83,9 @@ model User {
   notifications           Notification[]
   notificationRecipients  NotificationRecipient[]
   securityTaskAssignments SecurityTaskAssignment[]
+
+  sentComplaints     Complaint[] @relation("SentComplaints")
+  receivedComplaints Complaint[] @relation("ReceivedComplaints")
 }
 
 model UserOtp {
@@ -338,35 +341,6 @@ model NotificationRecipient {
   readAt DateTime?
 }
 
-// model Notification {
-//   id        String              @id @default(auto()) @map("_id") @db.ObjectId
-//   title     String
-//   body      String
-//   status    NOTIFICATION_STATUS @default(UNREAD)
-//   action    NOTIFICATION_ACTION
-//   aidType   AID_TYPE?
-//   createdAt DateTime            @default(now())
-//   updatedAt DateTime            @updatedAt
-
-//   fromUserId String @db.ObjectId
-//   fromUser   User   @relation(fields: [fromUserId], references: [id], onDelete: Cascade)
-
-//   toUsers NotificationRecipient[]
-// }
-
-// // Pivot table for many-to-many relation: notifications can go to multiple users
-// model NotificationRecipient {
-//   id             String       @id @default(auto()) @map("_id") @db.ObjectId
-//   notificationId String       @db.ObjectId
-//   notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
-
-//   userId String @db.ObjectId
-//   user   User   @relation(fields: [userId], references: [id])
-
-//   status NOTIFICATION_STATUS @default(UNREAD)
-//   readAt DateTime?
-// }
-
 // ---------------- TASKS ----------------
 enum TASKS_TABS {
   COMPLETED_TASKS
@@ -396,4 +370,26 @@ model SecurityTaskAssignment {
   security   User   @relation(fields: [securityId], references: [id], onDelete: Cascade)
 
   assignedAt DateTime @default(now())
+}
+
+// ---------------- COMPLAINTS ----------------
+enum COMPLAINT_STATUS {
+  READ
+  PENDING
+}
+
+model Complaint {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String
+  reply     String?
+  status    COMPLAINT_STATUS @default(PENDING)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  senderId String @db.ObjectId
+  sender   User   @relation("SentComplaints", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId String @db.ObjectId
+  receiver   User   @relation("ReceivedComplaints", fields: [receiverId], references: [id], onDelete: Cascade)
 }

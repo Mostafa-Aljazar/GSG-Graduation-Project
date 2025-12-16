@@ -8,7 +8,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import man from '@/assets/actor/man.svg';
-import { USER_RANK, USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
+import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
 import { COMPLAINTS_STATUS } from '@/types/actor/common/index.type';
 import { Calendar, User, FileText, CheckCircle2, Clock } from 'lucide-react';
@@ -79,11 +79,6 @@ export default function ComplaintCard({ complaint }: IComplaintCardProps) {
       if (canChangeStatus) {
         changeStatusMutation.mutate({
           complaintId: complaint.id,
-          actorReceiverId: user.id,
-          roleReceiver: user.rank as
-            | USER_RANK.SECURITY_OFFICER
-            | USER_TYPE.DELEGATE
-            | USER_TYPE.MANAGER,
         });
       }
       open();

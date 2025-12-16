@@ -15,7 +15,7 @@ const ComplaintsContext = createContext<TComplaintsContextType | null>(null);
 
 export function ComplaintsProvider({ children }: { children: ReactNode }) {
   const [localFilters, setLocalFilters] = useState<TComplaintFilterFormValues>({
-    status: COMPLAINTS_STATUS.ALL,
+    status: null,
     dateRange: [null, null],
   });
   const [complaintsNum, setComplaintsNum] = useState(0);

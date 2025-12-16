@@ -47,14 +47,14 @@ export default function ComplaintsFeed() {
       getComplaints({
         page: query['complaints-page'],
         limit: limit,
-        status: localFilters.status || COMPLAINTS_STATUS.ALL,
+        status: localFilters.status || undefined,
         dateRange: localFilters.dateRange,
         search: query.search,
         complaintType: complaintType,
         userAlreadyId: userAlreadyId,
         userAlreadyType: userAlreadyType as USER_TYPE,
-        userVisitId: user?.id as string,
-        userVisitType: user?.role as USER_TYPE,
+        // userVisitId: user?.id as string,
+        // userVisitType: user?.role as USER_TYPE,
       }),
     enabled: !!userAlreadyId && !!userAlreadyType && !!user?.id && !!user?.role,
   });

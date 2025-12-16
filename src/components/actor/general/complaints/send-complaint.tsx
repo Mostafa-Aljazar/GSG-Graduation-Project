@@ -110,10 +110,6 @@ export default function SendComplaint() {
     if (!user?.id || !user?.role) return;
 
     sendCommonComplaintMutation.mutate({
-      actorId: user.id,
-      role: (user.role == USER_TYPE.SECURITY_PERSON
-        ? user.rank
-        : user.role) as ISendComplaintProps['role'],
       reception: values.reception as ISendComplaintProps['reception'],
       title: values.title,
       content: values.content,

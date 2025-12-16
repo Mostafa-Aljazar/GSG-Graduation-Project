@@ -1,21 +1,16 @@
-"use server";
+'use server';
 
 import { IActionResponse } from "@/types/common/action-response.type";
-import { TUserRank, TUserType } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface IDeleteComplaintFunProps {
-  actorId: string;
   complaintId: string;
-  role: TUserType | TUserRank;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const deleteComplaint = async ({
-  actorId,
   complaintId,
-  role
 }: IDeleteComplaintFunProps): Promise<IActionResponse> => {
   const fakeResponse: IActionResponse = {
     status: 200,
@@ -26,14 +21,8 @@ export const deleteComplaint = async ({
     return await new Promise((resolve) => setTimeout(() => resolve(fakeResponse), 500));
   }
 
-  /////////////////////////////////////////////////////////////
-  // REAL IMPLEMENTATION
-  /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.delete<IActionResponse>(`/complaints/${complaintId}`, {
-      data: { actorId, role },
-    });
-
+    const response = await AqsaAPI.delete<IActionResponse>(`/actor/common/complaints/${complaintId}`);
     if (response.data) return response.data;
 
     throw new Error("حدث خطأ أثناء حذف الشكوى");

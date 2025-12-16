@@ -301,13 +301,13 @@ export const getComplaintsTabs = () => {
 export enum COMPLAINTS_STATUS {
     READ = 'READ',
     PENDING = 'PENDING',
-    ALL = "ALL"
+    // ALL = "ALL"
 }
 
 export const COMPLAINTS_STATUS_LABELS: Record<COMPLAINTS_STATUS, string> = {
     [COMPLAINTS_STATUS.READ]: 'تمت القراءة',
     [COMPLAINTS_STATUS.PENDING]: 'قيد الانتظار',
-    [COMPLAINTS_STATUS.ALL]: 'الكل',
+    // [COMPLAINTS_STATUS.ALL]: 'الكل',
 };
 
 /////////////////////////////////////////////////////////////////////////

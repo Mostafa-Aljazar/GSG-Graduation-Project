@@ -10,8 +10,6 @@ import {
   IDeleteComplaintFunProps,
 } from '@/actions/actor/general/complaints/deleteComplaint';
 import { IActionResponse } from '@/types/common/action-response.type';
-import useAuth from '@/hooks/useAuth';
-import { USER_TYPE } from '@/constants/user-types';
 
 interface IDeleteComplaintProps {
   complaintId: string;
@@ -20,7 +18,6 @@ interface IDeleteComplaintProps {
 export default function DeleteComplaint({ complaintId }: IDeleteComplaintProps) {
   const [opened, { open, close }] = useDisclosure(false);
   const queryClient = useQueryClient();
-  const { user } = useAuth();
 
   const deleteMutation = useMutation<IActionResponse, unknown, IDeleteComplaintFunProps>({
     mutationFn: deleteComplaint,
@@ -54,8 +51,6 @@ export default function DeleteComplaint({ complaintId }: IDeleteComplaintProps) 
     event.stopPropagation();
     deleteMutation.mutate({
       complaintId,
-      actorId: user?.id as string,
-      role: user?.role as USER_TYPE,
     });
   };
 

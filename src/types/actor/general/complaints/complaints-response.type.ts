@@ -11,7 +11,7 @@ export interface IComplaint {
     title: string;
     body: string;
     status: COMPLAINTS_STATUS;
-    response?: string
+    reply?: string
 }
 
 

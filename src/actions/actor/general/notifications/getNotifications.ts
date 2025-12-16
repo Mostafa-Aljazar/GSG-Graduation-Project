@@ -39,7 +39,6 @@ export const getNotifications = async ({
     const response = await AqsaAPI.get<INotificationsResponse>('/actor/common/notifications', {
       params: { page, limit, },
     });
-    console.log("🚀 ~ getNotifications ~ response:", response.data.notifications)
 
     if (response.data?.notifications) {
       return response.data;

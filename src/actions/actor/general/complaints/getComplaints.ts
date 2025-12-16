@@ -17,25 +17,21 @@ export interface IGetComplaintsProps {
     userAlreadyId: string;
     userAlreadyType: TUserType | TUserRank;
 
-    // get the complaints of already user complaints that send to userVisit
-    userVisitId: string;
-    userVisitType: TUserType | TUserRank;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getComplaints = async ({
     page = 1,
     limit = 5,
-    status = COMPLAINTS_STATUS.ALL,
+    status,
     dateRange = [null, null],
     search = "",
     complaintType,
 
     userAlreadyId,
     userAlreadyType,
-    userVisitId,
-    userVisitType
+
 }: IGetComplaintsProps): Promise<IComplaintsResponse> => {
     if (USE_FAKE) {
         const fakeResponse = fakeComplaintsResponse({
@@ -47,8 +43,7 @@ export const getComplaints = async ({
             complaintType,
             userAlreadyId,
             userAlreadyType,
-            userVisitId,
-            userVisitType
+
         });
 
         return new Promise((resolve) =>
@@ -60,12 +55,11 @@ export const getComplaints = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IComplaintsResponse>("/complaints", {
+        //src\app\api\actor\common\complaints\route.ts
+        const response = await AqsaAPI.get<IComplaintsResponse>("/actor/common/complaints", {
             params: {
                 userAlreadyId,
                 userAlreadyType,
-                userVisitId,
-                userVisitType,
                 page,
                 limit,
                 complaintType,

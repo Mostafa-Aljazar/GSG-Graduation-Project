@@ -4,10 +4,10 @@ import { Modal, Stack, Group, Text, Paper, ThemeIcon, Textarea, Button } from '@
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useMutation } from '@tanstack/react-query';
-import { Calendar, MessageSquareReply, UserCircle } from 'lucide-react';
+import { Calendar, CornerUpLeft, MessageSquareReply, UserCircle } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { IComplaint } from '@/types/actor/general/complaints/complaints-response.type';
-import { USER_RANK, USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
+import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
 import {
   replyComplaintFormSchema,
@@ -140,8 +140,6 @@ export default function ComplaintModal({ complaint, opened, close }: IComplaintM
     replyMutation.mutate({
       reply: values.reply,
       complaintId: complaint.id,
-      actorId: user?.id as string,
-      role: user?.rank as USER_RANK.SECURITY_OFFICER | USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
     });
   };
 
@@ -197,20 +195,20 @@ export default function ComplaintModal({ complaint, opened, close }: IComplaintM
           </Group>
         </Paper>
 
-        {complaint.response && (
+        {complaint.reply && (
           <Paper p='xs' radius='md' withBorder shadow='xs' bg='gray.0'>
             <Group wrap='nowrap' align='flex-start' gap={6}>
               <ThemeIcon size='sm' variant='light' color='blue'>
-                <MessageSquareReply size={16} />
+                <CornerUpLeft size={16} />
               </ThemeIcon>
               <Text size='sm' fw={500}>
-                {complaint.response}
+                {complaint.reply}
               </Text>
             </Group>
           </Paper>
         )}
 
-        {!complaint.response && canReply && (
+        {!complaint.reply && canReply && (
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Stack>
               <Textarea

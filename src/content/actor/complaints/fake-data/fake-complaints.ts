@@ -1,6 +1,6 @@
 import { IComplaint, IComplaintsResponse } from '@/types/actor/general/complaints/complaints-response.type';
 import { USER_RANK, USER_TYPE } from '@/constants/user-types';
-import { COMPLAINTS_STATUS, COMPLAINTS_TABS } from '@/types/actor/common/index.type';
+import { COMPLAINTS_STATUS, } from '@/types/actor/common/index.type';
 import { IGetComplaintsProps } from '@/actions/actor/general/complaints/getComplaints';
 
 
@@ -26,7 +26,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'انقطاع المياه',
         body: 'هناك انقطاع مستمر في المياه.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم تحويل الموضوع للجهة المختصة.',
+        reply: 'تم تحويل الموضوع للجهة المختصة.',
     },
 
     // 3. Displaced → Security Person
@@ -49,7 +49,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'تأخير في المستلزمات',
         body: 'تم تأخير المواد لأكثر من أسبوع.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم التواصل مع قسم اللوجستيات.',
+        reply: 'تم التواصل مع قسم اللوجستيات.',
     },
 
     // 5. Delegate → Security Person
@@ -72,7 +72,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'نقص معدات',
         body: 'لا توجد معدات كافية للنقطة.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم توفير المعدات قريباً.',
+        reply: 'سيتم توفير المعدات قريباً.',
     },
 
     // 7. Security Person → Security Officer
@@ -95,7 +95,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'عدم توفر كهرباء',
         body: 'الكهرباء تنقطع كل ليلة.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم مراجعة فريق الصيانة.',
+        reply: 'سيتم مراجعة فريق الصيانة.',
     },
 
     // 9. Displaced → Security Person
@@ -118,7 +118,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'سوء تفاهم',
         body: 'حدث سوء فهم أثناء توزيع المعونات.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم حل سوء الفهم.',
+        reply: 'تم حل سوء الفهم.',
     },
 
     // 11. Displaced → Manager
@@ -141,7 +141,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'ضغط عمل',
         body: 'النقطة تعاني من نقص أفراد.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم توزيع أفراد إضافيين.',
+        reply: 'سيتم توزيع أفراد إضافيين.',
     },
 
     // 13. Delegate → Security Person
@@ -175,7 +175,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'ازدحام شديد',
         body: 'المنطقة مزدحمة جداً.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم إعادة تنظيم المنطقة.',
+        reply: 'تم إعادة تنظيم المنطقة.',
     },
 
     // 16. Delegate → Security Person
@@ -198,7 +198,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'نقص معدات السلامة',
         body: 'لا توجد سترات واقية كافية.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم تقديم طلب معدات جديدة.',
+        reply: 'تم تقديم طلب معدات جديدة.',
     },
 
     // 18. Displaced → Security Person
@@ -221,7 +221,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'طلب دعم إضافي',
         body: 'هناك نقص في الطعام.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم إرسال مواد إضافية.',
+        reply: 'سيتم إرسال مواد إضافية.',
     },
 
     // 20. Delegate → Security Person
@@ -255,7 +255,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'ازدحام شديد',
         body: 'الأفراد يتجاوزون الدور.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم ضبط الدخول والخروج.',
+        reply: 'تم ضبط الدخول والخروج.',
     },
 
     // 23. Displaced → Delegate
@@ -278,7 +278,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'حاجة لزيادة أفراد الأمن',
         body: 'النقطة تحتاج شخصين إضافيين.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم توفير أفراد إضافيين.',
+        reply: 'سيتم توفير أفراد إضافيين.',
     },
 
     // 25. Displaced → Security Person
@@ -301,7 +301,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'تأخر في استلام المواد',
         body: 'تأخر تسليم الطرود اليومية.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم تأكيد موعد التسليم القادم.',
+        reply: 'تم تأكيد موعد التسليم القادم.',
     },
 
     // 27. Security Person → Security Officer
@@ -324,7 +324,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'طلب تحسين الإضاءة',
         body: 'المنطقة مظلمة في الليل.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم تركيب إضاءة إضافية.',
+        reply: 'سيتم تركيب إضاءة إضافية.',
     },
 
     // 29. Delegate → Security Person
@@ -347,7 +347,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'عدم توفر أدوية',
         body: 'المركز الصحي ينقصه أدوية أساسية.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم التواصل مع اللجنة الطبية.',
+        reply: 'تم التواصل مع اللجنة الطبية.',
     },
 
     // 31. Security Person → Manager
@@ -370,7 +370,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'ازدحام في نقطة الدخول',
         body: 'الانتظار يستغرق وقتاً طويلاً.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم فتح ممر إضافي.',
+        reply: 'تم فتح ممر إضافي.',
     },
 
     // 33. Delegate → Manager
@@ -393,7 +393,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'طلب نقل عائلة',
         body: 'المنطقة الحالية مزدحمة جداً.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم دراسة الطلب.',
+        reply: 'تم دراسة الطلب.',
     },
 
     // 35. Security Person → Security Officer
@@ -416,7 +416,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'خلاف في نقطة التسجيل',
         body: 'حدث شجار صغير بين المستفيدين.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم احتواء الموقف.',
+        reply: 'تم احتواء الموقف.',
     },
 
     // 37. Displaced → Delegate
@@ -439,7 +439,7 @@ export const fakeComplaints: IComplaint[] = [
         title: 'تأخر في نقل المرضى',
         body: 'الحالات تحتاج عربة إسعاف أسرع.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'تم تعزيز فريق الإسعاف.',
+        reply: 'تم تعزيز فريق الإسعاف.',
     },
 
     // 39. Security Person → Manager
@@ -462,21 +462,14 @@ export const fakeComplaints: IComplaint[] = [
         title: 'مشكلة في جدول التوزيع',
         body: 'الجدول لا يناسب أعداد المستفيدين.',
         status: COMPLAINTS_STATUS.READ,
-        response: 'سيتم تحديث الجدول.',
+        reply: 'سيتم تحديث الجدول.',
     },
 ];
 
 export const fakeComplaintsResponse = ({
     page = 1,
     limit = 5,
-    userVisitId,
-    userVisitType,
-    userAlreadyId,
-    userAlreadyType,
-    complaintType,
-    dateRange,
-    search,
-    status
+
 }: IGetComplaintsProps): IComplaintsResponse => {
 
     if (!fakeComplaints) {
@@ -489,93 +482,8 @@ export const fakeComplaintsResponse = ({
         };
     }
 
-    const isOwn = userVisitType === userAlreadyType && userVisitId === userAlreadyId;
 
-    const filterByRelationship = (item: typeof fakeComplaints[0]) => {
-        if (isOwn) {
-            return (item.sender.id === userAlreadyId && item.sender.role === userAlreadyType) ||
-                (item.receiver.id === userAlreadyId && item.receiver.role === userAlreadyType);
-        }
-
-        switch (userVisitType) {
-            case USER_TYPE.DISPLACED:
-                return (item.receiver.role === userAlreadyType && item.receiver.id === userAlreadyId) &&
-                    (item.sender.role === USER_TYPE.DISPLACED && item.receiver.id === userVisitId);
-
-            case USER_TYPE.MANAGER:
-                return (item.sender.role === userAlreadyType && item.sender.id === userAlreadyId) ||
-                    (item.receiver.role === userAlreadyType && item.receiver.id === userAlreadyId);
-
-            case USER_TYPE.DELEGATE:
-                if (userAlreadyType === USER_TYPE.DISPLACED) {
-                    return item.sender.role === USER_TYPE.DISPLACED && item.sender.id === userAlreadyId &&
-                        item.receiver.role === USER_TYPE.DELEGATE && item.receiver.id === userVisitId;
-                }
-                if (userAlreadyType === USER_TYPE.MANAGER) {
-                    return item.sender.id === userVisitId && item.sender.role === USER_TYPE.DELEGATE &&
-                        item.receiver.role === USER_TYPE.MANAGER && item.receiver.id === userAlreadyId;
-                }
-                if (userAlreadyType === USER_TYPE.SECURITY_PERSON || userAlreadyType === USER_RANK.SECURITY_OFFICER) {
-                    return item.sender.id === userVisitId && item.sender.role === USER_TYPE.DELEGATE &&
-                        (item.receiver.role === USER_TYPE.SECURITY_PERSON || item.receiver.role === USER_RANK.SECURITY_OFFICER);
-                }
-                return false;
-
-            case USER_TYPE.SECURITY_PERSON:
-            case USER_RANK.SECURITY_OFFICER:
-                if (userAlreadyType === USER_TYPE.DISPLACED) {
-                    return item.sender.role === USER_TYPE.DISPLACED && item.sender.id === userAlreadyId &&
-                        (item.receiver.role === USER_TYPE.SECURITY_PERSON || item.receiver.role === USER_RANK.SECURITY_OFFICER);
-                }
-                if (userAlreadyType === USER_TYPE.DELEGATE) {
-                    return item.sender.role === USER_TYPE.DELEGATE && item.sender.id === userAlreadyId &&
-                        (item.receiver.role === USER_TYPE.SECURITY_PERSON || item.receiver.role === USER_RANK.SECURITY_OFFICER)
-                }
-                if (userAlreadyType === USER_TYPE.MANAGER) {
-                    return (item.sender.role === USER_TYPE.SECURITY_PERSON || item.sender.role === USER_RANK.SECURITY_OFFICER) && item.sender.id === userVisitId &&
-                        item.receiver.role === USER_TYPE.MANAGER && item.receiver.id === userAlreadyId;
-                } if (userAlreadyType === USER_TYPE.SECURITY_PERSON) {
-                    return (item.sender.role === USER_TYPE.SECURITY_PERSON || item.sender.role === USER_RANK.SECURITY_OFFICER) && item.sender.id === userAlreadyId &&
-                        (item.receiver.role === USER_RANK.SECURITY_OFFICER);
-                }
-                return false;
-
-
-            default:
-                return false;
-        }
-    };
-
-    let data = fakeComplaints.filter(filterByRelationship);
-
-    // filter by complaint tab
-    if (complaintType === COMPLAINTS_TABS.SENT_COMPLAINTS) {
-        data = data.filter(item => item.sender.id === userAlreadyId && item.sender.role === userAlreadyType);
-    } else if (complaintType === COMPLAINTS_TABS.RECEIVED_COMPLAINTS) {
-        data = data.filter(item => item.receiver.id === userAlreadyId && item.receiver.role === userAlreadyType);
-    }
-
-    // filter by status
-    if (status && status !== COMPLAINTS_STATUS.ALL) {
-        data = data.filter(item => item.status === status);
-    }
-
-    // filter by search
-    if (search) {
-        const term = search.toLowerCase();
-        data = data.filter(item =>
-            item.title.toLowerCase().includes(term) ||
-            item.body.toLowerCase().includes(term) ||
-            item.sender.name.toLowerCase().includes(term) ||
-            item.receiver.name.toLowerCase().includes(term)
-        );
-    }
-
-    // filter by date range
-    if (dateRange?.[0] && dateRange?.[1]) {
-        const [start, end] = dateRange;
-        data = data.filter(item => item.date >= start && item.date <= end);
-    }
+    const data = fakeComplaints
 
     const totalItems = data.length;
     const totalPages = Math.ceil(totalItems / limit);

@@ -5,18 +5,18 @@ import { USER_RANK, USER_TYPE } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface IReplyComplaintProps {
-    actorId: string;
+    // actorId: string;
     complaintId: string;
-    role: USER_RANK.SECURITY_OFFICER | USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
+    // role: USER_RANK.SECURITY_OFFICER | USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
     reply: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const replyComplaint = async ({
-    actorId,
+    // actorId,
     complaintId,
-    role,
+    // role,
     reply,
 }: IReplyComplaintProps): Promise<IActionResponse> => {
     const fakeResponse: IActionResponse = {
@@ -32,9 +32,9 @@ export const replyComplaint = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>(`/complaints/${complaintId}/reply`, {
-            actorId,
-            role,
+        const response = await AqsaAPI.post<IActionResponse>(`/actor/common/complaints/${complaintId}/reply`, {
+            // actorId,
+            // role,
             reply,
         });
 

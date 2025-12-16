@@ -5,18 +5,14 @@ import { USER_TYPE } from "@/constants/user-types";
 import { AqsaAPI } from "@/services/api";
 
 export interface ISendComplaintProps {
-  actorId: string;
-  role: USER_TYPE.DELEGATE | USER_TYPE.DISPLACED | USER_TYPE.SECURITY_PERSON;
   reception: USER_TYPE.MANAGER | USER_TYPE.DELEGATE | USER_TYPE.SECURITY_PERSON;
   title: string;
   content: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const sendComplaint = async ({
-  actorId,
-  role,
   reception,
   title,
   content,
@@ -34,9 +30,9 @@ export const sendComplaint = async ({
   // REAL IMPLEMENTATION
   /////////////////////////////////////////////////////////////
   try {
-    const response = await AqsaAPI.post<IActionResponse>("/complaints/send-complaint", {
-      actorId,
-      role,
+    const response = await AqsaAPI.post<IActionResponse>("/actor/common/complaints/send-complaint/", {
+      // actorId,
+      // role,
       reception,
       title,
       content,
