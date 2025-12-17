@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/utils/prisma'
 import { verifyJWT } from '@/utils/auth'
+import { IDelegatesResponse } from '@/types/actor/general/delegates/delegates-response.type'
 
 export async function GET(request: Request) {
     try {
@@ -36,8 +37,20 @@ export async function GET(request: Request) {
         const limit = Number(url.searchParams.get('limit') || 15)
         const skip = (page - 1) * limit
 
-        const idsParam = url.searchParams.getAll('Ids')
-        const delegateIds = idsParam.length ? idsParam : []
+        // const idsParam = url.searchParams.getAll('Ids')
+        // const delegateIds = idsParam.length ? idsParam : []
+
+
+        // handle multiple ids[] query params
+        const delegateIds = url.searchParams.getAll("ids[]");
+        if (delegateIds.length === 0) {
+            return NextResponse.json<IDelegatesResponse>({
+                status: 400,
+                message: "يجب تمرير معرفات المناديب",
+                delegates: [],
+                pagination: { page, limit, totalItems: 0, totalPages: 0 },
+            }, { status: 400 });
+        }
 
         const totalItems = await prisma.delegateProfile.count({
             where: { userId: { in: delegateIds } }

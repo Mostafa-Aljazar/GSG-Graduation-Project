@@ -21,8 +21,9 @@ export default function AidView({ actorId, role, aidId }: IAidViewProps) {
     error,
   } = useQuery<IAidResponse, Error>({
     queryKey: ['aid', aidId, actorId],
-    queryFn: () => getAid({ aidId, actorId: actorId, role: role }),
+    queryFn: () => getAid({ aidId }),
   });
+  console.log('🚀 ~ AidView ~ aidData:', aidData);
 
   const hasError = Boolean(error) || Boolean(aidData?.error);
 

@@ -1,23 +1,20 @@
-
 'use server';
 
-import { USER_TYPE } from "@/constants/user-types";
 import { fakeAidResponse } from "@/content/actor/common/aids-management/fake-data/fake-aids";
 import { AqsaAPI } from "@/services/api";
 import { IAidResponse, TAid } from "@/types/actor/common/aids-management/aids-management.types";
 
 export interface IGetAidProps {
     aidId: string;
-    actorId: string;
-    role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
+
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
-export const getAid = async ({ aidId, actorId, role }: IGetAidProps): Promise<IAidResponse> => {
+export const getAid = async ({ aidId, }: IGetAidProps): Promise<IAidResponse> => {
 
     if (USE_FAKE) {
-        const fakeData: IAidResponse = fakeAidResponse({ aidId, actorId, role });
+        const fakeData: IAidResponse = fakeAidResponse({ aidId, });
 
         return await new Promise((resolve) =>
             setTimeout(() => resolve(fakeData), 500)
@@ -28,11 +25,8 @@ export const getAid = async ({ aidId, actorId, role }: IGetAidProps): Promise<IA
     // REAL IMPLEMENTATION
     ////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IAidResponse>(`/aids/${aidId}`, {
-            params: {
-                actorId, role
-            },
-        });
+        // src\app\api\actor\common\aids-management\[aidId]\route.ts
+        const response = await AqsaAPI.get<IAidResponse>(`/actor/common/aids-management/${aidId}/`);
 
         if (response.data?.aid) {
             return response.data;

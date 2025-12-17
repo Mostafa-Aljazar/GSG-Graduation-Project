@@ -13,7 +13,7 @@ export interface IGetDisplacedReceivedAidsProps {
     tabType?: DISPLACED_RECEIVED_AIDS_TABS;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getDisplacedReceivedAids = async ({
     displacedId,
@@ -31,7 +31,7 @@ export const getDisplacedReceivedAids = async ({
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDisplacedReceivedAidsResponse>(
-            `/displaceds/${displacedId}/received-aids`,
+            `/actor/displaceds/${displacedId}/received-aids`,
             {
                 params: { page, limit, tabType },
             }

@@ -1,4 +1,6 @@
 // src/app/api/actor/displaceds/by-ids/route.ts
+'use server';
+
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/prisma";
 import { verifyJWT } from "@/utils/auth";
@@ -9,28 +11,22 @@ export async function GET(request: NextRequest) {
     try {
         const token = request.headers.get("authorization");
         if (!token) {
-            return NextResponse.json(
-                {
-                    status: 401,
-                    message: "غير مصرح",
-                    displaceds: [],
-                    pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
-                },
-                { status: 401 }
-            );
+            return NextResponse.json<IDisplacedsResponse>({
+                status: 401,
+                message: "غير مصرح",
+                displaceds: [],
+                pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
+            }, { status: 401 });
         }
 
         const verified = verifyJWT(token);
         if (!verified) {
-            return NextResponse.json(
-                {
-                    status: 401,
-                    message: "رمز غير صالح",
-                    displaceds: [],
-                    pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
-                },
-                { status: 401 }
-            );
+            return NextResponse.json<IDisplacedsResponse>({
+                status: 401,
+                message: "رمز غير صالح",
+                displaceds: [],
+                pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
+            }, { status: 401 });
         }
 
         const url = new URL(request.url);
@@ -38,8 +34,16 @@ export async function GET(request: NextRequest) {
         const limit = Number(url.searchParams.get("limit") || 15);
         const skip = (page - 1) * limit;
 
-        const idsParam = url.searchParams.getAll("ids"); // lowercase for query param
-        const displacedIds = idsParam.length ? idsParam : [];
+        // handle multiple ids[] query params
+        const displacedIds = url.searchParams.getAll("ids[]");
+        if (displacedIds.length === 0) {
+            return NextResponse.json<IDisplacedsResponse>({
+                status: 400,
+                message: "يجب تمرير معرفات النازحين",
+                displaceds: [],
+                pagination: { page, limit, totalItems: 0, totalPages: 0 },
+            }, { status: 400 });
+        }
 
         const totalItems = await prisma.displacedProfile.count({
             where: { userId: { in: displacedIds } },
@@ -58,11 +62,12 @@ export async function GET(request: NextRequest) {
 
         const displaceds: IDisplaced[] = await Promise.all(
             displacedData.map(async (d) => {
-                // Get delegate info
-                const delegate = await prisma.delegateProfile.findUnique({
-                    where: { userId: d.displacement.delegateId || "" },
-                    select: { name: true, userId: true },
-                });
+                const delegate = d.displacement?.delegateId
+                    ? await prisma.delegateProfile.findUnique({
+                        where: { userId: d.displacement.delegateId },
+                        select: { name: true, userId: true },
+                    })
+                    : null;
 
                 const familyNumber =
                     (d.socialStatus?.numberOfMales || 0) +
@@ -86,27 +91,21 @@ export async function GET(request: NextRequest) {
         );
 
         const totalPages = Math.ceil(totalItems / limit);
-
         const pagination: IPagination = { page, limit, totalItems, totalPages };
 
-        const response: IDisplacedsResponse = {
+        return NextResponse.json<IDisplacedsResponse>({
             status: 200,
             message: "تم جلب بيانات النازحين",
             displaceds,
             pagination,
-        };
-
-        return NextResponse.json(response);
+        });
     } catch (err: any) {
-        return NextResponse.json(
-            {
-                status: 500,
-                message: err?.message || "خطأ أثناء جلب بيانات النازحين",
-                displaceds: [],
-                pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
-                error: err?.message || "Internal server error",
-            },
-            { status: 500 }
-        );
+        return NextResponse.json<IDisplacedsResponse>({
+            status: 500,
+            message: err?.message || "خطأ أثناء جلب بيانات النازحين",
+            displaceds: [],
+            pagination: { page: 1, limit: 0, totalItems: 0, totalPages: 0 },
+            error: err?.message || "Internal server error",
+        }, { status: 500 });
     }
 }

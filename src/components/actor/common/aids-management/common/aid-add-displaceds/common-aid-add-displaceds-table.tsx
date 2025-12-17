@@ -53,8 +53,14 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
     selectedDisplacedIds: STORE_selectedDisplacedIds,
     setSelectedDisplacedIds: STORE_setSelectedDisplacedIds,
   } = useAidStore();
+  console.log(
+    '🚀 ~ AidAddDisplacedsTable ~ STORE_selectedDisplacedIds:',
+    STORE_selectedDisplacedIds
+  );
 
-  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<string[]>([]);
+  const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<string[]>(
+    STORE_selectedDisplacedIds || []
+  );
 
   useEffect(() => {
     if (
@@ -67,6 +73,12 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
       });
     }
   }, [STORE_selectedDisplacedIds, query.action, query.aidId]);
+
+  // Sync local selection to the global aid store whenever it changes so other
+  // components/readers always see the latest selection without relying on "Save".
+  useEffect(() => {
+    STORE_setSelectedDisplacedIds(selectedDisplacedIds);
+  }, [selectedDisplacedIds, STORE_setSelectedDisplacedIds]);
 
   const { localFilters, setDisplacedNum } = useDisplaceds();
 

@@ -55,6 +55,7 @@ export default function AidDelegatesTableView({
         limit,
       }),
     retry: 1,
+    enabled: !!selectedDelegatesIds.length,
   });
 
   const delegatesData = specificDelegatesDataById;
@@ -78,15 +79,6 @@ export default function AidDelegatesTableView({
         <Table.Th px={5} ta='center'>
           عدد النازحين
         </Table.Th>
-        {/* <Table.Th px={5} ta='center'>
-          عدد الأُسر
-        </Table.Th>
-        <Table.Th px={5} ta='center'>
-          رقم الجوال
-        </Table.Th>
-        <Table.Th px={5} ta='center'>
-          عدد الخيام
-        </Table.Th> */}
         <Table.Th px={5} ta='center'>
           حصص المناديب
         </Table.Th>
@@ -110,17 +102,8 @@ export default function AidDelegatesTableView({
         <Table.Td px={5} ta='center'>
           {delegate.displacedNumber}
         </Table.Td>
-        {/* <Table.Td px={5} ta='center'>
-          {delegate.familyNumber}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.mobileNumber}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.tentsNumber}
-        </Table.Td> */}
         <Table.Th px={5} ta='center'>
-          {selectedDelegatesPortions.find((p) => p.delegateId === delegate.id)?.portion}
+          {selectedDelegatesPortions.find((p) => p.delegateId === delegate.id)?.portion || 0}
         </Table.Th>
       </Table.Tr>
     );

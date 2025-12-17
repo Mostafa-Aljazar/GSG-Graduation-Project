@@ -7,12 +7,12 @@ import { IActionResponse } from "@/types/common/action-response.type";
 
 export interface IManageAidProps {
     payload: TAid;
-    actorId?: string; // Required for add
-    role?: USER_TYPE.MANAGER | USER_TYPE.DELEGATE; // Required for add
+    actorId?: string; // required for add
+    role?: USER_TYPE.MANAGER | USER_TYPE.DELEGATE; // required for add
     isUpdate?: boolean; // true = update, false = add
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const manageAid = async ({
     payload,
@@ -22,40 +22,37 @@ export const manageAid = async ({
 }: IManageAidProps): Promise<IActionResponse> => {
     if (USE_FAKE) {
         const message = isUpdate ? "تم تعديل المساعدة بنجاح" : "تم إضافة المساعدة بنجاح";
-        return await new Promise(resolve => setTimeout(() => resolve({ status: 200, message }), 500));
+        return new Promise(resolve => setTimeout(() => resolve({ status: 200, message }), 500));
+    }
+
+    if (!isUpdate && (!actorId || !role)) {
+        return {
+            status: 400,
+            message: "معلومات المندوب مطلوبة لإضافة المساعدة",
+            error: "Missing actorId or role",
+        };
     }
 
     try {
-        let response;
-        if (isUpdate) {
-            // Update existing aid
-            response = await AqsaAPI.put<IActionResponse>(`/aids/${payload.id}/update`, payload);
-        } else {
-            if (!actorId || !role) {
-                return {
-                    status: 400,
-                    message: "معلومات المندوب مطلوبة لإضافة المساعدة",
-                    error: "Missing actorId or role",
-                };
-            }
-            // Add new aid
-            response = await AqsaAPI.post<IActionResponse>("/aids/add", payload, {
-                params: { actorId, role },
-            });
-        }
+        // src\app\api\actor\common\aids - management\create
+        const response = isUpdate
+            ? await AqsaAPI.put<IActionResponse>(`/actor/common/aids-management/${payload.id}/update`, { payload })
+            : await AqsaAPI.post<IActionResponse>("/actor/common/aids-management/create", { payload },
+            );
 
         if (response.data) {
             return {
                 status: 200,
                 message: isUpdate ? "تم تعديل المساعدة بنجاح" : "تم إضافة المساعدة بنجاح",
+                // ...response.data,
             };
         }
 
-        return {
-            status: 500,
-            message: isUpdate ? "حدث خطأ أثناء تعديل المساعدة" : "حدث خطأ أثناء إضافة المساعدة",
-            error: isUpdate ? "حدث خطأ أثناء تعديل المساعدة" : "حدث خطأ أثناء إضافة المساعدة",
-        };
+        const fallbackMessage = isUpdate
+            ? "حدث خطأ أثناء تعديل المساعدة"
+            : "حدث خطأ أثناء إضافة المساعدة";
+
+        return { status: 500, message: fallbackMessage, error: fallbackMessage };
     } catch (err: unknown) {
         const errorMessage = err instanceof Error
             ? err.message
@@ -63,10 +60,6 @@ export const manageAid = async ({
                 ? "حدث خطأ أثناء تعديل المساعدة"
                 : "حدث خطأ أثناء إضافة المساعدة";
 
-        return {
-            status: 500,
-            message: errorMessage,
-            error: errorMessage,
-        };
+        return { status: 500, message: errorMessage, error: errorMessage };
     }
 };

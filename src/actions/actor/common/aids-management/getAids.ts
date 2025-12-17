@@ -17,7 +17,7 @@ export interface IGetAidsProps {
     aidStatus?: TYPE_GROUP_AIDS;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const getAids = async ({
     actorId,
@@ -41,7 +41,9 @@ export const getAids = async ({
     // REAL IMPLEMENTATION
     ////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.get<IAidsResponse>('/aids', {
+
+        // src\app\api\actor\common\aids - management\route.ts
+        const response = await AqsaAPI.get<IAidsResponse>('/actor/common/aids-management', {
             params: {
                 actorId,
                 role,

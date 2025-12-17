@@ -69,7 +69,7 @@ model User {
   password  String?
   role      USER_TYPE
   rank      USER_RANK
-  status    USER_STATUS @default(PENDING) // pending | active
+  status    USER_STATUS @default(PENDING)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
@@ -86,6 +86,11 @@ model User {
 
   sentComplaints     Complaint[] @relation("SentComplaints")
   receivedComplaints Complaint[] @relation("ReceivedComplaints")
+
+  aid                 Aid[]
+  aidDisplaceds       AidDisplaced[]       @relation("DisplacedAidRelation")
+  aidDelegatePortions AidDelegatePortion[]
+  aidGiven            AidDisplaced[]       @relation("AidGiverRelation")
 }
 
 model UserOtp {
@@ -392,4 +397,110 @@ model Complaint {
 
   receiverId String @db.ObjectId
   receiver   User   @relation("ReceivedComplaints", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+// ---------------- ENUMS ----------------
+enum TYPE_AID {
+  FINANCIAL
+  FOOD
+  MEDICAL
+  CLEANING
+  CLOTHING
+  EDUCATIONAL
+  OTHER
+}
+
+enum DISTRIBUTION_METHOD {
+  DELEGATES
+  DISPLACED_FAMILIES
+}
+
+enum QUANTITY_TYPE {
+  LIMITED
+  UNLIMITED
+}
+
+enum AID_STATUS {
+  UPCOMING
+  ONGOING
+  PREVIOUS
+}
+
+enum DISPLACED_RECEIVED_AIDS {
+  RECEIVED_AIDS
+  PROVIDED_AIDS
+}
+
+// ---------------- AID ----------------
+model Aid {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  type             TYPE_AID
+  description      String
+  deliveryDate     DateTime?
+  deliveryLocation String?
+  securityRequired Boolean       @default(false)
+  quantityType     QUANTITY_TYPE
+  existingQuantity Int?
+
+  distributionMethod DISTRIBUTION_METHOD
+  status             AID_STATUS          @default(UPCOMING)
+  isCompleted        Boolean             @default(false)
+  additionalNotes    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String @db.ObjectId
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  categories           CategoryRange[]
+  displacedAssignments AidDisplaced[]
+  delegatePortions     AidDelegatePortion[]
+}
+
+// ---------------- DISPLACED AID ----------------
+model AidDisplaced {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  aidId String @db.ObjectId
+  aid   Aid    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+
+  displacedId String @db.ObjectId
+  displaced   User   @relation("DisplacedAidRelation", fields: [displacedId], references: [id], onDelete: Cascade)
+
+  deliveryCode      String
+  receivedAt        DateTime?
+  displacedReceived DISPLACED_RECEIVED_AIDS @default(PROVIDED_AIDS)
+  aidGiverId        String?                 @db.ObjectId
+  aidGiver          User?                   @relation("AidGiverRelation", fields: [aidGiverId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([aidId, displacedId])
+}
+
+// ---------------- DELEGATE PORTIONS ----------------
+model AidDelegatePortion {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  aidId String @db.ObjectId
+  aid   Aid    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+
+  delegateId String @db.ObjectId
+  delegate   User   @relation(fields: [delegateId], references: [id], onDelete: Cascade)
+
+  portion Int
+}
+
+// ---------------- CATEGORY RANGE ----------------
+model CategoryRange {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  label String
+  min   Int
+  max   Int?
+
+  portion Int?
+  aid     Aid?    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+  aidId   String? @db.ObjectId
 }

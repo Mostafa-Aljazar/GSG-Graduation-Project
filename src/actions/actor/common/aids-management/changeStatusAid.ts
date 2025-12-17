@@ -1,21 +1,22 @@
 'use server';
 
 import { AqsaAPI } from "@/services/api";
+import { TYPE_GROUP_AIDS } from "@/types/actor/common/index.type";
 import { IActionResponse } from "@/types/common/action-response.type";
 
-export interface IAddAidDisplacedsProps {
+export interface IChangeStatusAidProps {
     aidId: string;
-    displacedIds: string[]
+    aidGroup: TYPE_GROUP_AIDS
 }
 
 const USE_FAKE = false;
 
-export const addAidDisplaceds = async ({ aidId, displacedIds }: IAddAidDisplacedsProps): Promise<IActionResponse> => {
+export const changeStatusAid = async ({ aidId, aidGroup }: IChangeStatusAidProps): Promise<IActionResponse> => {
 
     if (USE_FAKE) {
         const fakeResponse: IActionResponse = {
             status: 200,
-            message: "تم إضافة النازحين للمساعدة بنجاح",
+            message: "تم  تغيير المساعدة الى مساعدة جارية بنجاح",
         };
         return await new Promise((resolve) =>
             setTimeout(() => resolve(fakeResponse), 500)
@@ -26,27 +27,26 @@ export const addAidDisplaceds = async ({ aidId, displacedIds }: IAddAidDisplaced
     // REAL IMPLEMENTATION
     ////////////////////////////////////////////////////////
     try {
-
-        const response = await AqsaAPI.post<IActionResponse>(`/actor/common/aids-management/${aidId}/add-displaceds`,
-            { displacedIds },
-        );
-        console.log("🚀 ~ addAidDisplaceds ~ response:", response)
+        const response = await AqsaAPI.put<IActionResponse>(`/actor/common/aids-management/${aidId}/changeStatus`
+            , {
+                aidGroup
+            });
 
         if (response.data) {
             return {
                 status: 200,
-                message: "تم إضافة النازحين للمساعدة بنجاح",
+                message: "تم  تغيير حالة المساعدة  بنجاح",
             };
         }
 
         return {
             status: 500,
-            message: "حدث خطأ أثناء إضافة النازحين للمساعدة",
-            error: "حدث خطأ أثناء إضافة النازحين للمساعدة",
+            message: "حدث خطأ أثناء تغيير حالة المساعدة",
+            error: "حدث خطأ أثناء تغيير حالة المساعدة",
         };
 
     } catch (err: unknown) {
-        let errorMessage = "حدث خطأ أثناء إضافة النازحين للمساعدة";
+        let errorMessage = "حدث خطأ أثناء تغيير حالة المساعدة";
         const statusCode = 500;
 
         if (err instanceof Error) errorMessage = err.message;

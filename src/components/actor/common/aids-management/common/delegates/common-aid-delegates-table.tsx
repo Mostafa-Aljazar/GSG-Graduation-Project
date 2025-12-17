@@ -53,10 +53,18 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
     selectedDelegatesPortions: STORE_selectedDelegatesPortions,
     setSelectedDelegatesPortions: STORE_setSelectedDelegatesPortions,
   } = useAidStore();
+  console.log(
+    '🚀 ~ CommonAidDelegatesTable ~ STORE_selectedDelegatesPortions:',
+    STORE_selectedDelegatesPortions
+  );
 
   const [selectedDelegatesPortions, setSelectedDelegatesPortions] = useState<
     ISelectedDelegatePortion[]
-  >([]);
+  >(STORE_selectedDelegatesPortions || []);
+  console.log(
+    '🚀 ~ CommonAidDelegatesTable ~ selectedDelegatesPortions:',
+    selectedDelegatesPortions
+  );
 
   const [query, setQuery] = useQueryStates({
     delegate_page: parseAsInteger.withDefault(1),
@@ -77,6 +85,12 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
       });
     }
   }, [STORE_selectedDelegatesPortions, query.action, query.aidId]);
+
+  // Keep the global store in sync with local selections so other components
+  // and the final submit always read the latest portions.
+  useEffect(() => {
+    STORE_setSelectedDelegatesPortions(selectedDelegatesPortions);
+  }, [selectedDelegatesPortions, STORE_setSelectedDelegatesPortions]);
 
   /** ==============================
    *  Sync portions on mode change
@@ -296,55 +310,63 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
 
   const disableInput = query.action == ACTION_ADD_EDIT_DISPLAY.DISPLAY;
 
-  const TableRow = React.memo(({ delegate, index }: { delegate: IDelegate; index: number }) => {
-    return (
-      <Table.Tr key={delegate.id}>
-        <Table.Td px={5} ta='center'>
-          {offset + index + 1}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.name}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.identity}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.displacedNumber}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.familyNumber}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.mobileNumber}
-        </Table.Td>
-        <Table.Td px={5} ta='center'>
-          {delegate.tentsNumber}
-        </Table.Td>
-        <Table.Th px={5} ta='center'>
-          <NumberInput
-            placeholder='ادخل الحصة...'
-            size='sm'
-            w='100%'
-            classNames={{
-              input:
-                'disabled:!cursor-text !bg-white placeholder:!text-sm !text-primary !font-normal',
-            }}
-            value={
-              query.action !== ACTION_ADD_EDIT_DISPLAY.ADD
-                ? selectedDelegatesPortions.find((p) => p.delegateId === delegate.id)?.portion
-                : 0
-            }
-            allowDecimal={false}
-            disabled={disableInput}
-            onChange={(val) =>
-              handlePortionChange({ delegateId: delegate.id, value: Number(val) || 0 })
-            }
-            min={0}
-          />
-        </Table.Th>
-      </Table.Tr>
-    );
-  });
+  const TableRow = React.memo(
+    ({
+      delegate,
+      index,
+      currentPortion,
+      onPortionChange,
+    }: {
+      delegate: IDelegate;
+      index: number;
+      currentPortion: number;
+      onPortionChange: ({ delegateId, value }: { delegateId: string; value: number }) => void;
+    }) => {
+      return (
+        <Table.Tr key={delegate.id}>
+          <Table.Td px={5} ta='center'>
+            {offset + index + 1}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.name}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.identity}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.displacedNumber}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.familyNumber}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.mobileNumber}
+          </Table.Td>
+          <Table.Td px={5} ta='center'>
+            {delegate.tentsNumber}
+          </Table.Td>
+          <Table.Th px={5} ta='center'>
+            <NumberInput
+              placeholder='ادخل الحصة...'
+              size='sm'
+              w='100%'
+              classNames={{
+                input:
+                  'disabled:!cursor-text !bg-white placeholder:!text-sm !text-primary !font-normal',
+              }}
+              value={currentPortion}
+              allowDecimal={false}
+              disabled={disableInput}
+              onChange={(val) =>
+                onPortionChange({ delegateId: delegate.id, value: Number(val) || 0 })
+              }
+              min={0}
+            />
+          </Table.Th>
+        </Table.Tr>
+      );
+    }
+  );
 
   TableRow.displayName = 'TableRow';
 
@@ -354,9 +376,17 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
   const rows = useMemo(
     () =>
       (delegatesData?.delegates || []).map((delegate, index) => (
-        <TableRow key={delegate.id} delegate={delegate} index={index} />
+        <TableRow
+          key={delegate.id}
+          delegate={delegate}
+          index={index}
+          currentPortion={
+            selectedDelegatesPortions.find((p) => p.delegateId === delegate.id)?.portion ?? 0
+          }
+          onPortionChange={handlePortionChange}
+        />
       )),
-    [delegatesData, TableRow]
+    [delegatesData, TableRow, selectedDelegatesPortions, handlePortionChange]
   );
 
   const noDelegates = (

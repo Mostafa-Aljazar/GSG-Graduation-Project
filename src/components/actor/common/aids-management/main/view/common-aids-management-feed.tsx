@@ -12,10 +12,11 @@ import { IAidsResponse } from '@/types/actor/common/aids-management/aids-managem
 import { getAids } from '@/actions/actor/common/aids-management/getAids';
 import { USER_TYPE } from '@/constants/user-types';
 import CommonAidsList from './card/common-aids-list';
+import { useEffect } from 'react';
 
 export default function CommonAidsManagementFeed() {
   const { userId: actorId, userType: role } = useAlreadyUserStore();
-  const { localFilters } = useAidsManagement();
+  const { localFilters, setAidsNum } = useAidsManagement();
 
   const [query] = useQueryStates({
     'aids-tab': parseAsStringEnum<TYPE_GROUP_AIDS>(Object.values(TYPE_GROUP_AIDS)).withDefault(
@@ -44,6 +45,12 @@ export default function CommonAidsManagementFeed() {
         role: role as USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
       }),
   });
+
+  useEffect(() => {
+    if (AidsData) {
+      setAidsNum(AidsData?.aids.length || 0);
+    }
+  }, [AidsData]);
 
   const hasError = Boolean(error) || Boolean(AidsData?.error);
 

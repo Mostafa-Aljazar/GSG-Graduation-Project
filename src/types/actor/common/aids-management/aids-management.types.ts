@@ -41,7 +41,7 @@ export interface IBaseAidForm {
     securityRequired: boolean;
     quantityAvailability: QUANTITY_AVAILABILITY;
     existingQuantity?: number;
-    selectedCategories: ICategoryRange[];
+    selectedCategories: ICategoryRange[]; //ADD:
     additionalNotes?: string;
     distributionMechanism: DISTRIBUTION_MECHANISM;
 }

@@ -1,61 +1,46 @@
-'use server';
+// 'use server';
 
-import { USER_TYPE } from "@/constants/user-types";
-import { AqsaAPI } from "@/services/api";
-import { TAid } from "@/types/actor/common/aids-management/aids-management.types";
-import { IActionResponse } from "@/types/common/action-response.type";
+// import { USER_TYPE } from "@/constants/user-types";
+// import { AqsaAPI } from "@/services/api";
+// import { TAid } from "@/types/actor/common/aids-management/aids-management.types";
+// import { IActionResponse } from "@/types/common/action-response.type";
 
-export interface IAddAidProps {
-    payload: TAid;
-    actorId: number;
-    role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
-}
+// export interface IAddAidProps {
+//     payload: TAid;
+//     actorId: number;
+//     role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
+// }
 
-const USE_FAKE = true;
+// const USE_FAKE = false;
 
-export const addAid = async ({ payload, actorId, role }: IAddAidProps): Promise<IActionResponse> => {
+// export const addAid = async ({ payload, actorId, role }: IAddAidProps): Promise<IActionResponse> => {
+//     if (USE_FAKE) {
+//         return new Promise(resolve =>
+//             setTimeout(() => resolve({
+//                 status: 200,
+//                 message: "تم إضافة المساعدة بنجاح"
+//             }), 500)
+//         );
+//     }
 
-    if (USE_FAKE) {
-        const fakeResponse: IActionResponse = {
-            status: 200,
-            message: "تم إضافة المساعدة بنجاح",
-        };
-        return await new Promise((resolve) =>
-            setTimeout(() => resolve(fakeResponse), 500)
-        );
-    }
+//     try {
+//         const response = await AqsaAPI.post<IActionResponse>(
+//             '/actor/common/aids-management/create',
+//             payload,
+//         );
+//         console.log("🚀 ~ addAid ~ response:", response.data)
 
-    ////////////////////////////////////////////////////////
-    // REAL IMPLEMENTATION
-    ////////////////////////////////////////////////////////
-    try {
-        const response = await AqsaAPI.post<IActionResponse>('/aids/add', payload, {
-            params: { actorId, role },
-        });
-
-        if (response.data) {
-            return {
-                status: 200,
-                message: "تم إضافة المساعدة بنجاح",
-            };
-        }
-
-        return {
-            status: 500,
-            message: "حدث خطأ أثناء إضافة المساعدة",
-            error: "حدث خطأ أثناء إضافة المساعدة",
-        };
-
-    } catch (err: unknown) {
-        let errorMessage = "حدث خطأ أثناء إضافة المساعدة";
-        const statusCode = 500;
-
-        if (err instanceof Error) errorMessage = err.message;
-
-        return {
-            status: statusCode,
-            message: errorMessage,
-            error: errorMessage,
-        };
-    }
-};
+//         return response.data ?? {
+//             status: 500,
+//             message: "حدث خطأ أثناء إضافة المساعدة",
+//             error: "حدث خطأ أثناء إضافة المساعدة",
+//         };
+//     } catch (err: unknown) {
+//         const errorMessage = err instanceof Error ? err.message : "حدث خطأ أثناء إضافة المساعدة";
+//         return {
+//             status: 500,
+//             message: errorMessage,
+//             error: errorMessage,
+//         };
+//     }
+// };

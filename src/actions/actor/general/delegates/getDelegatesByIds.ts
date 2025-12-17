@@ -21,13 +21,15 @@ export const getDelegatesByIds = async ({
         const fakeData: IDelegatesResponse = fakeDelegatesByIdsResponse({ Ids, page, limit });
         return new Promise((resolve) => setTimeout(() => resolve(fakeData), 500));
     }
+    console.log("🚀 ~ Ids:", Ids)
+
 
     /////////////////////////////////////////////////////////////
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
         const response = await AqsaAPI.get<IDelegatesResponse>('/actor/delegates/by-ids', {
-            params: { Ids, page, limit },
+            params: { ids: Ids, page, limit },
         });
 
         if (response.data?.delegates) {

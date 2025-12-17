@@ -42,6 +42,7 @@ export default function AidDisplacedsTable({
         limit: 7,
       }),
     retry: 1,
+    enabled: !!aidData.selectedDisplacedIds.length,
   });
 
   const DISPLACED_DATA = aid_Displaceds;

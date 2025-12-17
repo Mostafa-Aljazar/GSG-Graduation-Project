@@ -14,6 +14,7 @@ import { USER_TYPE } from '@/constants/user-types';
 import { getDelegateRoutes, getManagerRoutes } from '@/constants/routes';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import CommonAidDeleteModal from './common-aid-delete-modal';
+import CommonAidChangeGroupModal from './common-aid-change-group';
 
 interface IActionItem {
   label: string;
@@ -30,6 +31,7 @@ export default function CommonAidAction({
   aidId,
   aidDistributionMechanism,
 }: ICommonAidActionProps) {
+  console.log('🚀 ~ CommonAidAction ~ aidDistributionMechanism:', aidDistributionMechanism);
   const { userId: actorId, userType: role } = useAlreadyUserStore();
   const [query] = useQueryStates({
     'aids-tab': parseAsStringEnum<TYPE_GROUP_AIDS>(Object.values(TYPE_GROUP_AIDS)).withDefault(
@@ -40,6 +42,8 @@ export default function CommonAidAction({
   const { user, isManager, isDelegate } = useAuth();
   const [openedPopover, setOpenedPopover] = useState(false);
   const [openedDelete, { open: openDelete, close: closeDelete }] = useDisclosure(false);
+  const [openedChangeGroup, { open: openChangeGroup, close: closeChangeGroup }] =
+    useDisclosure(false);
 
   const router = useRouter();
   const isOwner = actorId === user?.id && user.role == role;
@@ -69,6 +73,7 @@ export default function CommonAidAction({
                 }&aidId=${aidId}`
               ),
           },
+          { label: 'تغيير حالة المساعدة ', icon: Trash, action: openChangeGroup },
           { label: 'حذف', icon: Trash, action: openDelete },
         ];
       } else {
@@ -78,6 +83,7 @@ export default function CommonAidAction({
             icon: Eye,
             action: () => router.push(routeFunc.AID),
           },
+          { label: 'تغيير حالة المساعدة ', icon: Trash, action: openChangeGroup },
           { label: 'حذف', icon: Trash, action: openDelete },
         ];
       }
@@ -148,7 +154,7 @@ export default function CommonAidAction({
   return (
     <>
       <Popover
-        width={150}
+        width={180}
         opened={openedPopover}
         onChange={setOpenedPopover}
         position='left-start'
@@ -179,6 +185,11 @@ export default function CommonAidAction({
         </Popover.Dropdown>
       </Popover>
 
+      <CommonAidChangeGroupModal
+        aidId={aidId}
+        opened={openedChangeGroup}
+        close={closeChangeGroup}
+      />
       <CommonAidDeleteModal aidId={aidId} opened={openedDelete} close={closeDelete} />
     </>
   );

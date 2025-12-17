@@ -111,6 +111,7 @@ export default function CommonAidForm({ handelActiveStep }: Props) {
 
   const handleCategoryChange = (categories: ICategoryRange[]) => {
     form.setFieldValue('selectedCategories', categories);
+    setFormValues({ selectedCategories: categories });
   };
 
   const handlePortionChange = (id: string, portion: number) => {
@@ -118,6 +119,7 @@ export default function CommonAidForm({ handelActiveStep }: Props) {
       c.id === id ? { ...c, portion } : c
     );
     form.setFieldValue('selectedCategories', updated);
+    setFormValues({ selectedCategories: updated });
   };
 
   return (

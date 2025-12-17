@@ -69,6 +69,7 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
     receivedDisplaceds,
     securitiesId,
   } = useAidStore();
+  console.log('🚀 ~ AddAidEditor ~ selectedDisplacedIds:', selectedDisplacedIds);
 
   const [query] = useQueryStates({
     action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
@@ -93,6 +94,7 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
           aidStatus: aidStatus ?? TYPE_GROUP_AIDS.ONGOING_AIDS,
           receivedDisplaceds: receivedDisplaceds ?? [],
           securitiesId: securitiesId ?? [],
+          selectedCategories: formValues.selectedCategories,
         },
         actorId: userId,
         role: userType as USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
@@ -103,7 +105,7 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
         title: query.action === ACTION_ADD_EDIT_DISPLAY.EDIT ? 'تم التعديل' : 'تم الإضافة',
         message: res.message || 'تم حفظ المساعدة بنجاح',
         color: 'green',
-        position: 'top-right',
+        position: 'top-left',
       });
       router.push(getManagerRoutes({ managerId: userId }).AIDS_MANAGEMENT);
     },
@@ -112,22 +114,30 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
         title: 'فشل العملية',
         message: err?.message || 'حدث خطأ',
         color: 'red',
-        position: 'top-right',
+        position: 'top-left',
       });
     },
   });
 
   const handleSubmit = () => {
     if (isDisplacedMechanism && selectedDisplacedIds.length === 0) {
-      return notifications.show({ title: 'مطلوب', message: 'يجب اختيار نازحين', color: 'red' });
+      return notifications.show({
+        title: 'مطلوب',
+        message: 'يجب اختيار نازحين',
+        color: 'red',
+        position: 'top-left',
+      });
     }
     if (!isDisplacedMechanism && selectedDelegatesPortions.length === 0) {
       return notifications.show({
         title: 'مطلوب',
         message: 'يجب تحديد حصص المناديب',
         color: 'red',
+        position: 'top-left',
       });
     }
+    // console.log('🚀 ~ AddAidEditor ~ formValues:', formValues);
+
     mutation.mutate();
   };
 

@@ -60,36 +60,84 @@ export const useAidStore = create<AidStore>((set, get) => ({
     isCompleted: false,
     aidStatus: TYPE_GROUP_AIDS.ONGOING_AIDS,
 
+    // addCategory: (cat) => {
+    //     set({ selectedCategories: [...get().selectedCategories, cat] });
+    // },
+
+    // updateCategory: (id, updated) => {
+    //     const cat = get().selectedCategories.find((c) => c.id === id);
+    //     if (cat?.isDefault) return; // cannot edit default category
+    //     set({
+    //         selectedCategories: get().selectedCategories.map((c) =>
+    //             c.id === id ? { ...c, ...updated } : c
+    //         ),
+    //     });
+    // },
+
+    // removeCategory: (id) => {
+    //     set({
+    //         selectedCategories: get().selectedCategories.filter((c) => c.id !== id),
+    //     });
+    // },
+
+    // resetCategories: () => set({ selectedCategories: [] }),
+
     addCategory: (cat) => {
-        set({ selectedCategories: [...get().selectedCategories, cat] });
+        set((state) => {
+            // Prevent adding duplicate IDs
+            if (state.selectedCategories.some((c) => c.id === cat.id)) return state;
+
+            const updatedSelected = [...state.selectedCategories, cat];
+
+            return { selectedCategories: updatedSelected };
+        });
     },
 
     updateCategory: (id, updated) => {
-        const cat = get().selectedCategories.find((c) => c.id === id);
-        if (cat?.isDefault) return; // cannot edit default category
-        set({
-            selectedCategories: get().selectedCategories.map((c) =>
+        set((state) => {
+            const cat = state.selectedCategories.find((c) => c.id === id);
+            if (!cat || cat.isDefault) return state;
+
+            const updatedSelected = state.selectedCategories.map((c) =>
                 c.id === id ? { ...c, ...updated } : c
-            ),
+            );
+            return { selectedCategories: updatedSelected };
         });
     },
 
     removeCategory: (id) => {
-        set({
-            selectedCategories: get().selectedCategories.filter((c) => c.id !== id),
-        });
+        set((state) => ({
+            selectedCategories: state.selectedCategories.filter((c) => c.id !== id),
+        }));
     },
 
     resetCategories: () => set({ selectedCategories: [] }),
+
     // resetCategories: () => set({ selectedCategories: [...DEFAULT_CATEGORIES] }),
 
     setFormValues: (values) =>
-        set({
-            formValues: {
-                ...get().formValues,
-                ...values,
-                selectedCategories: get().selectedCategories,
-            },
+        set((state) => {
+            // Sync categories and delegate portions when provided, otherwise keep existing store values.
+            const nextSelectedCategories =
+                values && (values as Partial<IBaseAidForm>).selectedCategories
+                    ? (values as Partial<IBaseAidForm>).selectedCategories!
+                    : state.selectedCategories;
+
+            const nextSelectedDelegatesPortions =
+                values && (values as any).selectedDelegatesPortions
+                    ? (values as any).selectedDelegatesPortions
+                    : state.selectedDelegatesPortions;
+
+            return {
+                selectedCategories: nextSelectedCategories,
+                selectedDelegatesPortions: nextSelectedDelegatesPortions,
+                formValues: {
+                    ...state.formValues,
+                    ...values,
+                    selectedCategories: nextSelectedCategories,
+                    selectedDelegatesPortions: nextSelectedDelegatesPortions,
+                },
+            };
         }),
 
     setSelectedDisplacedIds: (ids) => set({ selectedDisplacedIds: ids }),

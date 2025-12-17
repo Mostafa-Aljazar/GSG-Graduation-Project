@@ -19,6 +19,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { ICategoryRange } from '@/types/actor/common/aids-management/aids-management.types';
 import { DEFAULT_CATEGORIES } from '@/types/actor/common/index.type';
 import { CategoryManagementModal } from './category-management-modal';
+import { useAidStore } from '@/stores/Aid.store';
 
 export function rangesOverlap(
   a: { min: number; max: number | null },
@@ -44,7 +45,13 @@ export default function PortionsManagementModal({
 }: PortionsManagementModalProps) {
   const [managementOpened, { open: openManagement, close: closeManagement }] = useDisclosure(false);
   const [editingCategory, setEditingCategory] = useState<ICategoryRange | null>(null);
-
+  const {
+    updateCategory,
+    addCategory,
+    setFormValues,
+    formValues,
+    selectedCategories: selectedStoredCategories,
+  } = useAidStore();
   // Track all categories including newly added ones
   const [allCategories, setAllCategories] = useState<ICategoryRange[]>(DEFAULT_CATEGORIES);
 
@@ -56,20 +63,11 @@ export default function PortionsManagementModal({
   }, [selectedCategories, allCategories]);
 
   const addOrEditCategory = (cat: ICategoryRange) => {
-    let updated: ICategoryRange[];
-
     if (editingCategory) {
-      updated = selectedCategories.map((c) => (c.id === editingCategory.id ? cat : c));
-    } else if (!selectedCategories.some((c) => c.id === cat.id)) {
-      updated = [...selectedCategories, cat];
-    } else return;
-
-    // Update selected categories
-    onCategoriesChange(updated);
-
-    // Add new category to the allCategories list if it doesn't exist
-    setAllCategories((prev) => (prev.some((c) => c.id === cat.id) ? prev : [...prev, cat]));
-
+      updateCategory(editingCategory.id, cat);
+    } else {
+      addCategory(cat);
+    }
     setEditingCategory(null);
   };
 
@@ -101,9 +99,14 @@ export default function PortionsManagementModal({
             disabled: disabledBecauseOverlap(c),
           }))}
           value={selectedCategories.map((c) => c.id)}
+          // onChange={(ids) => {
+          //   const newSelected = categories.filter((cat) => ids.includes(cat.id));
+          //   onCategoriesChange(newSelected);
+          // }}
           onChange={(ids) => {
             const newSelected = categories.filter((cat) => ids.includes(cat.id));
-            onCategoriesChange(newSelected);
+            setFormValues({ selectedCategories: newSelected }); // update form
+            onCategoriesChange(newSelected); // update store if needed
           }}
           placeholder='اختر فئة أو أكثر'
           leftSection={<Users size={16} />}

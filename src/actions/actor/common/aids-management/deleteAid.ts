@@ -9,11 +9,11 @@ export interface IDeleteAidProps {
     managerId: string;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const deleteAid = async ({
     aidId,
-    managerId
+    // managerId
 }: IDeleteAidProps): Promise<IActionResponse> => {
     // Fake Mode
     if (USE_FAKE) {
@@ -29,11 +29,8 @@ export const deleteAid = async ({
     // REAL IMPLEMENTATION
     /////////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.delete<IActionResponse>(`/aids`, {
-            params: {
-                aidId, managerId
-            }
-        });
+        // src/app/api/actor/common/aids-management/[aidId]/route.ts
+        const response = await AqsaAPI.delete<IActionResponse>(`/actor/common/aids-management/${aidId}`);
 
         if (response.status === 200) {
             return {

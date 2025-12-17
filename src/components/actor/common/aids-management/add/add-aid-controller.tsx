@@ -29,8 +29,6 @@ export default function AddAidController() {
     queryFn: () =>
       getAid({
         aidId: query.aidId,
-        actorId: userId,
-        role: userType as USER_TYPE.MANAGER | USER_TYPE.DELEGATE,
       }),
     enabled: !!query.aidId && query.action !== ACTION_ADD_EDIT_DISPLAY.ADD,
   });

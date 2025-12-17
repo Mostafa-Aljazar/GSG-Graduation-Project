@@ -13,7 +13,7 @@ export interface IReceiveDisplacedAidProps {
     role: USER_TYPE.MANAGER | USER_TYPE.DELEGATE;
 }
 
-const USE_FAKE = true;
+const USE_FAKE = false;
 
 export const receiveDisplacedAid = async ({
     receiveCode,
@@ -38,7 +38,7 @@ export const receiveDisplacedAid = async ({
     // REAL IMPLEMENTATION
     ////////////////////////////////////////////////////////
     try {
-        const response = await AqsaAPI.post<IActionResponse>(`/aids/${aidId}/receive-aid`, {
+        const response = await AqsaAPI.post<IActionResponse>(`/actor/common/aids-management/${aidId}/receive-aid`, {
             receiveCode,
             aidId,
             displacedId,
