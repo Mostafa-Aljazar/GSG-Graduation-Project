@@ -3,8 +3,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { USER_TYPE } from '@prisma/client';
+// import { USER_TYPE } from '@gen/client';
 import { IActionResponse } from '@/types/common/action-response.type';
+import { USER_TYPE } from '@gen/client'
 
 interface IBody {
     displacedIds: string[];

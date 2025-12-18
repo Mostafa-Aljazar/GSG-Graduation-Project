@@ -6,7 +6,7 @@ import { comparePassword, createJWT } from '@/utils/auth';
 // import { USER_TYPE, USER_RANK } from '@/constants/user-types';
 import { IUser } from '@/types/actor/common/user/user.type';
 import { COOKIE_NAME } from '@/constants/cookie-name';
-import { USER_TYPE } from '@prisma/client';
+import { USER_TYPE } from '@gen/client';
 import { USER_TYPE as USER_TYPE_LOCAL, USER_RANK as USER_RANK_LOCAL } from '@/constants/user-types';
 
 export async function POST(req: NextRequest) {

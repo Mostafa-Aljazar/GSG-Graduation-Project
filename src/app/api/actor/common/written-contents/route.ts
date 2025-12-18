@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/prisma";
-import { TYPE_WRITTEN_CONTENT } from "@prisma/client";
+import { TYPE_WRITTEN_CONTENT } from "@gen/client";
 import { IPagination } from "@/types/common/pagination.type";
 import { IWrittenContent, IWrittenContentsResponse } from "@/types/common/written-content/written-content-response.type";
 import { TYPE_WRITTEN_CONTENT as TYPE_WRITTEN_CONTENT_LOCAL } from "@/types/common/index.type";

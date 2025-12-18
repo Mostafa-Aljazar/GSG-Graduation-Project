@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { createJWT } from '@/utils/auth';
-import { USER_TYPE, USER_RANK } from '@prisma/client';
+import { USER_TYPE, USER_RANK } from '@gen/client';
 import { sendOTPEmail } from '@/actions/auth/sendOTPEmail';
 import { GENDER, SOCIAL_STATUS } from '@/types/actor/common/index.type';
 import { generateOTP } from '@/utils/auth/otp';

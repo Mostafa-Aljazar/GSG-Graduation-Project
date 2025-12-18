@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { USER_TYPE, TYPE_AID, DISTRIBUTION_METHOD, QUANTITY_TYPE } from '@prisma/client';
+import { USER_TYPE, TYPE_AID, DISTRIBUTION_METHOD, QUANTITY_TYPE } from '.././../../../../../../../generated/prisma/client';
 import { TAid, ISelectedDelegatePortion, ICategoryRange } from '@/types/actor/common/aids-management/aids-management.types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { TYPE_AIDS } from '@/types/actor/common/index.type';

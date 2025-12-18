@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/utils/prisma";
 import { verifyJWT } from "@/utils/auth";
-import { USER_TYPE } from "@prisma/client";
+import { USER_TYPE } from "@gen/client";
 import { IWrittenContent, IWrittenContentResponse } from "@/types/common/written-content/written-content-response.type";
 import { TYPE_WRITTEN_CONTENT as TYPE_WRITTEN_CONTENT_LOCAL } from "@/types/common/index.type";
 

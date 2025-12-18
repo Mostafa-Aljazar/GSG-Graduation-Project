@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/utils/prisma'
 import { verifyJWT } from '@/utils/auth'
-import { USER_TYPE } from '@prisma/client'
+import { USER_TYPE } from '@gen/client'
 
 export async function GET(req: NextRequest) {
     try {

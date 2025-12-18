@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
 import {
-    USER_TYPE,
     QUANTITY_TYPE,
     NOTIFICATION_ACTION,
-    AID_TYPE
-} from '@prisma/client';
+    AID_TYPE,
+    USER_TYPE
+} from '.././../../../../../../../generated/prisma/client';
 import { IActionResponse } from '@/types/common/action-response.type';
 
 interface IReceiveAidBody {

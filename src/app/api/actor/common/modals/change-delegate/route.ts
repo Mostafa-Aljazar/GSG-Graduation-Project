@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { NOTIFICATION_STATUS, NOTIFICATION_ACTION, USER_RANK } from '@prisma/client';
+import { NOTIFICATION_STATUS, NOTIFICATION_ACTION, USER_RANK } from '@gen/client';
 import { IActionResponse } from '@/types/common/action-response.type';
 
 interface IChangeDelegatePayload {

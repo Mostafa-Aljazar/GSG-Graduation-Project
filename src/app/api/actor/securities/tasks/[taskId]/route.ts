@@ -5,7 +5,7 @@ import { prisma } from '@/utils/prisma';
 import { TASKS_TABS } from '@/types/actor/common/index.type';
 import { verifyJWT } from '@/utils/auth';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { USER_RANK, USER_TYPE } from '@prisma/client';
+import { USER_RANK, USER_TYPE } from '@gen/client';
 
 interface ISecurityTaskPayload {
     taskId?: string;

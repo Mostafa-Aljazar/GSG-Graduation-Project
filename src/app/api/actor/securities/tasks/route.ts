@@ -5,7 +5,7 @@ import { prisma } from '@/utils/prisma';
 import { TASKS_TABS } from '@/types/actor/common/index.type';
 import { verifyJWT } from '@/utils/auth';
 import { ITask, ITasksResponse } from '@/types/actor/security/tasks/TasksResponse.type';
-import { USER_TYPE } from '@prisma/client';
+import { USER_TYPE } from '@gen/client';
 
 export async function GET(req: NextRequest) {
     try {

@@ -5,7 +5,7 @@ import { prisma } from '@/utils/prisma';
 import { USER_TYPE, USER_RANK, USER_RANK_LABELS } from '@/constants/user-types';
 import { verifyJWT } from '@/utils/auth';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { GENDER, SOCIAL_STATUS } from '@prisma/client';
+import { GENDER, SOCIAL_STATUS } from '@gen/client';
 
 interface IDeleteDelegatesPayload {
     userIds: string[];

@@ -6,7 +6,7 @@ import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
 import { USER_TYPE, USER_RANK, TUserRank } from '@/constants/user-types';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { COMPLAINT_STATUS } from '@prisma/client';
+import { COMPLAINT_STATUS } from '@gen/client'
 
 interface ISendComplaintPayload {
     reception: USER_TYPE.MANAGER | USER_TYPE.DELEGATE | USER_TYPE.SECURITY_PERSON;

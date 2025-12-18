@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { COMPLAINT_STATUS, NOTIFICATION_ACTION, NOTIFICATION_STATUS, USER_RANK } from '@prisma/client';
+import { COMPLAINT_STATUS, NOTIFICATION_ACTION, NOTIFICATION_STATUS, USER_RANK } from '@gen/client'
 import { IActionResponse } from '@/types/common/action-response.type';
 import { IReplyComplaintProps } from '@/actions/actor/general/complaints/replyComplaint';
 import { USER_RANK_LABELS } from '@/constants/user-types';
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         await prisma.notification.create({
             data: {
                 title: "رد الشكوى",
-                body: `قام ال${USER_RANK_LABELS[viewer.rank]} بالرد على الشكوى التي ارسلتها اليه`,
+                body: `قام ال${USER_RANK_LABELS[viewer.rank as USER_RANK]} بالرد على الشكوى التي ارسلتها اليه`,
                 action: NOTIFICATION_ACTION.ANOTHER,
                 fromUserId: viewer.id,
                 toUsers: {

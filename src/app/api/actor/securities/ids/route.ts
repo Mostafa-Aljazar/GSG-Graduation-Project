@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { USER_RANK } from '@prisma/client';
+import { USER_RANK } from '@gen/client';
 import { ISecurityIdsResponse } from '@/types/actor/general/securities/securities-response.types';
 
 export async function GET(req: NextRequest) {

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
 import { ISecuritiesResponse, ISecurity } from '@/types/actor/general/securities/securities-response.types';
-import { USER_RANK } from '@prisma/client'; // Prisma enum
+import { USER_RANK } from '@gen/client'; // Prisma enum
 
 export async function GET(request: Request) {
     try {

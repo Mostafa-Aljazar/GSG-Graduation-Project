@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { USER_TYPE } from '@prisma/client';
+import { USER_TYPE } from '@gen/client';
 import { USER_RANK_LABELS } from '@/constants/user-types';
 
 interface IDeleteDisplacedsPayload {

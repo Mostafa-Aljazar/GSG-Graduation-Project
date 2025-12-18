@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { USER_TYPE } from '@/constants/user-types';
 import { verifyJWT } from '@/utils/auth';
-import { GENDER, SOCIAL_STATUS } from '@prisma/client';
+import { GENDER, SOCIAL_STATUS } from '@gen/client';
 
 export async function GET(
     request: Request,

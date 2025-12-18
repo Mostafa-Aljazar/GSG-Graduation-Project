@@ -3,9 +3,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { COMPLAINT_STATUS, USER_RANK } from '@prisma/client';
+import { COMPLAINT_STATUS, USER_RANK } from '@gen/client'
 import { COMPLAINTS_STATUS, COMPLAINTS_TABS } from '@/types/actor/common/index.type';
-import { IActionResponse } from '@/types/common/action-response.type';
 import { IComplaint, IComplaintsResponse } from '@/types/actor/general/complaints/complaints-response.type';
 
 export async function GET(req: NextRequest) {

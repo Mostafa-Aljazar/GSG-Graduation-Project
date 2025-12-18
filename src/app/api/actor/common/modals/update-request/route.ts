@@ -4,7 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { NOTIFICATION_ACTION, NOTIFICATION_STATUS, USER_TYPE } from '@prisma/client';
+import { NOTIFICATION_ACTION, NOTIFICATION_STATUS, USER_TYPE } from '@gen/client';
 import { IActionResponse } from '@/types/common/action-response.type';
 
 interface IUpdateUsersRequestPayload {

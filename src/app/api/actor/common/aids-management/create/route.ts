@@ -3,10 +3,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { USER_TYPE, TYPE_AID, DISTRIBUTION_METHOD, QUANTITY_TYPE, AID_STATUS, } from '@prisma/client';
 import { TAid, ISelectedDelegatePortion, ICategoryRange } from '@/types/actor/common/aids-management/aids-management.types';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { DISTRIBUTION_MECHANISM, QUANTITY_AVAILABILITY, TYPE_AIDS } from '@/types/actor/common/index.type';
+import { USER_TYPE, TYPE_AID, DISTRIBUTION_METHOD, QUANTITY_TYPE, AID_STATUS } from '@gen/client'
 
 interface IAddAidRequest {
     payload: TAid;

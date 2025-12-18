@@ -1,7 +1,7 @@
 import { IActionResponse } from "@/types/common/action-response.type";
 import { verifyJWT } from "@/utils/auth";
 import { prisma } from "@/utils/prisma";
-import { USER_TYPE } from "@prisma/client";
+import { USER_TYPE } from "@gen/client";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

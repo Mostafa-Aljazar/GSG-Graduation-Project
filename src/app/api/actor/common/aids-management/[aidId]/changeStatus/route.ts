@@ -3,9 +3,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { AID_STATUS, AID_TYPE, NOTIFICATION_STATUS, TYPE_AID, USER_TYPE } from '@prisma/client';
 import { IActionResponse } from '@/types/common/action-response.type';
 import { TYPE_GROUP_AIDS } from '@/types/actor/common/index.type';
+import { AID_STATUS, AID_TYPE, NOTIFICATION_STATUS, TYPE_AID, USER_TYPE } from '@gen/enums';
 
 interface IChangeStatusAid {
     aidGroup: TYPE_GROUP_AIDS

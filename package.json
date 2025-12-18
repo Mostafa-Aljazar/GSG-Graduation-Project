@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prisma:generate": "pnpm exec prisma generate",
+    "build": "pnpm prisma:generate && next build",
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "clean": "rimraf .next && rimraf node_modules/.cache"
@@ -18,9 +19,7 @@
     "@mantine/hooks": "^8.3.9",
     "@mantine/notifications": "^8.3.9",
     "@mantine/tiptap": "^8.3.9",
-    "@stripe/react-stripe-js": "^5.4.1",
-    "@stripe/stripe-js": "^8.5.3",
-    "@prisma/client": "^6.17.0",
+    "@prisma/client": "~6.19.1",
     "@tanstack/react-query": "^5.90.10",
     "@tiptap/extension-color": "^3.11.1",
     "@tiptap/extension-highlight": "^3.11.1",
@@ -52,12 +51,10 @@
     "next": "16.0.7",
     "nodemailer": "^7.0.10",
     "nuqs": "^2.8.1",
-    "prisma": "^6.17.0",
     "react": "19.2.1",
     "react-countup": "^6.5.3",
     "react-dom": "19.2.1",
     "react-phone-number-input": "^3.4.14",
-    "stripe": "^20.0.0",
     "tailwind-merge": "^3.4.0",
     "uploadthing": "^7.7.4",
     "zod": "^4.1.13",
@@ -78,6 +75,7 @@
     "postcss": "^8.5.6",
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
+    "prisma": "~6.19.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

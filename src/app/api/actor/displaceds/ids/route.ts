@@ -4,7 +4,7 @@ import { verifyJWT } from '@/utils/auth'
 import { IDisplacedsIdsResponse } from '@/types/actor/general/displaceds/displaces-response.type'
 import { TDisplacedsFilterFormValues } from '@/validations/actor/general/displaceds/displaceds-filter-form.schema'
 import { WIFE_STATUS } from '@/types/actor/common/index.type'
-import { ACCOMMODATION_TYPE, FAMILY_STATUS_TYPE } from '@prisma/client'
+import { ACCOMMODATION_TYPE, FAMILY_STATUS_TYPE } from '@gen/client'
 
 export async function GET(request: Request) {
     try {

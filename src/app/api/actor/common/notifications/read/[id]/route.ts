@@ -4,7 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { NOTIFICATION_STATUS } from '@prisma/client';
+import { NOTIFICATION_STATUS } from '@gen/client';
 import { IActionResponse } from '@/types/common/action-response.type';
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

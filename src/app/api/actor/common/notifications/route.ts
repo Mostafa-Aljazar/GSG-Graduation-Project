@@ -4,7 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { NOTIFICATION_STATUS } from '@prisma/client';
+import { NOTIFICATION_STATUS } from '@gen/client';
 
 export async function GET(req: NextRequest) {
     try {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createJWT, hashPassword } from '@/utils/auth';
 import { prisma } from '@/utils/prisma';
-import { USER_TYPE, USER_RANK } from '@prisma/client';
+import { USER_TYPE, USER_RANK } from '@gen/client';
 
 export async function POST(req: NextRequest) {
     try {

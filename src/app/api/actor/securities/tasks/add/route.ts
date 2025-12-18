@@ -5,7 +5,7 @@ import { prisma } from '@/utils/prisma';
 import { TASKS_TABS } from '@/types/actor/common/index.type';
 import { verifyJWT } from '@/utils/auth';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { USER_TYPE, USER_RANK } from '@prisma/client';
+import { USER_TYPE, USER_RANK } from '@gen/client';
 
 interface ISecurityTaskPayload {
     dateTime: string; // ISO string

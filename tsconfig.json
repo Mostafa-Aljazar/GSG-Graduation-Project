@@ -21,9 +21,14 @@
     // "paths": {
     //   "@/*": ["./*"]
     // }
-    "baseUrl": "./src",
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "@/*": ["*"]
+    // }
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["src/*"],
+      "@gen/*": ["generated/prisma/*"]
     }
   },
   "include": [

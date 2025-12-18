@@ -3,9 +3,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { COMPLAINT_STATUS, NOTIFICATION_ACTION, NOTIFICATION_STATUS, USER_RANK } from '@prisma/client';
 import { IActionResponse } from '@/types/common/action-response.type';
-import { USER_RANK_LABELS } from '@/constants/user-types';
+import { USER_RANK, USER_RANK_LABELS } from '@/constants/user-types';
+import { COMPLAINT_STATUS, NOTIFICATION_ACTION, NOTIFICATION_STATUS } from '@gen/client'
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -13,6 +13,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         if (!token) return NextResponse.json<IActionResponse>({ status: 401, message: 'غير مصرح' }, { status: 401 });
 
         const viewer = verifyJWT(token);
+        if (!viewer) return NextResponse.json<IActionResponse>({ status: 401, message: 'غير مصرح' }, { status: 401 });
+
         const { id: complaintId } = await params;
 
         const complaint = await prisma.complaint.findUnique({
@@ -41,7 +43,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         await prisma.notification.create({
             data: {
                 title: "تم فتح الشكوى ",
-                body: `قام ال${USER_RANK_LABELS[viewer.rank]} بفتح الشكوى التي ارسلتها اليه`,
+                body: `قام ال${USER_RANK_LABELS[viewer.rank as USER_RANK]} بفتح الشكوى التي ارسلتها اليه`,
                 action: NOTIFICATION_ACTION.ANOTHER,
                 fromUserId: viewer.id,
                 toUsers: {

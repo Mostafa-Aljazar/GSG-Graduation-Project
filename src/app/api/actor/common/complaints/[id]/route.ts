@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { verifyJWT } from '@/utils/auth';
-import { USER_RANK, COMPLAINT_STATUS } from '@prisma/client';
+import { USER_RANK, COMPLAINT_STATUS } from '@gen/client'
 import { IActionResponse } from '@/types/common/action-response.type';
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
