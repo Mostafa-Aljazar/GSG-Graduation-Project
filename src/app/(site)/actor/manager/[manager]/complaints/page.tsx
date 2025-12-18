@@ -28,14 +28,11 @@ export async function generateMetadata(
 
   try {
     const response = await getComplaints({
-      userVisitId: managerId,
-      userVisitType: USER_RANK.MANAGER,
       complaintType: tab,
       userAlreadyId: managerId,
       userAlreadyType: USER_RANK.MANAGER,
       page: 1,
       limit: 1,
-      status: COMPLAINTS_STATUS.ALL,
       dateRange: [null, null],
       search: '',
     });

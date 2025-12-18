@@ -32,8 +32,6 @@ export async function generateMetadata(
   try {
     const response = await getAid({
       aidId,
-      actorId: managerId,
-      role: USER_TYPE.MANAGER,
     });
     const aid = response?.aid;
 

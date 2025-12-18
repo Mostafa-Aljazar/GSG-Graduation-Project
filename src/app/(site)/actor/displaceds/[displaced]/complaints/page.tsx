@@ -28,12 +28,10 @@ export async function generateMetadata(
     const response = await getComplaints({
       userAlreadyId: displacedId,
       userAlreadyType: USER_RANK.DISPLACED,
-      userVisitId: displacedId,
-      userVisitType: USER_RANK.DISPLACED,
+
       complaintType: COMPLAINTS_TABS.SENT_COMPLAINTS,
       page: 1,
       limit: 1,
-      status: COMPLAINTS_STATUS.ALL,
       dateRange: [null, null],
       search: '',
     });
