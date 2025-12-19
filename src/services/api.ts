@@ -1,7 +1,8 @@
 import { clearSessionCookie, getSessionCookie } from '@/utils/auth/cookies/serverCookies'
 import axios from 'axios'
 
-const baseURL = `${process.env.NEXT_PUBLIC_APP_URL}+/api` || 'http://localhost:3000/api'
+// const baseURL = 'http://localhost:3000/api'
+const baseURL = process.env.NEXT_PUBLIC_APP_API_URL
 
 const defaultConfig = {
   baseURL,
@@ -17,6 +18,7 @@ export const AqsaGuestAPI = axios.create(defaultConfig)
 AqsaGuestAPI.interceptors.response.use(
   res => res,
   err => {
+    console.log("🚀 ~ err:", err)
     if (!err.response) {
       return Promise.reject({ status: 500, error: 'حدث خطأ في الشبكة' })
     }
