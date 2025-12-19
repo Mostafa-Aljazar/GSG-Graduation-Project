@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "prisma:generate": "pnpm exec prisma generate",
-    "build": "pnpm prisma:generate && next build",
     "dev": "pnpm prisma:generate && next dev",
-    "postinstall": "pnpm prisma:generate",
     "start": "next start",
     "lint": "eslint",
-    "clean": "rimraf .next && rimraf node_modules/.cache"
+    "clean": "rimraf .next && rimraf node_modules/.cache",
+    "postinstall": "pnpm prisma generate",
+    "build": "pnpm prisma generate && next build"
   },
   "dependencies": {
     "@mantine/carousel": "^8.3.9",
