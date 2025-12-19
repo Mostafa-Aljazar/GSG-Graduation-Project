@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { StringValue } from 'ms';
-import { USER_RANK, USER_TYPE } from '@gen/client';
+import { USER_RANK, USER_TYPE } from '@prisma/client';
 
 if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined in environment variables');

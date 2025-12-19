@@ -1,7 +1,19 @@
+// generator client {
+//   provider      = "prisma-client"
+//   output        = "../generated/prisma"
+//   // Include the Linux query engine used by Vercel's runtime so
+//   // the correct native engine is available after `prisma generate`.
+//   binaryTargets = ["native", "rhel-openssl-3.0.x"]
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// schema.prisma
 generator client {
-  provider     = "prisma-client"
-  output       = "../generated/prisma"
-  moduleFormat = "esm"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -9,8 +21,499 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model MOSTAFA {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
+// ---------------- ENUMS ----------------
+enum USER_TYPE {
+  DISPLACED
+  DELEGATE
+  MANAGER
+  SECURITY_PERSON
+}
+
+enum USER_RANK {
+  DISPLACED
+  DELEGATE
+  MANAGER
+  SECURITY_PERSON
+  SECURITY_OFFICER
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+}
+
+enum SOCIAL_STATUS {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+}
+
+enum AGES {
+  LESS_THAN_6_MONTHS
+  FROM_6_MONTHS_TO_2_YEARS
+  FROM_2_YEARS_To_6_YEARS
+  FROM_6_YEARS_To_12_YEARS
+  FROM_12_YEARS_To_18_YEARS
+  MORE_THAN_18
+}
+
+enum ACCOMMODATION_TYPE {
+  INDOOR_TENT
+  INDOOR_BUILDING
+  OUTDOOR
+}
+
+enum FAMILY_STATUS_TYPE {
+  NORMAL
+  DIFFICULT
+  CRITICAL
+}
+
+enum USER_STATUS {
+  ACTIVE
+  PENDING
+}
+
+// ---------------- USERS ----------------
+model User {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  email     String      @unique
+  password  String?
+  role      USER_TYPE
+  rank      USER_RANK
+  status    USER_STATUS @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  displaced     DisplacedProfile?
+  delegate      DelegateProfile?
+  manager       ManagerProfile?
+  security      SecurityProfile?
+  displacements Displacement[]
+
+  otp                     UserOtp?
+  notifications           Notification[]
+  notificationRecipients  NotificationRecipient[]
+  securityTaskAssignments SecurityTaskAssignment[]
+
+  sentComplaints     Complaint[] @relation("SentComplaints")
+  receivedComplaints Complaint[] @relation("ReceivedComplaints")
+
+  aid                 Aid[]
+  aidDisplaceds       AidDisplaced[]       @relation("DisplacedAidRelation")
+  aidDelegatePortions AidDelegatePortion[]
+  aidGiven            AidDisplaced[]       @relation("AidGiverRelation")
+}
+
+model UserOtp {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// ---------------- DISPLACED ----------------
+model DisplacedProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(DISPLACED)
+  rank USER_RANK @default(DISPLACED)
+
+  originalAddress String
+  wives           Wife[]
+  socialStatus    DisplacedSocialStatus @relation(fields: [socialStatusId], references: [id], onDelete: Cascade)
+  socialStatusId  String                @db.ObjectId
+  displacement    Displacement          @relation(fields: [displacementId], references: [id], onDelete: Cascade)
+  displacementId  String                @db.ObjectId
+
+  warInjuries       WarInjury[]
+  martyrs           Martyr[]
+  medicalConditions MedicalCondition[]
+
+  additionalNotes String?
+}
+
+model Wife {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  // displaced   DisplacedProfile @relation(fields: [displacedId], references: [id])
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id], onDelete: Cascade)
+
+  name        String
+  identity    String
+  nationality String
+  isPregnant  Boolean
+  isWetNurse  Boolean
+}
+
+model DisplacedSocialStatus {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  status          SOCIAL_STATUS
+  numberOfWives   Int
+  numberOfMales   Int
+  numberOfFemales Int
+  // totalFamilyMembers Int
+
+  ageGroups         AgeGroup[]
+  displacedProfiles DisplacedProfile[]
+}
+
+model AgeGroup {
+  id             String                @id @default(auto()) @map("_id") @db.ObjectId
+  socialStatusId String                @db.ObjectId
+  socialStatus   DisplacedSocialStatus @relation(fields: [socialStatusId], references: [id], onDelete: Cascade)
+  ageGroup       AGES
+  count          Int
+}
+
+model Displacement {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  tentNumber       String
+  tentType         ACCOMMODATION_TYPE
+  familyStatusType FAMILY_STATUS_TYPE
+  displacementDate DateTime
+  // delegateId        String             @db.ObjectId
+  // delegate          User               @relation(fields: [delegateId], references: [id], onDelete: Cascade)
+  delegate         User?              @relation(fields: [delegateId], references: [id], onDelete: SetNull)
+  delegateId       String?            @db.ObjectId
+
+  displacedProfiles DisplacedProfile[]
+}
+
+model WarInjury {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id], onDelete: Cascade)
+
+  name   String
+  injury String
+}
+
+model Martyr {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id], onDelete: Cascade)
+  name        String
+}
+
+model MedicalCondition {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  displacedId String           @db.ObjectId
+  displaced   DisplacedProfile @relation(fields: [displacedId], references: [id], onDelete: Cascade)
+  name        String
+  condition   String
+}
+
+// ---------------- DELEGATE ----------------
+model DelegateProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(DELEGATE)
+  rank USER_RANK @default(DELEGATE)
+
+  age                      Int
+  socialStatus             SOCIAL_STATUS
+  education                String
+  numberOfResponsibleCamps Int? //TODO: remove it
+  numberOfFamilies         Int?
+}
+
+// ---------------- MANAGER ----------------
+model ManagerProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(MANAGER)
+  rank USER_RANK @default(MANAGER)
+
+  socialStatus SOCIAL_STATUS
+}
+
+// ---------------- SECURITY ----------------
+model SecurityProfile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name                   String
+  identity               String
+  nationality            String
+  gender                 GENDER
+  profileImage           String?
+  phoneNumber            String
+  alternativePhoneNumber String?
+
+  role USER_TYPE @default(SECURITY_PERSON)
+  rank USER_RANK
+
+  socialStatus    SOCIAL_STATUS
+  additionalNotes String?
+}
+
+// ---------------- WRITTEN CONTENT ----------------
+
+enum TYPE_WRITTEN_CONTENT {
+  BLOG
+  SUCCESS_STORIES
+  ADS
+}
+
+model WrittenContent {
+  id      String               @id @default(auto()) @map("_id") @db.ObjectId
+  title   String
+  content String
+  brief   String?
+  imgs    String[]
+  type    TYPE_WRITTEN_CONTENT
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------- ENUMS ----------------
+enum NOTIFICATION_STATUS {
+  READ
+  UNREAD
+}
+
+enum NOTIFICATION_ACTION {
+  CHANGE_DELEGATE
+  EDIT
+  DELETE
+  CALL
+  UPDATE
+  MEETING
+  ADD_AID
+  ANOTHER
+}
+
+enum AID_TYPE {
+  FINANCIAL_AID
+  FOOD_AID
+  MEDICAL_AID
+  CLEANING_AID
+  CLOTHING_AIDS
+  EDUCATIONAL_AID
+  OTHER_AID
+}
+
+// ---------------- NOTIFICATIONS ----------------
+
+model Notification {
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String
+  action    NOTIFICATION_ACTION
+  aidType   AID_TYPE?
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  fromUserId String @db.ObjectId
+  fromUser   User   @relation(fields: [fromUserId], references: [id], onDelete: Cascade)
+
+  // recipients pivot table
+  toUsers NotificationRecipient[]
+}
+
+model NotificationRecipient {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  notificationId String       @db.ObjectId
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  status NOTIFICATION_STATUS @default(UNREAD)
+  readAt DateTime?
+}
+
+// ---------------- TASKS ----------------
+enum TASKS_TABS {
+  COMPLETED_TASKS
+  UPCOMING_TASKS
+}
+
+model SecurityTask {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  dateTime  DateTime
+  title     String
+  body      String
+  type      TASKS_TABS
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Many-to-many relation with Security (User)
+  assignedSecurities SecurityTaskAssignment[]
+}
+
+// Pivot table for task assignments
+model SecurityTaskAssignment {
+  id     String       @id @default(auto()) @map("_id") @db.ObjectId
+  taskId String       @db.ObjectId
+  task   SecurityTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  securityId String @db.ObjectId
+  security   User   @relation(fields: [securityId], references: [id], onDelete: Cascade)
+
+  assignedAt DateTime @default(now())
+}
+
+// ---------------- COMPLAINTS ----------------
+enum COMPLAINT_STATUS {
+  READ
+  PENDING
+}
+
+model Complaint {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String
+  reply     String?
+  status    COMPLAINT_STATUS @default(PENDING)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  senderId String @db.ObjectId
+  sender   User   @relation("SentComplaints", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId String @db.ObjectId
+  receiver   User   @relation("ReceivedComplaints", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+// ---------------- ENUMS ----------------
+enum TYPE_AID {
+  FINANCIAL
+  FOOD
+  MEDICAL
+  CLEANING
+  CLOTHING
+  EDUCATIONAL
+  OTHER
+}
+
+enum DISTRIBUTION_METHOD {
+  DELEGATES
+  DISPLACED_FAMILIES
+}
+
+enum QUANTITY_TYPE {
+  LIMITED
+  UNLIMITED
+}
+
+enum AID_STATUS {
+  UPCOMING
+  ONGOING
+  PREVIOUS
+}
+
+enum DISPLACED_RECEIVED_AIDS {
+  RECEIVED_AIDS
+  PROVIDED_AIDS
+}
+
+// ---------------- AID ----------------
+model Aid {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  type             TYPE_AID
+  description      String
+  deliveryDate     DateTime?
+  deliveryLocation String?
+  securityRequired Boolean       @default(false)
+  quantityType     QUANTITY_TYPE
+  existingQuantity Int?
+
+  distributionMethod DISTRIBUTION_METHOD
+  status             AID_STATUS          @default(UPCOMING)
+  isCompleted        Boolean             @default(false)
+  additionalNotes    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String @db.ObjectId
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  categories           CategoryRange[]
+  displacedAssignments AidDisplaced[]
+  delegatePortions     AidDelegatePortion[]
+}
+
+// ---------------- DISPLACED AID ----------------
+model AidDisplaced {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  aidId String @db.ObjectId
+  aid   Aid    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+
+  displacedId String @db.ObjectId
+  displaced   User   @relation("DisplacedAidRelation", fields: [displacedId], references: [id], onDelete: Cascade)
+
+  deliveryCode      String
+  receivedAt        DateTime?
+  displacedReceived DISPLACED_RECEIVED_AIDS @default(PROVIDED_AIDS)
+  aidGiverId        String?                 @db.ObjectId
+  aidGiver          User?                   @relation("AidGiverRelation", fields: [aidGiverId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([aidId, displacedId])
+}
+
+// ---------------- DELEGATE PORTIONS ----------------
+model AidDelegatePortion {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  aidId String @db.ObjectId
+  aid   Aid    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+
+  delegateId String @db.ObjectId
+  delegate   User   @relation(fields: [delegateId], references: [id], onDelete: Cascade)
+
+  portion Int
+}
+
+// ---------------- CATEGORY RANGE ----------------
+model CategoryRange {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  label String
+  min   Int
+  max   Int?
+
+  portion Int?
+  aid     Aid?    @relation(fields: [aidId], references: [id], onDelete: Cascade)
+  aidId   String? @db.ObjectId
 }
