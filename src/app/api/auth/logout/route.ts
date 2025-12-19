@@ -2,8 +2,9 @@
 import { NextResponse } from "next/server";
 import { COOKIE_NAME } from "@/constants/cookie-name";
 
-export async function POST() {
-    const response = NextResponse.redirect("/"); // or any route
+export async function POST(request: Request) {
+    const redirectUrl = new URL('/', request.url);
+    const response = NextResponse.redirect(redirectUrl);
 
     // Clear cookie on server-side
     response.headers.append(
