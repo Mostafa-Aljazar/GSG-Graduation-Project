@@ -5,7 +5,7 @@
   "scripts": {
     "prisma:generate": "pnpm exec prisma generate",
     "build": "pnpm prisma:generate && next build",
-    "dev": "next dev",
+    "dev": "pnpm prisma:generate && next dev",
     "start": "next start",
     "lint": "eslint",
     "clean": "rimraf .next && rimraf node_modules/.cache"
