@@ -6,6 +6,7 @@
     "prisma:generate": "pnpm exec prisma generate",
     "build": "pnpm prisma:generate && next build",
     "dev": "pnpm prisma:generate && next dev",
+    "postinstall": "pnpm prisma:generate",
     "start": "next start",
     "lint": "eslint",
     "clean": "rimraf .next && rimraf node_modules/.cache"
