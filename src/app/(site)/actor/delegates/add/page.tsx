@@ -1,7 +1,7 @@
 import { IMG_MAN } from '@/assets/actor';
 import DelegateProfileForm from '@/components/actor/delegates/profile/delegate-profile-form';
 import { getDelegateRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { Metadata } from 'next';
 

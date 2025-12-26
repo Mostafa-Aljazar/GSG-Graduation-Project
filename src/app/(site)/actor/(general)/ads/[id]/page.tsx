@@ -3,14 +3,13 @@ import SingleWrittenContentView from '@/components/actor/manager/written-content
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { IMG_FAVICON } from '@/assets/common';
 import { Metadata, ResolvingMetadata } from 'next';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
 import { getWrittenContent } from '@/actions/common/written-content/getWrittenContent';
 
 interface IAdPageProps {
   params: Promise<{ id: string }>;
 }
-
 
 const FALLBACK = {
   TITLE: 'إعلان | AL-AQSA Camp',

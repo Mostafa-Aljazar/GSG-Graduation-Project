@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { COOKIE_NAME } from "@/constants/cookie-name";
+import { COOKIE_NAME } from "@/constants/";
 
 export async function POST(request: Request) {
     const redirectUrl = new URL('/', request.url);

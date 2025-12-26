@@ -3,7 +3,7 @@ import { IMG_FAVICON } from '@/assets/common';
 import SecurityTasksFeed from '@/components/actor/security/tasks/security-tasks-feed';
 import SecurityTasksHeaderTabs from '@/components/actor/security/tasks/security-tasks-tabs';
 import { getSecurityRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { TASKS_TABS } from '@/types/actor/common/index.type';
 import { Stack } from '@mantine/core';
 import { Metadata, ResolvingMetadata } from 'next';

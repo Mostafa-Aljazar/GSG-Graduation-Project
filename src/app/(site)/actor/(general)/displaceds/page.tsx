@@ -2,7 +2,7 @@ import { getDisplaceds } from '@/actions/actor/general/displaceds/getDisplaceds'
 import { IMG_MAN } from '@/assets/actor';
 import DisplacedsList from '@/components/actor/general/displaceds/view/displaceds-list';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Stack } from '@mantine/core';
 import { Metadata } from 'next';
 

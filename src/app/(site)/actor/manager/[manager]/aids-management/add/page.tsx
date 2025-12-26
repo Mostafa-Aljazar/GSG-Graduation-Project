@@ -1,7 +1,7 @@
 import { IMG_FAVICON } from '@/assets/common';
 import AddAidController from '@/components/actor/common/aids-management/add/add-aid-controller';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';
 

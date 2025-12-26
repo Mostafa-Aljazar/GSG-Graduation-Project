@@ -1,7 +1,7 @@
 import { IMG_FAVICON } from '@/assets/common';
 import AdsView from '@/components/actor/general/ads/ads-component';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata } from 'next';
 
 const FALLBACK = {

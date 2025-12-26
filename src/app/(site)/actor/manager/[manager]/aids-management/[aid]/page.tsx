@@ -2,7 +2,7 @@ import { getAid } from '@/actions/actor/common/aids-management/getAid';
 import { IMG_FAVICON } from '@/assets/common';
 import AidView from '@/components/actor/common/aids-management/aid/aid-view';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { USER_TYPE } from '@/constants/user-types';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';

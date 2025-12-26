@@ -1,7 +1,7 @@
 import { IMG_FAVICON } from '@/assets/common';
 import AddWrittenContentForm from '@/components/actor/manager/written-content/add/written-form/add-written-content-form';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';
 

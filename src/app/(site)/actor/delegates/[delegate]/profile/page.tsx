@@ -2,7 +2,7 @@ import { getDelegateProfile } from '@/actions/actor/delegates/profile/getDelegat
 import { IMG_MAN } from '@/assets/actor';
 import DelegateProfileForm from '@/components/actor/delegates/profile/delegate-profile-form';
 import { getDelegateRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 
 const FALLBACK = {

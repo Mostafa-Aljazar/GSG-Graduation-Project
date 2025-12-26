@@ -5,7 +5,7 @@ import HeroSection from '@/components/landing/common/hero-section';
 import Services from '@/components/landing/home/services';
 import Statistics from '@/components/landing/home/statistics';
 import { LANDING_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { DESTINATION_HERO_SECTION } from '@/types/landing/index.type';
 import { Metadata } from 'next';
 

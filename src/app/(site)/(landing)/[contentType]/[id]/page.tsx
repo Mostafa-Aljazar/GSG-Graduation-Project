@@ -2,7 +2,7 @@ import { getWrittenContent } from '@/actions/common/written-content/getWrittenCo
 import { IMG_BLOG_CHILD } from '@/assets/landing/blog';
 import SingleWrittenContentComponent from '@/components/landing/written-content/single-written-content/single-written-content-component';
 import { LANDING_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { Stack } from '@mantine/core';
 import { Metadata, ResolvingMetadata } from 'next';

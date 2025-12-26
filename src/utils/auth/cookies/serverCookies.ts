@@ -1,7 +1,7 @@
 // utils/auth/cookies/server.ts
 "use server"
 import { cookies } from 'next/headers'
-import { COOKIE_NAME } from '@/constants/cookie-name'
+import { COOKIE_NAME } from '@/constants'
 import { IUser } from '@/types/actor/common/user/user.type'
 
 export interface Session {

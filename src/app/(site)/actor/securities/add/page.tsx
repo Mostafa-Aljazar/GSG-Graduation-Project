@@ -1,7 +1,7 @@
 import { IMG_MAN } from '@/assets/actor';
 import SecurityProfileForm from '@/components/actor/securities/profile/security-profile-form';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { Metadata } from 'next';
 

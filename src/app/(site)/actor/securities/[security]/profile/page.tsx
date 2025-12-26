@@ -2,7 +2,7 @@ import { getSecurityProfile } from '@/actions/actor/securities/profile/getSecuri
 import { IMG_MAN } from '@/assets/actor';
 import SecurityProfileForm from '@/components/actor/securities/profile/security-profile-form';
 import { getSecurityRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 
 interface ISecurityProfileProps {

@@ -2,7 +2,7 @@ import { getSecuritiesIds } from '@/actions/actor/general/security-data/getSecur
 import { IMG_MAN } from '@/assets/actor';
 import SecuritiesList from '@/components/actor/general/securities/view/securities-list';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Stack } from '@mantine/core';
 import { Metadata } from 'next';
 

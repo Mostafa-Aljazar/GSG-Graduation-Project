@@ -1,6 +1,6 @@
 // utils/auth/cookies/client.ts
 import Cookies from 'js-cookie'
-import { COOKIE_NAME } from '@/constants/cookie-name'
+import { COOKIE_NAME } from '@/constants'
 import { IUser } from '@/types/actor/common/user/user.type'
 
 export interface Session {

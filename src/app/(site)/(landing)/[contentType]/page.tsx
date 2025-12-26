@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { IMG_FAVICON } from '@/assets/common';
 import { Metadata } from 'next';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { LANDING_ROUTES } from '@/constants/routes';
 
 interface IWrittenContentPageProps {
@@ -15,7 +15,7 @@ interface IWrittenContentPageProps {
 }
 
 const FALLBACK = {
-  TITLE: 'المدونة | AL-AQSA Camp',
+  TITLE: 'المقالات و قصص النجاح | AL-AQSA Camp',
   DESCRIPTION: 'تابع أحدث المقالات والقصص على منصة مخيم الأقصى للنازحين',
   IMAGE: IMG_FAVICON.src,
 };

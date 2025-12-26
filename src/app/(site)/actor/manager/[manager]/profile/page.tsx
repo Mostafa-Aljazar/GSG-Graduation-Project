@@ -2,7 +2,7 @@ import { getManagerProfile } from '@/actions/actor/manager/profile/getManagerPro
 import { IMG_MAN } from '@/assets/actor';
 import ManagerProfileForm from '@/components/actor/manager/profile/manager-profile-form';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 
 interface IManagerProfileProps {

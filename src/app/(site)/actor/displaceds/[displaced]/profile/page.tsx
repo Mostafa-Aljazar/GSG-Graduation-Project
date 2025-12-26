@@ -1,7 +1,7 @@
 import { getDisplacedProfile } from '@/actions/actor/displaceds/profile/getDisplacedProfile';
 import DisplacedProfileForm from '@/components/actor/displaceds/profile/displaced-profile-form';
 import { getDisplacedRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 
 const FALLBACK = {

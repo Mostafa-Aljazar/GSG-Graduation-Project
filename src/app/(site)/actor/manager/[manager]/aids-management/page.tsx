@@ -2,7 +2,7 @@ import { getAids } from '@/actions/actor/common/aids-management/getAids';
 import { IMG_FAVICON } from '@/assets/common';
 import CommonAidsManagementView from '@/components/actor/common/aids-management/main/view/common-aids-management-view';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { USER_TYPE } from '@/constants/user-types';
 import { TYPE_GROUP_AIDS } from '@/types/actor/common/index.type';
 import { Metadata, ResolvingMetadata } from 'next';

@@ -2,7 +2,7 @@ import { getComplaints } from '@/actions/actor/general/complaints/getComplaints'
 import { IMG_FAVICON } from '@/assets/common';
 import ComplaintsView from '@/components/actor/general/complaints/view/complaints-view';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { USER_RANK } from '@/constants/user-types';
 import { COMPLAINTS_STATUS, COMPLAINTS_TABS } from '@/types/actor/common/index.type';
 import { Metadata, ResolvingMetadata } from 'next';

@@ -2,7 +2,7 @@ import { getWrittenContent } from '@/actions/common/written-content/getWrittenCo
 import { IMG_FAVICON } from '@/assets/common';
 import SingleWrittenContentView from '@/components/actor/manager/written-content/single-written-content/single-written-content-view';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { TYPE_WRITTEN_CONTENT } from '@/types/common/index.type';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';

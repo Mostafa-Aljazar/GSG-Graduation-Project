@@ -1,7 +1,7 @@
 import { IMG_FAVICON } from '@/assets/common';
 import WrittenContentView from '@/components/actor/manager/written-content/main/content/written-content-view';
 import { getManagerRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';
 

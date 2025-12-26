@@ -1,7 +1,7 @@
 import { IMG_MAN } from '@/assets/actor';
 import DisplacedProfileForm from '@/components/actor/displaceds/profile/displaced-profile-form';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { ACTION_ADD_EDIT_DISPLAY } from '@/types/common/index.type';
 import { Metadata } from 'next';
 

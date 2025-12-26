@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/utils/prisma';
 import { comparePassword, createJWT } from '@/utils/auth';
 import { IUser } from '@/types/actor/common/user/user.type';
-import { COOKIE_NAME } from '@/constants/cookie-name';
+import { COOKIE_NAME } from '@/constants';
 import { USER_TYPE } from '@prisma/client';
 import { USER_TYPE as USER_TYPE_LOCAL, USER_RANK as USER_RANK_LOCAL } from '@/constants/user-types';
 

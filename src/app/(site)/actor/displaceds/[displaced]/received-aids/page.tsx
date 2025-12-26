@@ -4,7 +4,7 @@ import { IMG_FAVICON } from '@/assets/common';
 import DisplacedReceivedAidHeaderTabs from '@/components/actor/displaceds/received-aids/displaced-received-aids-tabs';
 import DisplacedReceivedAidsFeed from '@/components/actor/displaceds/received-aids/displaced-recived-aids-feed';
 import { getDisplacedRoutes } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { DISPLACED_RECEIVED_AIDS_TABS } from '@/types/actor/common/index.type';
 import { GET_DISPLACED_RECEIVED_AIDS_TABS } from '@/types/common/index.type';
 import { Stack } from '@mantine/core';

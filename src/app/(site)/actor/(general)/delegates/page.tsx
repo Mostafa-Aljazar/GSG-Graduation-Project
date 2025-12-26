@@ -2,10 +2,9 @@ import { getDelegates } from '@/actions/actor/general/delegates/getDelegates';
 import { IMG_MAN } from '@/assets/actor';
 import DelegatesList from '@/components/actor/general/delegates/view/delegates-list';
 import { GENERAL_ACTOR_ROUTES } from '@/constants/routes';
-import { APP_URL } from '@/constants/services';
+import { APP_URL } from '@/constants/';
 import { Stack } from '@mantine/core';
 import { Metadata } from 'next';
-
 
 const FALLBACK = {
   TITLE: 'قائمة المندوبين | AL-AQSA Camp',
