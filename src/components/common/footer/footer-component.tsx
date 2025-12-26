@@ -1,50 +1,45 @@
 'use client';
 
-import { Box, Stack, Text, Divider, Flex } from '@mantine/core';
-import { FOOTER_COPYRIGHT, FOOTER_DESC, FOOTER_TITLE } from '@/content/common/footer';
-import Footer_Contact_Info from '@/components/common/footer/contact-info';
-import Footer_Form from '@/components/common/footer/contact-form';
+import { Box, Grid, GridCol, Stack, Text, Divider } from '@mantine/core';
+import { FOOTER_TITLE, FOOTER_DESC, FOOTER_COPYRIGHT } from '@/content/common/footer';
+import ContactForm from './contact-form';
+import FooterContactInfo from './contact-info';
 
 export default function FooterComponent() {
   return (
     <Box
       component='footer'
-      c='white'
-      pos='relative'
-      pt={20}
+      // bg='gray.1'
+      // py={60}
+      pt={40}
       pb={20}
-      style={{ borderTop: '1px solid #e5e7eb' }}
-      w='100%'
-      px={{ base: 20, lg: '5%' }}
-      ta='right'
+      px={{ base: 20, lg: '6%' }}
+      dir='rtl'
       id='contact-us'
     >
-      <Text fw={600} fz={22} mb={8} className='text-primary!'>
-        {FOOTER_TITLE}
-      </Text>
+      <Grid gutter={48}>
+        <GridCol span={{ base: 12, md: 6 }}>
+          <Stack gap='md'>
+            <Text fw={500} fz={{ base: 16, md: 22 }} c={'primary.9'}>
+              {FOOTER_TITLE}
+            </Text>
 
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        wrap='nowrap'
-        justify='space-between'
-        w={'100%'}
-        gap={{ base: 20, md: '5%' }}
-      >
-        <Stack justify='space-between' w={{ base: '100%', lg: '80%' }} h='100%'>
-          <Text c='dark' fz={15} fw={500} mb={16}>
-            {FOOTER_DESC}
-          </Text>
-          <Footer_Contact_Info className='hidden! md:block!' />
-        </Stack>
+            <Text c='dimmed' lh={1.7} fz={16}>
+              {FOOTER_DESC}
+            </Text>
 
-        <Footer_Form />
-      </Flex>
+            <FooterContactInfo />
+          </Stack>
+        </GridCol>
 
-      <Footer_Contact_Info className='px-3! pt-7! md:hidden! block!' />
+        <GridCol span={{ base: 12, md: 6 }}>
+          <ContactForm />
+        </GridCol>
+      </Grid>
 
-      <Divider w={'100%'} my={20} className='bg-gray-300! shrink-0' />
+      <Divider my={32} />
 
-      <Text fz='sm' c={'gray'} ta={'right'}>
+      <Text size='sm' c='dimmed' ta='center'>
         {FOOTER_COPYRIGHT}
       </Text>
     </Box>

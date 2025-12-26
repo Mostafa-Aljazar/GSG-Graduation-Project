@@ -2,7 +2,6 @@ import { IMG_FAVICON } from '@/assets/common';
 import { IMG_HOME_CHILD } from '@/assets/landing/home';
 import ChildSection from '@/components/landing/common/child-section';
 import HeroSection from '@/components/landing/common/hero-section';
-import DonationForm from '@/components/landing/donation/donation-form';
 import Services from '@/components/landing/home/services';
 import Statistics from '@/components/landing/home/statistics';
 import { LANDING_ROUTES } from '@/constants/routes';
@@ -58,7 +57,6 @@ export default function Home() {
       <Statistics />
       <Services />
       <ChildSection childImage={IMG_HOME_CHILD} desc={childDescription} />
-      <DonationForm />
     </>
   );
 }

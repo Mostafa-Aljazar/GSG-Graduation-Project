@@ -11,10 +11,10 @@ import { APP_URL } from '@/constants/services';
 import { LANDING_ROUTES } from '@/constants/routes';
 
 interface IWrittenContentPageProps {
-  params: { contentType: TYPE_BLOG_OR_SUCCESS_STORIES };
+  params: Promise<{ contentType: TYPE_BLOG_OR_SUCCESS_STORIES }>;
 }
 
-  const FALLBACK = {
+const FALLBACK = {
   TITLE: 'المدونة | AL-AQSA Camp',
   DESCRIPTION: 'تابع أحدث المقالات والقصص على منصة مخيم الأقصى للنازحين',
   IMAGE: IMG_FAVICON.src,
@@ -49,7 +49,6 @@ export const metadata: Metadata = {
 };
 
 export default async function WrittenContentPage({ params }: IWrittenContentPageProps) {
-
   const { contentType } = await params;
 
   const destinationHero =

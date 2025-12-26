@@ -1,59 +1,76 @@
 'use client';
+
 import CountUp from 'react-countup';
+import { Box, Container, SimpleGrid, Stack, Text, ThemeIcon, Title, Card } from '@mantine/core';
 import {
+  HOME_STATISTICS_TITLE,
   HOME_STATISTICS_MESSAGE,
   HOME_STATISTICS_DATA,
-  HOME_STATISTICS_TITLE,
 } from '@/content/landing';
-import { Group, Stack, Text, SimpleGrid, ThemeIcon } from '@mantine/core';
 
 export default function Statistics() {
   return (
-    <Stack bg={'#F7F2DB'} align='center' px={{ base: '5%', xl: '10%' }} py={30} gap={20}>
-      <Text fw={600} c={'primary.8'} fz={{ base: 20, md: 25 }} ta={'center'} w={'100%'}>
-        {HOME_STATISTICS_TITLE}
-      </Text>
-      <Stack justify='center' gap='lg'>
-        <Text fz={{ base: 16, md: 20 }} fw={500} c={'dark'} ta='center'>
-          {HOME_STATISTICS_MESSAGE}
-        </Text>
+    <Box py={50} id='statistics' dir='rtl' className='bg-second-light'>
+      <Container size='xl'>
+        <Stack align='center' gap='xl'>
+          <Stack align='center' gap='md' className='max-w-[900px]'>
+            <Title order={2} fw={700} c={'primary.8'} fz={{ base: 20, md: 25 }} ta='center'>
+              {HOME_STATISTICS_TITLE}
+            </Title>
+            <Text className='max-w-3xl font-medium text-dark text-lg md:text-xl text-center leading-relaxed'>
+              {HOME_STATISTICS_MESSAGE}
+            </Text>
+          </Stack>
 
-        <SimpleGrid cols={2} spacing='lg' w={'100%'} mx={'auto'}>
-          {HOME_STATISTICS_DATA.map((stat, index) => (
-            <Group
-              key={index}
-              gap='sm'
-              wrap='nowrap'
-              align='center'
-              p={20}
-              className='justify-center!'
-            >
-              <ThemeIcon variant='transparent' className='text-primary!'>
-                <stat.icon size={30} />
-              </ThemeIcon>
-              <Stack gap={0}>
-                <Text fw={600} fz='lg' className='text-primary!'>
-                  <CountUp
-                    start={0}
-                    end={typeof stat.value === 'number' ? stat.value : 0}
-                    duration={1.5}
-                    // redraw={true}
-                    enableScrollSpy
-                    formattingFn={(val) =>
-                      val >= 1000 ? `+${(val / 1000).toFixed(1)} K` : `+${val}`
-                    }
-                  >
-                    {({ countUpRef }) => <span ref={countUpRef} />}
-                  </CountUp>
-                </Text>
-                <Text fz='lg' className='text-primary!'>
-                  {stat.label}
-                </Text>
-              </Stack>
-            </Group>
-          ))}
-        </SimpleGrid>
-      </Stack>
-    </Stack>
+          <SimpleGrid
+            cols={{ base: 2, md: 4 }}
+            spacing={{ base: 'lg', md: 'xl' }}
+            className='w-full'
+          >
+            {HOME_STATISTICS_DATA.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <Card
+                  key={index}
+                  shadow='lg'
+                  p={{ base: 'xl' }}
+                  radius='xl'
+                  className='bg-white hover:shadow-2xl transition-all hover:-translate-y-4 duration-300'
+                >
+                  <Stack align='center' gap='sm'>
+                    <ThemeIcon
+                      size={60}
+                      radius='xl'
+                      variant='filled'
+                      className='bg-second text-white'
+                    >
+                      <Icon size={30} strokeWidth={1.8} />
+                    </ThemeIcon>
+
+                    <Text className='font-black text-second text-4xl md:text-5xl text-center'>
+                      <CountUp
+                        end={stat.value}
+                        duration={2.8}
+                        enableScrollSpy
+                        scrollSpyDelay={200}
+                        formattingFn={(value) =>
+                          value >= 1000
+                            ? `+${(value / 1000).toFixed(1).replace('.0', '')} ألف`
+                            : `+${value}`
+                        }
+                      />
+                    </Text>
+
+                    <Text className='font-semibold text-dark text-lg text-center'>
+                      {stat.label}
+                    </Text>
+                  </Stack>
+                </Card>
+              );
+            })}
+          </SimpleGrid>
+        </Stack>
+      </Container>
+    </Box>
   );
 }

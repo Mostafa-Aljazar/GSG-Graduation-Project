@@ -63,6 +63,9 @@ export const HOME_STATISTICS_DATA = [
 
 // SERVICES
 export const HOME_SERVICES_TITLE = 'الإغاثة والخدمات الأساسية';
+export const HOME_SERVICES_SUBTITLE =
+  'نوفر الدعم الشامل والكريم للعائلات النازحة لضمان حياة آمنة وكريمة في ظل الظروف الصعبة.';
+
 export const HOME_SERVICES_Data = [
   {
     icon: Tent, // Placeholder name, replace with actual icon component/path
@@ -140,7 +143,7 @@ export const BLOG_TITLE = 'مدونتنا :';
 
 export const SUCCESS_STORIES_HERO_CONTENT = [
   {
-    title: 'قصص نجاحنا :',
+    title: 'قصص نجاحنا  :',
     desc: 'بتكاتف تطوعي، تحول اليأس إلى أمل، ونبني مجتمعًا مستدامًا نابضًا بالحياة.',
     image: IMG_SUCCESS_STORY_HERO_SLIDER_1,
   },
@@ -156,4 +159,4 @@ export const SUCCESS_STORIES_HERO_CONTENT = [
   },
 ];
 
-export const SUCCESS_STORIES_TITLE = 'قصص نجاحنا:';
+export const SUCCESS_STORIES_TITLE = 'قصص نجاحنا :';

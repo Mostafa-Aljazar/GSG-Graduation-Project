@@ -1,6 +1,6 @@
 import Image from 'next/image'; // Assuming Next.js Image component
-import { Box, Flex, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core';
-import { HOME_SERVICES_Data, HOME_SERVICES_TITLE } from '@/content/landing';
+import { Box, Flex, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { HOME_SERVICES_Data, HOME_SERVICES_SUBTITLE, HOME_SERVICES_TITLE } from '@/content/landing';
 import { IMG_SERVICES_TENT } from '@/assets/landing/home';
 
 export default function Services() {
@@ -13,9 +13,15 @@ export default function Services() {
       py={30}
       gap={{ base: 0, md: 20 }}
     >
-      <Text fw={600} c={'primary.8'} fz={{ base: 20, md: 25 }} ta={'center'} w={'100%'}>
-        {HOME_SERVICES_TITLE}
-      </Text>
+      <Stack align='center' gap='sm'>
+        <Title order={2} fw={700} c={'primary.8'} fz={{ base: 20, md: 25 }} ta='center'>
+          {HOME_SERVICES_TITLE}
+        </Title>
+        <Text ta='center' c='dimmed' maw={720}>
+          {HOME_SERVICES_SUBTITLE}
+        </Text>
+      </Stack>
+
       <Flex
         p={0}
         direction={{ base: 'column', md: 'row' }}
@@ -31,21 +37,21 @@ export default function Services() {
           {HOME_SERVICES_Data.map((stat, index) => (
             <Stack
               key={index}
-              gap='sm'
+              gap={10}
               align='center'
               bg={'white'}
-              p={10}
+              p={20}
               w={{ base: '100%', md: '100%' }}
-              className='shadow-md! mx-auto rounded-sm transition-all! duration-300! ease-in-out!'
+              className='bg-white hover:shadow-md border border-gray-100 rounded-lg transition-all hover:-translate-y-4 duration-300'
             >
-              <ThemeIcon variant='transparent' className='text-primary!'>
+              <ThemeIcon variant='transparent' className='text-primary/80!'>
                 <stat.icon size={25} />
               </ThemeIcon>
-              <Stack gap={0} justify='center' align='center'>
-                <Text ta={'center'} fw={600} fz={16} className='text-primary!'>
+              <Stack gap={10} justify='center' align='center'>
+                <Text ta={'center'} fw={500} fz={16} className='text-primary/80!'>
                   {stat.title}
                 </Text>
-                <Text ta={'center'} fw={500} fz={15} className='text-dark'>
+                <Text ta={'center'} fw={400} fz={14} c={'gray'} className='text-dark'>
                   {stat.description}
                 </Text>
               </Stack>

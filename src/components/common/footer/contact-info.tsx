@@ -3,7 +3,7 @@ import { Box, Group, Stack, Text, ThemeIcon } from '@mantine/core';
 import { Phone, Mail, MapPin, Instagram, Linkedin, Facebook, X } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Footer_Contact_Info({ className }: { className?: string }) {
+export default function FooterContactInfo({ className }: { className?: string }) {
   return (
     <Box className={className}>
       <Stack gap={20} mb={16}>
@@ -11,7 +11,7 @@ export default function Footer_Contact_Info({ className }: { className?: string 
           <ThemeIcon className='bg-second-light! rounded-full !'>
             <Phone size={16} className='text-primary!' />
           </ThemeIcon>
-          <Text c='dark' fz={16} fw={500} dir='ltr'>
+          <Text c='dark' fz={16} fw={400} dir='ltr'>
             +972 59-579-6456
           </Text>
         </Group>
@@ -19,7 +19,7 @@ export default function Footer_Contact_Info({ className }: { className?: string 
           <ThemeIcon className='bg-second-light! rounded-full!'>
             <Mail size={16} className='text-primary!' />
           </ThemeIcon>
-          <Text c='dark' fz={16} fw={500} dir='ltr'>
+          <Text c='dark' fz={16} fw={400} dir='ltr'>
             AlaqsaCamp@gmail.com
           </Text>
         </Group>
@@ -27,13 +27,13 @@ export default function Footer_Contact_Info({ className }: { className?: string 
           <ThemeIcon className='bg-second-light! rounded-full!'>
             <MapPin size={16} className='text-primary!' />
           </ThemeIcon>
-          <Text c='dark' fz={16} fw={500} dir='ltr'>
+          <Text c='dark' fz={16} fw={400} dir='ltr'>
             Gaza, Palestine
           </Text>
         </Group>
       </Stack>
       <Box mb={16}>
-        <Text mb={8} fz={16} fw={600} className='text-primary!'>
+        <Text mb={8} fz={16} fw={400} className='text-primary!'>
           {FOOTER_FOLLOW_US} :
         </Text>
         <Group gap={20}>

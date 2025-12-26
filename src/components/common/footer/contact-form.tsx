@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Textarea, TextInput, Box, Text, Flex, LoadingOverlay, Stack } from '@mantine/core';
+import { Button, Textarea, TextInput, Box, Text, LoadingOverlay, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { contactUsSchema, TContactUsType } from '@/validations/landing/contact-us.schema';
@@ -11,7 +11,7 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 
-export default function Footer_Form() {
+export default function ContactForm() {
   const form = useForm<TContactUsType>({
     mode: 'controlled',
     initialValues: {
@@ -71,9 +71,9 @@ export default function Footer_Form() {
   return (
     <Box
       p={20}
-      w={{ base: '100%', lg: '80%' }}
+      w={{ base: '100%', lg: '90%' }}
       pos='relative'
-      className='bg-gray-100 shadow-md border border-gray-300 rounded-lg'
+      className='bg-gray-50! shadow-md border border-gray-300 rounded-lg'
     >
       <LoadingOverlay
         visible={contactUSmutation.isPending}
@@ -81,39 +81,37 @@ export default function Footer_Form() {
         overlayProps={{ radius: 'md', blur: 1 }}
       />
       <form onSubmit={handleSubmit} className='space-y-3'>
-        <Flex gap={16} direction={{ base: 'column', md: 'row' }}>
-          <TextInput
-            label={
-              <Text fw={500} fz={16} c='dark'>
-                الاسم :
-              </Text>
-            }
-            placeholder='أدخل الاسم...'
-            {...commonInputProps}
-            {...form.getInputProps('name')}
-          />
-
-          <Stack w='100%' gap={0}>
-            <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
-              رقم الجوال :
-            </Text>
-            <Box dir='ltr' className='w-full'>
-              <PhoneInput
-                name='phone_number'
-                international
-                countryCallingCodeEditable={false}
-                defaultCountry='PS'
-                inputComponent={CustomPhoneInput}
-                placeholder='ادخل رقم الجوال'
-                key={form.key('phone_number')}
-                {...form.getInputProps('phone_number')}
-              />
-            </Box>
-          </Stack>
-        </Flex>
         <TextInput
           label={
-            <Text fw={500} fz={16} c='dark'>
+            <Text fw={400} c='dark'>
+              الاسم :
+            </Text>
+          }
+          placeholder='أدخل الاسم...'
+          {...commonInputProps}
+          {...form.getInputProps('name')}
+        />
+
+        <Stack w='100%' gap={0}>
+          <Text fw={400} mb={4} className='text-black! text-nowrap!'>
+            رقم الجوال :
+          </Text>
+          <Box dir='ltr' className='w-full'>
+            <PhoneInput
+              name='phone_number'
+              international
+              countryCallingCodeEditable={false}
+              defaultCountry='PS'
+              inputComponent={CustomPhoneInput}
+              placeholder='ادخل رقم الجوال'
+              key={form.key('phone_number')}
+              {...form.getInputProps('phone_number')}
+            />
+          </Box>
+        </Stack>
+        <TextInput
+          label={
+            <Text fw={400} c='dark'>
               البريد الإلكتروني :
             </Text>
           }
@@ -124,7 +122,7 @@ export default function Footer_Form() {
         />
         <Textarea
           label={
-            <Text fw={500} fz={16} c='dark'>
+            <Text fw={400} c='dark'>
               الرسالة :
             </Text>
           }
@@ -139,7 +137,7 @@ export default function Footer_Form() {
           size='sm'
           radius='sm'
           fz={16}
-          fw={500}
+          fw={400}
           disabled={contactUSmutation.isPending}
           className='bg-primary! hover:bg-primary/90! text-white! transition-colors'
         >
