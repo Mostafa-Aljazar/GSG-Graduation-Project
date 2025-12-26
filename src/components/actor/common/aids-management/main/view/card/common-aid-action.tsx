@@ -31,7 +31,6 @@ export default function CommonAidAction({
   aidId,
   aidDistributionMechanism,
 }: ICommonAidActionProps) {
-  console.log('🚀 ~ CommonAidAction ~ aidDistributionMechanism:', aidDistributionMechanism);
   const { userId: actorId, userType: role } = useAlreadyUserStore();
   const [query] = useQueryStates({
     'aids-tab': parseAsStringEnum<TYPE_GROUP_AIDS>(Object.values(TYPE_GROUP_AIDS)).withDefault(

@@ -112,7 +112,6 @@ export async function DELETE(req: NextRequest) {
 
         return NextResponse.json(response, { status: 200 });
     } catch (error: any) {
-        console.log("🚀 ~ DELETE ~ error:", error)
         return NextResponse.json(
             { status: 500, message: error.message || 'خطأ', error: error.message || 'خطأ' },
             { status: 500 }

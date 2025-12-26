@@ -68,7 +68,6 @@ export async function PUT(
 ) {
     try {
         const token = request.headers.get('authorization');
-        console.log("🚀 ~ PUT ~ token:", token)
         if (!token) {
             return NextResponse.json({ status: 401, message: 'Unauthorized' }, { status: 401 });
         }

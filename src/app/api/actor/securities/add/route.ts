@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
         }
 
         const existing = await prisma.user.findUnique({ where: { email } });
-        console.log("🚀 ~ POST ~ existing:", existing)
         if (existing) {
             return NextResponse.json<IActionResponse>({ status: 400, message: 'User with this email already exists' }, { status: 400 });
         }
@@ -69,7 +68,6 @@ export async function POST(req: NextRequest) {
             },
             include: { security: true },
         });
-        console.log("🚀 ~ POST ~ user:", user)
 
         // Generate OTP
         const otp = generateOTP();

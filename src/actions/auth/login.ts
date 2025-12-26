@@ -24,17 +24,12 @@ export const login = async ({
             password,
             role: userType,
         })
-        console.log("🚀 ~ login ~ response:", response)
 
         if (!response.data || response.status !== 200) {
             throw new Error('حدث خطأ في تسجيل الدخول')
         }
 
         await setSessionCookie({ token: response.data.token, user: response.data.user })
-
-
-        console.log("🚀 ~ login ~ getCookieFromServer:", await getSessionCookie())
-
 
         return {
             status: 200,

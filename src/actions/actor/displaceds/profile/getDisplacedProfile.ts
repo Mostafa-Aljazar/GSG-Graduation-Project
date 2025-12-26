@@ -25,7 +25,6 @@ export const getDisplacedProfile = async ({
         const response = await AqsaAPI.get<IDisplacedProfileResponse>(
             `/actor/displaceds/${displacedId}/profile`
         );
-        console.log("🚀 ~ getDisplacedProfile ~ response:", response)
 
         if (response.data?.user) return response.data;
 

@@ -53,10 +53,6 @@ export default function AidAddDisplacedsTable({ handelActiveStep, handleSubmit }
     selectedDisplacedIds: STORE_selectedDisplacedIds,
     setSelectedDisplacedIds: STORE_setSelectedDisplacedIds,
   } = useAidStore();
-  console.log(
-    '🚀 ~ AidAddDisplacedsTable ~ STORE_selectedDisplacedIds:',
-    STORE_selectedDisplacedIds
-  );
 
   const [selectedDisplacedIds, setSelectedDisplacedIds] = useState<string[]>(
     STORE_selectedDisplacedIds || []

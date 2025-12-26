@@ -15,7 +15,6 @@ interface Props {
 }
 
 export default function Notification_Icon({ notification }: Props) {
-  console.log('🚀 ~ Notification_Icon ~ notification:', notification?.action);
   const notificationType = notification;
 
   if (notificationType.action === NotificationActions.ADD_AID && notificationType?.aidType) {

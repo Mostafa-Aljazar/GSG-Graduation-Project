@@ -23,7 +23,6 @@ export default function AidView({ actorId, role, aidId }: IAidViewProps) {
     queryKey: ['aid', aidId, actorId],
     queryFn: () => getAid({ aidId }),
   });
-  console.log('🚀 ~ AidView ~ aidData:', aidData);
 
   const hasError = Boolean(error) || Boolean(aidData?.error);
 

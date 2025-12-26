@@ -30,7 +30,6 @@ export const addAidDisplaceds = async ({ aidId, displacedIds }: IAddAidDisplaced
         const response = await AqsaAPI.post<IActionResponse>(`/actor/common/aids-management/${aidId}/add-displaceds`,
             { displacedIds },
         );
-        console.log("🚀 ~ addAidDisplaceds ~ response:", response)
 
         if (response.data) {
             return {

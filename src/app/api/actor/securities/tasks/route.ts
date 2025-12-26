@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
 
         // Only MANAGER or SECURITY_PERSON can fetch tasks
         if (verified.role !== USER_TYPE.MANAGER && verified.role !== USER_TYPE.SECURITY_PERSON) {
-            console.log("🚀 ~ GET ~ verified.role !== USER_TYPE.MANAGER && verified.role !== USER_TYPE.SECURITY_PERSON")
             return NextResponse.json<ITasksResponse>(
                 {
                     status: 403,
@@ -41,7 +40,6 @@ export async function GET(req: NextRequest) {
         }
 
         const { searchParams } = new URL(req.url);
-        console.log("🚀 ~ GET ~ searchParams:", searchParams)
         const page = Number(searchParams.get('page') || 1);
         const limit = Number(searchParams.get('limit') || 5);
         const taskType = searchParams.get('taskType') as TASKS_TABS | null;
@@ -52,7 +50,6 @@ export async function GET(req: NextRequest) {
         if (taskType) whereClause.type = taskType;
 
         const totalItems = await prisma.securityTask.count({ where: whereClause });
-        console.log("🚀 ~ GET ~ totalItems:", totalItems)
 
         const tasksData = await prisma.securityTask.findMany({
             skip,
@@ -61,7 +58,6 @@ export async function GET(req: NextRequest) {
             include: { assignedSecurities: true },
             orderBy: { dateTime: 'desc' }, // NEWEST first
         });
-        console.log("🚀 ~ GET ~ tasksData:", tasksData)
 
         const tasks: ITask[] = tasksData.map(t => ({
             id: t.id,
@@ -71,7 +67,6 @@ export async function GET(req: NextRequest) {
             securitiesIds: t.assignedSecurities.map(s => s.securityId),
             type: TASKS_TABS[t.type],
         }));
-        console.log("🚀 ~ GET ~ tasks:", tasks)
 
         const totalPages = Math.ceil(totalItems / limit);
 

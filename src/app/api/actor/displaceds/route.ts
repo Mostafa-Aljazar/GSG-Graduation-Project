@@ -33,7 +33,6 @@ export async function GET(request: Request) {
         const limit = Number(url.searchParams.get('limit') || 15)
         const skip = (page - 1) * limit
         const search = url.searchParams.get('search') || ''
-        console.log("🚀 ~ GET ~ search:", search)
 
         let filters: TDisplacedsFilterFormValues = {
             wifeStatus: null,
@@ -47,9 +46,7 @@ export async function GET(request: Request) {
 
         try {
             const f = url.searchParams.get('filters')
-            console.log("🚀 ~ GET ~ f:", f)
             if (f) filters = JSON.parse(f)
-            console.log("🚀 ~ GET ~ filters:", filters)
         } catch { }
 
         const where: any = {}
@@ -72,9 +69,7 @@ export async function GET(request: Request) {
         // -------------------------------
         if (filters.wifeStatus) {
             const isPregnant = filters.wifeStatus === WIFE_STATUS.PREGNANT
-            console.log("🚀 ~ GET ~ isPregnant:", isPregnant)
             const isWetNurse = filters.wifeStatus === WIFE_STATUS.WET_NURSE
-            console.log("🚀 ~ GET ~ isWetNurse:", isWetNurse)
 
             where.wives = {
                 some: {

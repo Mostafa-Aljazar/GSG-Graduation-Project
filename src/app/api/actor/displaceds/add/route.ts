@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
         let verified: any
         try {
             verified = verifyJWT(token)
-            console.log("🚀 ~ POST ~ verified:", verified)
         } catch {
             return NextResponse.json({ status: 401, message: 'Invalid token' }, { status: 401 })
         }
@@ -26,7 +25,6 @@ export async function POST(req: NextRequest) {
         }
 
         const body = await req.json()
-        console.log("🚀 ~ POST ~ body:", body)
 
         const {
             name,
@@ -68,7 +66,6 @@ export async function POST(req: NextRequest) {
                 count: Number(count)
             })
         )
-        console.log("🚀 ~ POST ~ ageGroupsCreate:", ageGroupsCreate)
 
         // =============================
         // MAIN CREATE
@@ -150,7 +147,6 @@ export async function POST(req: NextRequest) {
                 }
             }
         })
-        console.log("🚀 ~ POST ~ user:", user)
 
         // =============================
         // OTP

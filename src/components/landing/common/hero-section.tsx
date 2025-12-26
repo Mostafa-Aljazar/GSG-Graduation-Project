@@ -21,8 +21,8 @@ export default function HeroSection({ destination }: Props) {
     destination == DESTINATION_HERO_SECTION.HOME
       ? HOME_HERO_CONTENT
       : destination == DESTINATION_HERO_SECTION.BLOG
-        ? BLOG_HERO_CONTENT
-        : SUCCESS_STORIES_HERO_CONTENT;
+      ? BLOG_HERO_CONTENT
+      : SUCCESS_STORIES_HERO_CONTENT;
 
   const images = content.map((item) => item.image);
 
@@ -36,7 +36,7 @@ export default function HeroSection({ destination }: Props) {
           alt={`Slide ${index + 1}`}
           src={item.src}
           fill
-          priority={index === 0}
+          priority
           style={{
             objectFit: 'cover',
             transition: 'transform 0.5s ease',

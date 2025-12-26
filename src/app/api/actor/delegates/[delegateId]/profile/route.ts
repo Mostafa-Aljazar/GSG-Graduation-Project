@@ -57,7 +57,6 @@ export async function GET(
             role: USER_TYPE.DELEGATE,
             socialStatus: SOCIAL_STATUS[userRecord.delegate.socialStatus],
         };
-        console.log("🚀 ~ GET ~ profile:", profile)
 
         return NextResponse.json({
             status: 200,

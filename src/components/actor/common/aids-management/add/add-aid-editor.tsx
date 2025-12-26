@@ -69,7 +69,6 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
     receivedDisplaceds,
     securitiesId,
   } = useAidStore();
-  console.log('🚀 ~ AddAidEditor ~ selectedDisplacedIds:', selectedDisplacedIds);
 
   const [query] = useQueryStates({
     action: parseAsStringEnum(Object.values(ACTION_ADD_EDIT_DISPLAY)).withDefault(
@@ -136,7 +135,6 @@ export default function AddAidEditor({ isLoading: parentLoading }: { isLoading: 
         position: 'top-left',
       });
     }
-    // console.log('🚀 ~ AddAidEditor ~ formValues:', formValues);
 
     mutation.mutate();
   };

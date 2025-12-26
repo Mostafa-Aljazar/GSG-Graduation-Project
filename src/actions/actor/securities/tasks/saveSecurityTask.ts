@@ -49,7 +49,6 @@ export const saveSecurityTask = async ({
         const response = taskId
             ? await AqsaAPI.put<IActionResponse>(`/actor/securities/tasks/${taskId}`, payload)
             : await AqsaAPI.post<IActionResponse>('/actor/securities/tasks/add', payload);
-        console.log("🚀 ~ saveSecurityTask ~ response:", response)
         const successStatus = taskId ? 200 : 201;
         const successMessage = taskId
             ? "تم تعديل المهمة بنجاح"

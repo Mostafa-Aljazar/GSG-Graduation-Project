@@ -31,7 +31,6 @@ export const getSecurityTasks = async ({
             params: { page, limit, taskType },
         });
 
-        console.log("🚀 ~ getSecurityTasks ~ response.data:", response.data)
         if (response.data) return response.data;
 
         throw new Error("بيانات المهام غير متوفرة");

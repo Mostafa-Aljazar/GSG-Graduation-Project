@@ -84,7 +84,6 @@ export async function POST(
                 },
             },
         });
-        console.log("🚀 ~ POST ~ aidDisplaced:", aidDisplaced)
 
         if (!aidDisplaced) {
             return NextResponse.json<IActionResponse>(
@@ -94,7 +93,6 @@ export async function POST(
         }
 
         if (aidDisplaced.displacedReceived == "RECEIVED_AIDS") {
-            console.log(`🚀 ~ POST ~ aidDisplaced.displacedReceived == "RECEIVED_AIDS":`, aidDisplaced.displacedReceived == "RECEIVED_AIDS")
             return NextResponse.json<IActionResponse>(
                 { status: 400, message: 'تم استلام المساعدة مسبقاً' },
                 { status: 400 }

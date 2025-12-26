@@ -113,7 +113,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ aidI
                 }
             })(),
         };
-        console.log("🚀 ~ GET ~ aidData:", aidData)
 
         return NextResponse.json<IAidResponse>({ status: 200, message: 'تم جلب المساعدة بنجاح', aid: aidData });
     } catch (err: any) {

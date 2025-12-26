@@ -34,7 +34,6 @@ export const addNewDisplaced = async ({
     },
     displacement: payload.displacement,
   };
-  console.log("🚀 ~ addNewDisplaced ~ preparedPayload:", preparedPayload)
 
   if (USE_FAKE) {
     const fakeData: IActionResponse = {

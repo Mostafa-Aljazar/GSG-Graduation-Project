@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
         const userRecord = await prisma.user.findFirst({
             where: { email, role: role as USER_TYPE },
         });
-        console.log("🚀 ~ POST ~ userRecord:", userRecord)
 
         if (!userRecord || !userRecord.password) {
             return NextResponse.json(

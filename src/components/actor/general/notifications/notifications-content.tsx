@@ -32,7 +32,6 @@ export default function NotificationsContent() {
         role: user?.role as TUserType,
       }),
   });
-  console.log('🚀 ~ NotificationsContent ~ notificationsData:', notificationsData);
 
   const hasError = Boolean(error) || Boolean(notificationsData?.error);
   return (

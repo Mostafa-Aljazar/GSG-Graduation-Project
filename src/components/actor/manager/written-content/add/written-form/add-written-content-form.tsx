@@ -67,7 +67,6 @@ export default function AddWrittenContentForm() {
     },
     enabled: query.action === ACTION_ADD_EDIT_DISPLAY.EDIT && !!query.id,
   });
-  console.log('🚀 ~ AddWrittenContentForm ~ existingData:', existingData);
 
   const [selectedFiles, setSelectedFiles] = useState<FileWithPath[]>([]);
   const [loadingImages, setLoadingImages] = useState(false);

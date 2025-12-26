@@ -65,7 +65,6 @@ export async function POST(req: NextRequest) {
             },
             include: { delegate: true },
         });
-        console.log("🚀 ~ POST ~ user.id:", user.id)
 
         // create OTP
         const otp = generateOTP();

@@ -1,7 +1,5 @@
 import ReportsPage from '@/components/actor/manager/reports/reports-page';
 
-const Reports = () => {
+export default function page() {
   return <ReportsPage />;
-};
-
-export default Reports;
+}

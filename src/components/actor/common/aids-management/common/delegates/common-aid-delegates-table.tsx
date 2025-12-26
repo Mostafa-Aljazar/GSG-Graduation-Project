@@ -53,18 +53,10 @@ export default function CommonAidDelegatesTable({ handelActiveStep }: Props) {
     selectedDelegatesPortions: STORE_selectedDelegatesPortions,
     setSelectedDelegatesPortions: STORE_setSelectedDelegatesPortions,
   } = useAidStore();
-  console.log(
-    '🚀 ~ CommonAidDelegatesTable ~ STORE_selectedDelegatesPortions:',
-    STORE_selectedDelegatesPortions
-  );
 
   const [selectedDelegatesPortions, setSelectedDelegatesPortions] = useState<
     ISelectedDelegatePortion[]
   >(STORE_selectedDelegatesPortions || []);
-  console.log(
-    '🚀 ~ CommonAidDelegatesTable ~ selectedDelegatesPortions:',
-    selectedDelegatesPortions
-  );
 
   const [query, setQuery] = useQueryStates({
     delegate_page: parseAsInteger.withDefault(1),

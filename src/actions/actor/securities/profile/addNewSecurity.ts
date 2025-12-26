@@ -32,7 +32,6 @@ export const addNewSecurity = async ({
     try {
         // src\app\api\actor\securities\add
         const response = await AqsaAPI.post<IActionResponse>("/actor/securities/add", preparedPayload);
-        console.log("🚀 ~ addNewSecurity ~ response:", response)
 
         if (response.data) {
             return response.data;

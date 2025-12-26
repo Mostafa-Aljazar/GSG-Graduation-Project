@@ -44,7 +44,6 @@ export const sendUsersActionRequest = async ({
             details,
             action
         });
-        console.log("🚀 ~ sendUsersActionRequest ~ response:", response)
 
         if (response.status === 200) {
             return {

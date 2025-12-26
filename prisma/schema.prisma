@@ -353,7 +353,7 @@ model NotificationRecipient {
   notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
 
   userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   status NOTIFICATION_STATUS @default(UNREAD)
   readAt DateTime?
@@ -464,8 +464,8 @@ model Aid {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  createdById String @db.ObjectId
-  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String? @db.ObjectId
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
 
   categories           CategoryRange[]
   displacedAssignments AidDisplaced[]
@@ -486,7 +486,7 @@ model AidDisplaced {
   receivedAt        DateTime?
   displacedReceived DISPLACED_RECEIVED_AIDS @default(PROVIDED_AIDS)
   aidGiverId        String?                 @db.ObjectId
-  aidGiver          User?                   @relation("AidGiverRelation", fields: [aidGiverId], references: [id])
+  aidGiver          User?                   @relation("AidGiverRelation", fields: [aidGiverId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
 

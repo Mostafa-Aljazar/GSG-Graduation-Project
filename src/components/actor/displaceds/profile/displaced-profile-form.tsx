@@ -621,7 +621,7 @@ export default function DisplacedProfileForm({
 
           <Divider h={2} w='100%' mt={20} />
 
-          <Stack my={20}>
+          <Stack my={20} hidden={isDisplayMode && form.getValues().wives.length === 0}>
             <Group justify='space-between' align='center'>
               <Text fz={18} fw={600} className='text-primary!'>
                 بيانات الزوجات :
@@ -946,7 +946,7 @@ export default function DisplacedProfileForm({
           </Stack>
 
           <Box className='bg-gray-50 shadow-md rounded-lg' p={16}>
-            <Stack>
+            <Stack hidden={isDisplayMode && form.getValues().warInjuries.length === 0} gap={0}>
               <Group justify='space-between' align='center'>
                 <Text fz={18} fw={600} className='text-primary!'>
                   إصابات الحرب :
@@ -1013,9 +1013,9 @@ export default function DisplacedProfileForm({
               ))}
             </Stack>
 
-            <Divider h={2} w='100%' mt={20} />
+            <Stack my={20} gap={0} hidden={isDisplayMode && form.getValues().martyrs.length === 0}>
+              <Divider h={2} w='100%' mt={20} />
 
-            <Stack my={20} gap={0}>
               <Group justify='space-between' align='center'>
                 <Text fz={18} fw={600} className='text-primary!'>
                   الشهداء :
@@ -1066,77 +1066,84 @@ export default function DisplacedProfileForm({
               ))}
             </Stack>
 
-            <Divider h={2} w='100%' mt={20} />
+            <Stack gap={5}>
+              <Divider h={2} w='100%' mt={20} />
 
-            <Stack my={20} gap={0}>
-              <Group justify='space-between' align='center'>
-                <Text fz={18} fw={600} className='text-primary!'>
-                  الحالات المرضية :
-                </Text>
-                {(isEditMode || isAddMode) && (
-                  <Button
-                    variant='outline'
-                    size='xs'
-                    color='primary'
-                    rightSection={<Plus size={16} />}
-                    onClick={addMedicalCondition}
-                  >
-                    إضافة حالة مرضية
-                  </Button>
-                )}
-              </Group>
-              {form.getValues().medicalConditions.map((condition, index) => (
-                <SimpleGrid key={index} cols={{ base: 1, md: 3 }} w='100%'>
-                  <TextInput
-                    label={
-                      <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
-                        اسم المريض :
-                      </Text>
-                    }
-                    placeholder='ادخل اسم المريض...'
-                    size='sm'
-                    w='100%'
-                    classNames={{
-                      input:
-                        'disabled:!cursor-text !bg-white placeholder:!text-sm text-primary! font-normal!',
-                    }}
-                    {...form.getInputProps(`medicalConditions.${index}.name`)}
-                    disabled={isDisplayMode}
-                  />
-                  <TextInput
-                    label={
-                      <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
-                        الحالة المرضية :
-                      </Text>
-                    }
-                    placeholder='ادخل الحالة المرضية...'
-                    size='sm'
-                    w='100%'
-                    classNames={{
-                      input:
-                        'disabled:!cursor-text !bg-white placeholder:!text-sm text-primary! font-normal!',
-                    }}
-                    {...form.getInputProps(`medicalConditions.${index}.condition`)}
-                    disabled={isDisplayMode}
-                  />
+              <Stack
+                my={20}
+                gap={0}
+                hidden={isDisplayMode && form.getValues().medicalConditions.length === 0}
+              >
+                <Group justify='space-between' align='center'>
+                  <Text fz={18} fw={600} className='text-primary!'>
+                    الحالات المرضية :
+                  </Text>
                   {(isEditMode || isAddMode) && (
-                    <ActionIcon
+                    <Button
                       variant='outline'
-                      color='red'
-                      onClick={() => removeMedicalCondition(index)}
-                      size={24}
-                      mt={30}
-                      radius={8}
+                      size='xs'
+                      color='primary'
+                      rightSection={<Plus size={16} />}
+                      onClick={addMedicalCondition}
                     >
-                      <Trash size={16} />
-                    </ActionIcon>
+                      إضافة حالة مرضية
+                    </Button>
                   )}
-                </SimpleGrid>
-              ))}
+                </Group>
+                {form.getValues().medicalConditions.map((condition, index) => (
+                  <SimpleGrid key={index} cols={{ base: 1, md: 3 }} w='100%'>
+                    <TextInput
+                      label={
+                        <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
+                          اسم المريض :
+                        </Text>
+                      }
+                      placeholder='ادخل اسم المريض...'
+                      size='sm'
+                      w='100%'
+                      classNames={{
+                        input:
+                          'disabled:!cursor-text !bg-white placeholder:!text-sm text-primary! font-normal!',
+                      }}
+                      {...form.getInputProps(`medicalConditions.${index}.name`)}
+                      disabled={isDisplayMode}
+                    />
+                    <TextInput
+                      label={
+                        <Text fz={16} fw={500} mb={4} className='text-black! text-nowrap!'>
+                          الحالة المرضية :
+                        </Text>
+                      }
+                      placeholder='ادخل الحالة المرضية...'
+                      size='sm'
+                      w='100%'
+                      classNames={{
+                        input:
+                          'disabled:!cursor-text !bg-white placeholder:!text-sm text-primary! font-normal!',
+                      }}
+                      {...form.getInputProps(`medicalConditions.${index}.condition`)}
+                      disabled={isDisplayMode}
+                    />
+                    {(isEditMode || isAddMode) && (
+                      <ActionIcon
+                        variant='outline'
+                        color='red'
+                        onClick={() => removeMedicalCondition(index)}
+                        size={24}
+                        mt={30}
+                        radius={8}
+                      >
+                        <Trash size={16} />
+                      </ActionIcon>
+                    )}
+                  </SimpleGrid>
+                ))}
+              </Stack>
             </Stack>
 
-            <Divider h={2} w='100%' mt={20} />
-            <Stack my={20}>
+            <Stack my={20} gap={0} hidden={isDisplayMode && !form.getValues().additionalNotes}>
+              <Divider h={2} w='100%' mt={20} />
+
               <Textarea
                 label={
                   <Text fz={18} fw={600} mb={4} className='text-nowrap! text-primary!'>
