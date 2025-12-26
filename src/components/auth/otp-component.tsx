@@ -200,7 +200,7 @@ function OTPContent() {
         overlayProps={{ radius: 'sm', blur: 0.3 }}
       />
 
-      <Text fw={500} fz={{ base: 28, md: 32 }} ta='center'>
+      <Text fw={500} c={'dark'} fz={{ base: 20, md: 28 }} ta={'center'}>
         إدخال رمز التحقق
       </Text>
 
@@ -229,7 +229,7 @@ function OTPContent() {
           {!seconds && (
             <Group align='center' gap={8} mt={10} c='#FD6265'>
               <AlertCircle size={18} />
-              <Text fw={500} fz={15}>
+              <Text fw={400} fz={14}>
                 انتهى وقت الرمز
               </Text>
             </Group>
@@ -254,8 +254,8 @@ function OTPContent() {
             <Button
               variant='transparent'
               mt={20}
-              fz={16}
-              fw={500}
+              fz={14}
+              fw={400}
               onClick={handleResend}
               disabled={resendOtpMutation.isPending}
               className='text-primary! hover:text-primary/80! underline!'
@@ -268,7 +268,7 @@ function OTPContent() {
             type='submit'
             mt={32}
             fz={20}
-            fw={500}
+            fw={400}
             c='white'
             className={`shadow-lg! max-lg:mt-10! ${
               !seconds || form.getValues().otp.length !== 4

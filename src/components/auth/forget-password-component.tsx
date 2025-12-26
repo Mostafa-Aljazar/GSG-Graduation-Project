@@ -85,7 +85,7 @@ export default function ForgetPasswordComponent() {
         overlayProps={{ radius: 'sm', blur: 0.3 }}
       />
 
-      <Text fw={500} fz={{ base: 28, md: 32 }} ta={'center'}>
+      <Text fw={500} c={'dark'} fz={{ base: 20, md: 28 }} ta={'center'}>
         نسيت كلمة المرور
       </Text>
 
@@ -94,7 +94,7 @@ export default function ForgetPasswordComponent() {
           <TextInput
             type='email'
             label={
-              <Text fw={500} fz={16} mb={3}>
+              <Text fw={400} fz={16} mb={3}>
                 البريد الإلكتروني
               </Text>
             }
@@ -113,7 +113,7 @@ export default function ForgetPasswordComponent() {
             type='submit'
             size='sm'
             fz={16}
-            fw={500}
+            fw={400}
             c={'white'}
             w={228}
             mt={32}

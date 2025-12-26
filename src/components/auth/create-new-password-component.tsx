@@ -85,7 +85,7 @@ export default function CreateNewPasswordComponent() {
         overlayProps={{ radius: 'sm', blur: 0.3 }}
       />
 
-      <Text fw={500} fz={{ base: 28, md: 32 }} ta={'center'}>
+      <Text fw={500} c={'dark'} fz={{ base: 20, md: 28 }} ta={'center'}>
         إنشاء كلمة مرور جديدة
       </Text>
 
@@ -98,7 +98,7 @@ export default function CreateNewPasswordComponent() {
           <PasswordInput
             type='password'
             label={
-              <Text fw={500} fz={16} mb={3}>
+              <Text fw={400} fz={16} mb={3}>
                 كلمة المرور الجديدة
               </Text>
             }
@@ -116,7 +116,7 @@ export default function CreateNewPasswordComponent() {
           <PasswordInput
             type='password'
             label={
-              <Text fw={500} fz={16} mb={3}>
+              <Text fw={400} fz={16} mb={3}>
                 تأكيد كلمة المرور
               </Text>
             }
@@ -136,7 +136,7 @@ export default function CreateNewPasswordComponent() {
             type='submit'
             mt={32}
             fz={20}
-            fw={500}
+            fw={400}
             w={228}
             c={'white'}
             className={`shadow-lg! max-lg:mt-10! ${

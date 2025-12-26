@@ -18,7 +18,6 @@ export const AqsaGuestAPI = axios.create(defaultConfig)
 AqsaGuestAPI.interceptors.response.use(
   res => res,
   err => {
-    console.log("🚀 ~ err:", err)
     if (!err.response) {
       return Promise.reject({ status: 500, error: 'حدث خطأ في الشبكة' })
     }
@@ -46,9 +45,8 @@ AqsaAPI.interceptors.response.use(
     if (!err.response) {
       return Promise.reject({ status: 500, error: 'حدث خطأ في الشبكة' })
     }
-    console.log("🚀 ~ err.response:", err.response)
     if (err.response.status === 401) {
-      // await clearSessionCookie()
+      await clearSessionCookie()
     }
     return Promise.reject(err)
   }

@@ -11,17 +11,17 @@ interface SendEmailOptions {
 export async function sendEmail({ to, subject, text, html }: SendEmailOptions): Promise<void> {
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST, // smtp.gmail.com
+      host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '587'),
       secure: process.env.SMTP_PORT === '465',
       auth: {
-        user: process.env.SMTP_USER, // mostafaibrahim20032020@gmail.com
-        pass: process.env.SMTP_PASS, // ssbb egyc jhzi myoa
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.SMTP_FROM, // '"social-app-training" <no-reply@yourapp.com>',
+      from: process.env.SMTP_FROM,
       to,
       subject,
       text,
@@ -29,7 +29,12 @@ export async function sendEmail({ to, subject, text, html }: SendEmailOptions): 
     };
 
     const info = await transporter.sendMail(mailOptions);
+
+
+    // لا ترجع شيئًا، أو ارجع info إذا أردت
+    return;
   } catch (error: any) {
-    throw new Error(error?.message || 'Failed to send email. Please try again later.');
+    console.error("Failed to send email:", error);
+    throw new Error(error?.message || 'فشل في إرسال البريد الإلكتروني');
   }
 }

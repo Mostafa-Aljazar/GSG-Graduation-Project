@@ -13,6 +13,7 @@ export default function Auth_Layout({ children }: { children: ReactNode }) {
           src={IMG_COVER_CAMP}
           alt='coverLogin'
           className='absolute inset-0 w-full h-full object-cover'
+          priority
         />
         <Overlay zIndex={40} pos={'absolute'} bg={'black'} opacity={0.5} />
         <Group
@@ -42,6 +43,7 @@ export default function Auth_Layout({ children }: { children: ReactNode }) {
               alt='Cover Login'
               objectFit='cover'
               className='w-full h-full object-cover'
+              priority
             />
           </Box>
           <Stack

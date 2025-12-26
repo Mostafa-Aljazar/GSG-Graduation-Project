@@ -24,14 +24,12 @@ import {
   getSecurityRoutes,
   LANDING_ROUTES,
 } from '@/constants/routes';
-import { COOKIE_NAME } from '@/constants/cookie-name';
 import { USER_RANK_LABELS, USER_TYPE } from '@/constants/user-types';
 import useAuth from '@/hooks/useAuth';
 import { ILoginResponse } from '@/types/auth/loginResponse.type';
 import { loginFormSchema, TLoginFormValues } from '@/validations/auth/login.schema';
 import { ILoginProps, login } from '@/actions/auth/login';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
-import Cookies from 'js-cookie';
 
 export default function LoginComponent() {
   const [error, setError] = useState('');
@@ -129,14 +127,14 @@ export default function LoginComponent() {
         overlayProps={{ radius: 'sm', blur: 0.3 }}
       />
 
-      <Text fw={500} fz={{ base: 28, md: 32 }} ta={'center'}>
+      <Text fw={500} c={'dark'} fz={{ base: 20, md: 28 }} ta={'center'}>
         تسجيل الدخول
       </Text>
 
       <form className='flex flex-col items-center gap-3' onSubmit={handleSubmit}>
         <Select
           label={
-            <Text fw={400} c={'#817C74'} fz={16}>
+            <Text fw={400} fz={16} mb={3}>
               تسجيل الدخول كَ ؟
             </Text>
           }
@@ -157,7 +155,7 @@ export default function LoginComponent() {
         <TextInput
           type='email'
           label={
-            <Text fw={500} fz={16} mb={3}>
+            <Text fw={400} fz={16} mb={3}>
               البريد الاكتروني
             </Text>
           }
@@ -175,7 +173,7 @@ export default function LoginComponent() {
         <PasswordInput
           type='password'
           label={
-            <Text fw={500} fz={16} mb={3}>
+            <Text fw={400} fz={16} mb={3}>
               كلمة المرور
             </Text>
           }
@@ -200,7 +198,7 @@ export default function LoginComponent() {
           type='submit'
           size='sm'
           fz={18}
-          fw={500}
+          fw={400}
           c={'white'}
           w={228}
           mt={32}

@@ -3,7 +3,7 @@
 import { AUTH_ROUTES } from "@/constants/routes";
 import { sendEmail } from "@/utils/send-mail";
 
-export async function sendOTPEmail(to: string, otp: string) {
+export async function sendOTPEmail(to: string, otp: string, time: number = 15): Promise<void> {
   const subject = 'رمز التحقق - OTP';
   const otpUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/otp?email=${encodeURIComponent(to)}&otp=${encodeURIComponent(otp)}&callback=${AUTH_ROUTES.CREATE_NEW_PASSWORD}`;
 
@@ -18,7 +18,7 @@ export async function sendOTPEmail(to: string, otp: string) {
     </div>
   `;
 
-  const text = `رمز التحقق الخاص بك هو: ${otp}. صالح لمدة 15 دقيقة. استخدم الرابط: ${otpUrl}`;
+  const text = `رمز التحقق الخاص بك هو: ${otp}. صالح لمدة ${time} دقيقة. استخدم الرابط: ${otpUrl}`;
 
   try {
     await sendEmail({ to, subject, html, text });
