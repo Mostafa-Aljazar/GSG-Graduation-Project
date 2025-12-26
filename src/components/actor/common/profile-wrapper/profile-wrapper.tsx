@@ -21,19 +21,20 @@ const ProfileWrapper: React.FC<IProfileWrapper> = ({
   loading,
 }) => {
   return (
-    <Box pos={'relative'} p={20}>
+    <Box pos='relative' p={20}>
       <LoadingOverlay visible={loading} zIndex={49} overlayProps={{ radius: 'sm', blur: 0.3 }} />
 
       <Box
         w='100%'
         h={80}
-        className='bg-linear-to-l! from-primary! via-second! to-white! rounded-[20px]! relative!'
+        className='relative bg-gradient-to-l from-primary via-second to-white rounded-[20px]'
       >
         <Box
           pos='absolute'
-          bottom='-50%'
+          bottom={-50}
           left='50%'
-          className='bg-primary border border-second rounded-full! overflow-hidden! multiculturalism-x-1/2'
+          style={{ transform: 'translateX(-50%)' }} // مركزة أفقيًا بدقة
+          className='shadow-xl border-4 border-white rounded-full overflow-hidden'
           w={100}
           h={100}
         >
@@ -41,51 +42,46 @@ const ProfileWrapper: React.FC<IProfileWrapper> = ({
             profileImage instanceof File ? (
               <Image
                 src={URL.createObjectURL(profileImage)}
-                alt='Avatar'
-                width={100}
-                height={100}
-                className='w-[100px] h-[100px] object-contain!'
+                alt='صورة الملف الشخصي'
+                fill
+                className='object-cover'
+                priority
               />
             ) : (
               <Image
                 src={profileImage}
-                alt='Avatar'
-                width={100}
-                height={100}
-                className='w-[100px] h-[100px] object-contain!'
+                alt='صورة الملف الشخصي'
+                fill
+                className='object-cover'
+                priority
               />
             )
           ) : (
-            <Image
-              src={IMG_MAN}
-              alt='Avatar'
-              width={100}
-              height={100}
-              className='w-[100px] h-[100px]'
-              priority
-            />
+            <Image src={IMG_MAN} alt='صورة افتراضية' fill className='object-cover' priority />
           )}
-          {mode && (
-            <UploadMedia File_Type='image' setFileObject={setProfileImage!}>
+
+          {mode && setProfileImage && (
+            <UploadMedia File_Type='image' setFileObject={setProfileImage}>
               <ActionIcon
-                variant='outline'
-                color='gray.5'
-                radius='100%'
+                variant='filled'
+                color='white'
+                radius='xl'
+                size='lg'
                 pos='absolute'
-                left='50%'
                 top='50%'
-                w={30}
-                h={30}
-                className='border border-gray rounded-full -translate-x-1/2 -translate-y-1/2'
+                left='50%'
+                style={{ transform: 'translate(-50%, -50%)' }}
+                className='bg-primary/80 hover:bg-primary shadow-lg border border-white'
                 component='label'
               >
-                <Camera size={20} />
+                <Camera size={20} strokeWidth={2.5} />
               </ActionIcon>
             </UploadMedia>
           )}
         </Box>
       </Box>
-      {children}
+
+      <Box mt={60}>{children}</Box>
     </Box>
   );
 };
